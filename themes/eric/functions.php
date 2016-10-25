@@ -211,10 +211,10 @@ add_filter('login_headertitle', 'twentysixteen_login_title');
  */
 function twentysixteen_favicon() {
   print "\n<!-- Adding FavIcon -->\n";
-	print "<link rel='shortcut icon' href='" . THEME_PATH . "/images/favicon.png' />\n";
+	print "<link rel='shortcut icon' href='https://equalrating.com/wp-content/uploads/2016/10/favicon.ico' />\n";
 }
-//add_action('wp_head', 'twentysixteen_favicon');
-//add_action('admin_head', 'twentysixteen_favicon');
+add_action('wp_head', 'twentysixteen_favicon');
+add_action('admin_head', 'twentysixteen_favicon');
 
 
 /**
@@ -239,17 +239,15 @@ function twentysixteen_scripts() {
   wp_enqueue_style( 'font-lato', 'https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i', false );
 
 	// Theme stylesheet.
-	wp_enqueue_style( 'twentysixteen-style', get_stylesheet_uri() );
-  wp_enqueue_style( 'twentysixteen-styles', THEME_PATH.'/stylesheets/styles.css' );
+	wp_enqueue_style( 'equalrating-style', get_stylesheet_uri() );
+  wp_enqueue_style( 'equalrating-styles', THEME_PATH.'/stylesheets/styles.css' );
 
   // Loading javascripts and jquery plugins
   wp_enqueue_script('jquery-easing', THEME_PATH . '/js/jquery.easing.1.3.js', array('jquery'), '1.3');
   wp_enqueue_script('jquery-showLoading', THEME_PATH . '/js/jquery.showLoading.min.js', array('jquery'), '1.0', false);
   wp_enqueue_script('jquery-textcounter', THEME_PATH . '/js/textcounter.js', array('jquery'), '0.3.6', false);
-  wp_enqueue_script( 'imagesloaded', THEME_PATH.'/js/imagesloaded.pkgd.min.js', array( 'jquery' ), '3.1.8', false );
   wp_enqueue_script( 'mozilla-newsletter', THEME_PATH . '/js/basket-client.js', array('jquery'), '2.0', true );
   wp_enqueue_script('jquery-countdown', THEME_PATH . '/js/jquery.countdown.min.js', array('jquery'), '2.1.0');
-  
   wp_enqueue_script( 'imagesloaded', THEME_PATH.'/js/imagesloaded.pkgd.min.js', array( 'jquery' ), '3.1.8', false );
   wp_enqueue_script( 'masonry', THEME_PATH.'/js/masonry.pkgd.min.js', array( 'jquery' ), '3.3.2', false );
   
@@ -257,7 +255,7 @@ function twentysixteen_scripts() {
   wp_enqueue_script( 'jquery-bxslider', THEME_PATH . '/js/jquery.bxslider.min.js', array(), 'v4.1.2', false );
   wp_enqueue_style( 'bxslider', THEME_PATH .'/css/jquery.bxslider.css' );
   
-	wp_enqueue_script( 'twentysixteen-script', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '20151204', true );
+	wp_enqueue_script( 'equalrating-script', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '20161020', true );
 }
 add_action( 'wp_enqueue_scripts', 'twentysixteen_scripts' );
 
@@ -734,7 +732,7 @@ function custom_login_redirect() {
     exit();
   }
 }
-add_action( 'wp', 'custom_login_redirect' );
+//add_action( 'wp', 'custom_login_redirect' );
 
 add_action( 'admin_init', 'redirect_non_admin_users' );
 /**
@@ -979,11 +977,6 @@ TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, soc
     $return .= '</div>';
     
     $return .= '<div class="field-group">';
-      $return .= '<label for="solution_outcomes"><strong>DESCRIPTION:</strong> Describe the value and intended outcomes of the proposed solution (50 words max)</label>';
-      $return .= '<textarea rows="3" id="solution_outcomes" name="solution_outcomes" class="field-input required"></textarea>';
-    $return .= '</div>';
-    
-    $return .= '<div class="field-group">';
       $return .= '<label for="solution_differntiation"><strong>DIFFERENTIATION:</strong> What benefits does your proposed solution bring compared to those currently available? (100 words max)</label>';
       $return .= '<textarea rows="3" id="solution_differntiation" name="solution_differntiation" class="field-input required"></textarea>';
     $return .= '</div>';
@@ -1036,7 +1029,7 @@ TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, soc
     
     $return .= '<div class="field-group">';
       $return .= '<label for="opensource_solution_info">If no, please review Mozilla&rsquo;s opinion in the <a href="'.FAQS_PAGE_URL.'" target="_blank">FAQ</a>, and describe your alternative path to accomplish similar goals and avoid known pitfalls. (200 words max)</label>';
-      $return .= '<textarea rows="3" id="opensource_solution_info" name="opensource_solution_info" class="field-input required"></textarea>';
+      $return .= '<textarea rows="3" id="opensource_solution_info" name="opensource_solution_info" class="field-input"></textarea>';
     $return .= '</div>';
   $return .= '</fieldset>';
   
@@ -1070,4 +1063,42 @@ TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, soc
   $return .= '</form>';
   $return .= '</div>';
   return $return;
+}
+
+
+add_shortcode('judges_list', 'shortcodeJudges');
+function shortcodeJudges($atts=null) {
+  extract(shortcode_atts(array(
+      'staus' => 'open',
+  ), $atts));
+  
+  global $post;
+  $return = '';
+  
+  $judges = get_field('judges', $post->ID);
+  if($judges) {
+    $return .= '<div id="judges-list">';
+    foreach($judges as $judge) {
+      $return .= '<div class="judge">';
+        $return .= '<img src="'.$judge['image'].'" alt="'.$judge['name'].'" class="img-fluid" />';
+        $return .= '<h4>'.$judge['name'].'</h4>';
+        $return .= '<div class="title">'.$judge['title'].'</div>';
+        $return .= '<div class="url"><a href="'.$judge['url'].'" target="_blank">'.remove_http($judge['url']).'</a></div>';
+        $return .= '<div class="about">'.apply_filters('the_content', $judge['about']).'</div>';
+      
+      $return .= '</div>';
+    }
+    $return .= '</div>';
+  }
+  return $return;
+}
+
+function remove_http($url) {
+   $disallowed = array('http://', 'https://');
+   foreach($disallowed as $d) {
+      if(strpos($url, $d) === 0) {
+         return str_replace($d, '', $url);
+      }
+   }
+   return $url;
 }

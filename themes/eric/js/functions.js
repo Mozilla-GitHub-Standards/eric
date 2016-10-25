@@ -186,15 +186,15 @@ var ajaxURL = siteURL + '/ajax';
           // callback handler that will be called on success
           request.done(function (response, textStatus, jqXHR){
             // log a message to the console
-            console.log("Hooray, it worked!");
+            console.log("Infromation submitted.");
             $.ajax({
               url: ajaxURL+"/submission",
               type: "post",
               data: serializedData
             }).done(function() {
-              console.log("Notification emails has been sent");
+              console.log("Notification emails have been sent.");
               window.location.href = siteURL+'/thank-you/';
-                $form.reset();
+                $('#submissionForm')[0].reset();
             });
             
           });
