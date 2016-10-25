@@ -194,7 +194,7 @@ var ajaxURL = siteURL + '/ajax';
             }).done(function() {
               console.log("Notification emails has been sent");
               window.location.href = siteURL+'/thank-you/';
-                $form.rest();
+                $form.reset();
             });
             
           });
