@@ -1002,10 +1002,10 @@ TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, soc
       $return .= '<textarea rows="3" id="solution_whywin" name="solution_whywin" class="field-input required"></textarea>';
     $return .= '</div>';
     
-    $return .= '<div class="field-group">';
-      $return .= '<label for="solution_risks"><strong>RISKS:</strong> What are the limitations or vulnerabilities of the proposed solution? (100 words max)</label>';
-      $return .= '<textarea rows="3" id="solution_risks" name="solution_risks" class="field-input required"></textarea>';
-    $return .= '</div>';
+//    $return .= '<div class="field-group">';
+//      $return .= '<label for="solution_risks"><strong>RISKS:</strong> What are the limitations or vulnerabilities of the proposed solution? (100 words max)</label>';
+//      $return .= '<textarea rows="3" id="solution_risks" name="solution_risks" class="field-input required"></textarea>';
+//    $return .= '</div>';
     
   $return .= '</fieldset>';
   
