@@ -21,8 +21,13 @@
         </ul>
         
         <div class="row">
+          
+          
+          
           <div id="statistics"><?php echo eric_statistics(); ?></div>
         </div>
+        
+        
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12">
         <?php echo eric_analyses();?>

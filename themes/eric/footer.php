@@ -3,6 +3,7 @@
  * The template for displaying the footer
  */
 ?>
+    
   </div><!-- .site-content -->
   
   <footer class="site-footer" role="contentinfo">

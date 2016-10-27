@@ -35,6 +35,20 @@
     ?>
     </ul>
   </div>
+  <?php /* Live Text Banners 
+   * 
+  <div class="banner-text">
+    <div class="container">
+      <h3>You can help build the next generation of the open Internet!</h3>
+      <p>Imagine billions of empowered people, millions of strengthened communities, thousands of thriving businesses, and hundreds of breakthrough innovations powered by the full diversity of the open Internet.</p>
+    </div>
+    <div class="footer-bar">
+      <div class="container">Submit your product proposal that enables all people to access the full potential and diversity of the open Internet, and be awarded funding to build your idea &raquo;</div>
+    </div>
+  </div>
+   * 
+   */
+  ?>
 </div>
 
 <section class="page-section">

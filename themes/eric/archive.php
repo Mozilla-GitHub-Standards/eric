@@ -1,37 +1,49 @@
 <?php
 /**
  * The template for displaying archive pages
+ *
+ * Used to display archive-type pages if nothing more specific matches a query.
+ * For example, puts together date-based pages if no date.php file exists.
+ *
+ * If you'd like to further customize these archive views, you may create a
+ * new template file for each one. For example, tag.php (Tag archives),
+ * category.php (Category archives), author.php (Author archives), etc.
+ *
+ * @link https://codex.wordpress.org/Template_Hierarchy
+ * @since Twenty Sixteen 1.0
  */
 
 get_header();
 ?>
 
-<!--<h2 class="section-title">Latest News<br /><span><?php //the_archive_title();?></span></h2>-->
-<section class="page-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-8 col-xs-12">
-        <?php
-          if ( have_posts() ) :
-            while ( have_posts() ) : the_post();
-              // Include the page content template.
-              get_template_part( 'content', '' );
-            endwhile;
-
-            eric_posts_pagination();
-          // If no content, include the "No posts found" template.
-          else :
-        //			get_template_part( 'template-parts/content', 'none' );
-          endif;
-        ?>
+<div id="content" class="content-area">
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Blog<br /><span><?php the_archive_title();?></span></h2>
+      <div class="posts-list">
+      <?php
+        if ( have_posts() ) :
+          while ( have_posts() ) : the_post();
+            // Include the page content template.
+            get_template_part( 'content', '' );
+          endwhile;
+          
+          // Previous/next page navigation.
+          the_posts_pagination( array(
+            'prev_text'          => __( 'Previous page', 'twentysixteen' ),
+            'next_text'          => __( 'Next page', 'twentysixteen' ),
+            'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentysixteen' ) . ' </span>',
+          ) );
+          
+        // If no content, include the "No posts found" template.
+        else :
+    //			get_template_part( 'template-parts/content', 'none' );
+        endif;
+      ?>
       </div>
+      
+    </div><!-- .container -->
+  </section>
+</div><!-- #content -->
 
-      <div class="col-sm-4 col-xs-12">
-        <?php get_sidebar();?>
-      </div>
-    </div>
-  </div><!-- .container -->
-</section><!-- .page-section -->
-
-<?php 
-get_footer();
+<?php get_footer(); ?>

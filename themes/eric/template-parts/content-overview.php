@@ -9,6 +9,7 @@
   </div>
 </div>
 
+
 <section class="page-section">
   <div class="container">
     <?php echo eric_barriers_map();?>
@@ -59,6 +60,8 @@
       </div>
       
       <p class="smalltext"><em>World Economic Forum, Internet for All: A Framework for Accelerating Internet Access and Adoption, 2016</em></p>
+      
     </div>
   </div>
 </section>
+
