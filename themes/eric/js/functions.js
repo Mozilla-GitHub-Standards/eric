@@ -474,5 +474,3 @@ function get_hostname(url) {
   var m = ((url||'')+'').match(/^https?:\/\/[^/]+/);
   return m ? m[0] : null;
 }
-
-// To check production sync...

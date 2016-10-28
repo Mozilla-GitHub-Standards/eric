@@ -114,7 +114,7 @@ function twentysixteen_setup() {
 		'footer'  => __( 'Footer Menu', 'twentysixteen' )
 	) );
 }
-endif; // twentysixteen_setup
+endif; // twentysixteen_setup 
 add_action( 'after_setup_theme', 'twentysixteen_setup' );
 
 
