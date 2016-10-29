@@ -23,11 +23,25 @@ define( 'FAQS_PAGE_URL', SUBMISSION_PAGE_URL.'faqs/' );
 define( 'RULES_PAGE_URL', SITE_URL.'/challenge-rules/' );
 define( 'AJAX_PAGE_URL', SITE_URL.'/ajax' );
 
+define( 'MAIL_FROM_EMAIL', 'mainwp@mozilla.community' );
+define( 'MAIL_FROM_NAME', 'Open Innovation' );
+
 
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
 remove_action( 'admin_print_styles', 'print_emoji_styles' );
+
+/* Configuring email settings */
+add_filter('wp_mail_from', 'edugali_mail_from');
+add_filter('wp_mail_from_name', 'edugali_mail_from_name');
+ 
+function edugali_mail_from($old) {
+  return MAIL_FROM_EMAIL;
+}
+function edugali_mail_from_name($old) {
+  return MAIL_FROM_NAME; 
+}
 
 
 if(!isset($wpdb->subscribers)) {
@@ -1056,7 +1070,7 @@ TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, soc
   if($atts['status']==='open') {
     $return .= '<div class="submission-form-message"></div>';
     $return .= '<div class="field-group">';
-      $return .= '<input type="submit" id="submit-form" name="submit-form" class="field-submit" />';
+      $return .= '<input type="submit" id="submit-form" name="submit-form" value="Submit" class="field-submit" />';
     $return .= '</div>';
   }
   

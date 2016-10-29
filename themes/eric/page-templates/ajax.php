@@ -24,16 +24,17 @@ switch($action) {
       $mailSent = wp_mail($mail_to, $subject, $message, $headers);
       remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
       
-      $mail_to = $_POST['leader_email'];
-      $subject = "Equal Rating Innovation Challenge";
-      $message = '<p>Dear Team,</p>';
-      $message .= '<p>Thank you for submitting your solution to the Equal Rating Innovation Challenge. If you have any questions, please contact us at <a href="mailto:equalrating@mozilla.com">equalrating@mozilla.com</a></p>';
-      $message .= '<p>Regards,<br />Equal Rating Innovation Challenge Team</p>';
-      $headers  = array('Content-Type: text/html; charset=UTF-8');
-      add_filter( 'wp_mail_content_type', 'set_html_content_type' );
-      $mailSent = wp_mail($mail_to, $subject, $message, $headers);
-      remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
       
+      //Sending email to team leader
+      $mail_to_leader = $_POST['leader_email'];
+      $subject_leader = "Equal Rating Innovation Challenge";
+      $message_leader = '<p>Hello!</p>';
+      $message_leader .= '<p>Thank you for submitting your solution to the Equal Rating Innovation Challenge. If you have any questions, please contact us at <a href="mailto:equalrating@mozilla.com">equalrating@mozilla.com</a></p>';
+      $message_leader .= '<p>Regards,<br />Equal Rating Innovation Challenge Team</p>';
+      $headers_leader  = array('Content-Type: text/html; charset=UTF-8');
+      add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+      $mailSent_leader = wp_mail($mail_to_leader, $subject_leader, $message_leader, $headers_leader);
+      remove_filter( 'wp_mail_content_type', 'set_html_content_type' );
 
       $result['success'] = 1;
 
