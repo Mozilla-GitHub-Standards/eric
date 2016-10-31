@@ -8,28 +8,11 @@
   <div class="container">
     <ul class="home-carousel">
     <?php 
-      $slides = array(
-          0 => array(
-              'banner_desktop' => 'home-banner-cta.gif',
-              'banner_mobile' => 'mobile-home-banner-cta.gif',
-              'link_url' => SITE_URL .'/submission-form/'
-          ),
-          1 => array(
-              'banner_desktop' => 'home-banner-process.gif',
-              'banner_mobile' => 'mobile-home-banner-process.gif',
-              'link_url' => SITE_URL .'/your-submission/#schedule'
-          ),
-          2 => array(
-              'banner_desktop' => 'home-banner-mozilla.gif',
-              'banner_mobile' => 'mobile-home-banner-mozilla.gif',
-              'link_url' => SITE_URL .'/your-submission'
-          ),
-      );
-      
+      $slides = get_field('slides');
       foreach($slides as $slide) {
         echo '<li class="slide"><a href="'.$slide['link_url'].'">';
-          echo '<img src="'.THEME_PATH.'/images/banner-home/'.$slide['banner_desktop'].'" class="img-fluid hidden-xs-down">';
-          echo '<img src="'.THEME_PATH.'/images/banner-home/'.$slide['banner_mobile'].'" class="img-fluid hidden-sm-up">';
+          echo '<img src="'.$slide['image_desktop'].'" class="img-fluid hidden-xs-down">';
+          echo '<img src="'.$slide['image_mobile'].'" class="img-fluid hidden-sm-up">';
         echo '</a></li>';
       }
     ?>

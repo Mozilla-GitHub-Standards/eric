@@ -148,7 +148,7 @@ add_action('widgets_init', 'unregister_default_widgets', 11);
 function eric_clean_content($content) {
   $domains = array(
       0 => get_bloginfo('url'),
-//      1 => 'https://toolkit.production.paas.mozilla.community',
+      1 => 'https://innoprize.staging.paas.mozilla.community/',
   );
   foreach($domains as $domain) {
     $content = str_replace(' src="'.$domain, ' src="', $content );
