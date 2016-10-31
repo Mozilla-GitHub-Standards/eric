@@ -32,17 +32,6 @@ remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
 remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
-/* Configuring email settings */
-add_filter('wp_mail_from', 'eric_mail_from');
-add_filter('wp_mail_from_name', 'eric_mail_from_name');
- 
-function eric_mail_from() {
-  return MAIL_FROM_EMAIL;
-}
-function eric_mail_from_name() {
-  return MAIL_FROM_NAME; 
-}
-
 
 if(!isset($wpdb->subscribers)) {
   $wpdb->subscribers = $wpdb->prefix . 'subscribers';
