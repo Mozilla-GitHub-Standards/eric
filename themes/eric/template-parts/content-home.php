@@ -58,7 +58,7 @@
     <div class="col-md-8 col-sm-12 col-xs-12">
       <div class="home-page-content equalrating">
         <h2>We Believe in Equal Rating</h2>
-        <p>Mozilla seeks to make the full range of the Internet’s extraordinary power and innovative potential available to all. We advocate for &ldquo;equal rating&rdquo; where consumers choose content based on the quality of that content, not the financial power and business partnerships of the provider. </p>
+        <p>Mozilla seeks to make the full range of the Internet&rsquo;s extraordinary power and innovative potential available to all. We advocate for &ldquo;equal rating&rdquo; where consumers choose content based on the quality of that content, not the financial power and business partnerships of the provider.</p>
         <p>Equal Rating practices meet the following criteria:</p>
         
         <div class="widget-equalrating">
