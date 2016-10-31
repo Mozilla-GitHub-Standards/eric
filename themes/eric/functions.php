@@ -33,13 +33,13 @@ remove_action( 'wp_print_styles', 'print_emoji_styles' );
 remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 /* Configuring email settings */
-add_filter('wp_mail_from', 'edugali_mail_from');
-add_filter('wp_mail_from_name', 'edugali_mail_from_name');
+add_filter('wp_mail_from', 'eric_mail_from');
+add_filter('wp_mail_from_name', 'eric_mail_from_name');
  
-function edugali_mail_from($old) {
+function eric_mail_from() {
   return MAIL_FROM_EMAIL;
 }
-function edugali_mail_from_name($old) {
+function eric_mail_from_name() {
   return MAIL_FROM_NAME; 
 }
 
