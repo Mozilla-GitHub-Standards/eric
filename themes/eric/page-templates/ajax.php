@@ -29,7 +29,7 @@ switch($action) {
       $mail_to_leader = $_POST['leader_email'];
       $subject_leader = "Equal Rating Innovation Challenge";
       $message_leader = '<p>Hello!</p>';
-      $message_leader .= '<p>Thank you for submitting your solution to the Equal Rating Innovation Challenge. If you have any questions, please contact us at <a href="mailto:equalrating@mozilla.com">equalrating@mozilla.com</a></p>';
+      $message_leader .= '<p>Thank you for submitting your solution to the Equal Rating Innovation Challenge.</p><p>We will be announcing 5 semifinalists on 17 January 2017. Please check the <a href="http://www.equalrating.com/">website</a> frequently for Challenge updates.</p><p>If you have any questions, please contact us at <a href="mailto:equalrating@mozilla.com">equalrating@mozilla.com</a></p>';
       $message_leader .= '<p>Regards,<br />Equal Rating Innovation Challenge Team</p>';
       $headers_leader  = array('Content-Type: text/html; charset=UTF-8');
       add_filter( 'wp_mail_content_type', 'set_html_content_type' );
