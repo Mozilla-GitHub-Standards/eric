@@ -763,7 +763,6 @@ function shortcodeSubmissionForm($atts=null) {
       'staus' => 'open',
   ), $atts));
   
-  
   $return = '<div class="submission-form-wrapper">';
   $return .= '<form id="submissionForm" name="submissionForm" method="post" action="" class="ajax-form '.$atts['status'].'">';
   $return .= '<fieldset>';
@@ -1004,10 +1003,10 @@ TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, soc
       $return .= '<textarea rows="3" id="solution_whywin" name="solution_whywin" class="field-input required"></textarea>';
     $return .= '</div>';
     
-    $return .= '<div class="field-group">';
-      $return .= '<label for="solution_risks"><strong>RISKS:</strong> What are the limitations or vulnerabilities of the proposed solution? (100 words max)</label>';
-      $return .= '<textarea rows="3" id="solution_risks" name="solution_risks" class="field-input required"></textarea>';
-    $return .= '</div>';
+//    $return .= '<div class="field-group">';
+//      $return .= '<label for="solution_risks"><strong>RISKS:</strong> What are the limitations or vulnerabilities of the proposed solution? (100 words max)</label>';
+//      $return .= '<textarea rows="3" id="solution_risks" name="solution_risks" class="field-input required"></textarea>';
+//    $return .= '</div>';
     
   $return .= '</fieldset>';
   
@@ -1031,7 +1030,7 @@ TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, soc
     
     $return .= '<div class="field-group">';
       $return .= '<label for="opensource_solution_info">If no, please review Mozilla&rsquo;s opinion in the <a href="'.FAQS_PAGE_URL.'" target="_blank">FAQ</a>, and describe your alternative path to accomplish similar goals and avoid known pitfalls. (200 words max)</label>';
-      $return .= '<textarea rows="3" id="opensource_solution_info" name="opensource_solution_info" class="field-input required"></textarea>';
+      $return .= '<textarea rows="3" id="opensource_solution_info" name="opensource_solution_info" class="field-input"></textarea>';
     $return .= '</div>';
   $return .= '</fieldset>';
   
@@ -1058,11 +1057,49 @@ TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, soc
   if($atts['status']==='open') {
     $return .= '<div class="submission-form-message"></div>';
     $return .= '<div class="field-group">';
-      $return .= '<input type="submit" id="submit-form" name="submit-form" class="field-submit" />';
+      $return .= '<input type="submit" id="submit-form" name="submit-form" value="Submit" class="field-submit" />';
     $return .= '</div>';
   }
   
   $return .= '</form>';
   $return .= '</div>';
   return $return;
+}
+
+
+add_shortcode('judges_list', 'shortcodeJudges');
+function shortcodeJudges($atts=null) {
+  extract(shortcode_atts(array(
+      'staus' => 'open',
+  ), $atts));
+  
+  global $post;
+  $return = '';
+  
+  $judges = get_field('judges', $post->ID);
+  if($judges) {
+    $return .= '<div id="judges-list">';
+    foreach($judges as $judge) {
+      $return .= '<div class="judge">';
+        $return .= '<img src="'.$judge['image'].'" alt="'.$judge['name'].'" class="img-fluid" />';
+        $return .= '<h4>'.$judge['name'].'</h4>';
+        $return .= '<div class="title">'.$judge['title'].'</div>';
+        $return .= '<div class="url"><a href="'.$judge['url'].'" target="_blank">'.remove_http($judge['url']).'</a></div>';
+        $return .= '<div class="about">'.apply_filters('the_content', $judge['about']).'</div>';
+      
+      $return .= '</div>';
+    }
+    $return .= '</div>';
+  }
+  return $return;
+}
+
+function remove_http($url) {
+   $disallowed = array('http://', 'https://');
+   foreach($disallowed as $d) {
+      if(strpos($url, $d) === 0) {
+         return str_replace($d, '', $url);
+      }
+   }
+   return $url;
 }

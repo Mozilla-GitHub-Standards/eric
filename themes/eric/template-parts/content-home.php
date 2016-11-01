@@ -8,47 +8,16 @@
   <div class="container">
     <ul class="home-carousel">
     <?php 
-      $slides = array(
-          0 => array(
-              'banner_desktop' => 'home-banner-cta.gif',
-              'banner_mobile' => 'mobile-home-banner-cta.gif',
-              'link_url' => SITE_URL .'/submission-form/'
-          ),
-          1 => array(
-              'banner_desktop' => 'home-banner-process.gif',
-              'banner_mobile' => 'mobile-home-banner-process.gif',
-              'link_url' => SITE_URL .'/your-submission/#schedule'
-          ),
-          2 => array(
-              'banner_desktop' => 'home-banner-mozilla.gif',
-              'banner_mobile' => 'mobile-home-banner-mozilla.gif',
-              'link_url' => SITE_URL .'/your-submission'
-          ),
-      );
-      
+      $slides = get_field('slides');
       foreach($slides as $slide) {
         echo '<li class="slide"><a href="'.$slide['link_url'].'">';
-          echo '<img src="'.THEME_PATH.'/images/banner-home/'.$slide['banner_desktop'].'" class="img-fluid hidden-xs-down">';
-          echo '<img src="'.THEME_PATH.'/images/banner-home/'.$slide['banner_mobile'].'" class="img-fluid hidden-sm-up">';
+          echo '<img src="'.$slide['image_desktop'].'" class="img-fluid hidden-xs-down">';
+          echo '<img src="'.$slide['image_mobile'].'" class="img-fluid hidden-sm-up">';
         echo '</a></li>';
       }
     ?>
     </ul>
   </div>
-  <?php /* Live Text Banners 
-   * 
-  <div class="banner-text">
-    <div class="container">
-      <h3>You can help build the next generation of the open Internet!</h3>
-      <p>Imagine billions of empowered people, millions of strengthened communities, thousands of thriving businesses, and hundreds of breakthrough innovations powered by the full diversity of the open Internet.</p>
-    </div>
-    <div class="footer-bar">
-      <div class="container">Submit your product proposal that enables all people to access the full potential and diversity of the open Internet, and be awarded funding to build your idea &raquo;</div>
-    </div>
-  </div>
-   * 
-   */
-  ?>
 </div>
 
 <section class="page-section">
