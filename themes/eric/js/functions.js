@@ -7,7 +7,6 @@ var emailfilter = /^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i;
 var hash;
 var request;
 
-//var siteURL = "http://localhost:8888/equalrating";
 var siteURL = get_hostname(document.location.href);
 var uploadURL = siteURL + '/upload';
 var ajaxURL = siteURL + '/ajax';
@@ -15,7 +14,7 @@ var ajaxURL = siteURL + '/ajax';
 ( function( $ ) {
   $.fn.equalizeHeights = function(){
     return this.height( Math.max.apply(this, $(this).map(function(i,e){return $(e).height()}).get() ) )
-  }
+  };
   
   function scrollToElement(selector, time, verticalOffset, callback) {
     time = typeof(time) != 'undefined' ? time : 500;
@@ -24,7 +23,7 @@ var ajaxURL = siteURL + '/ajax';
     offset = element.offset();
     offsetTop = offset.top + verticalOffset;
     t = ($(window).scrollTop() - offsetTop);
-    if (t <= 0) t *= -1
+    if (t <= 0) t *= -1;
     t = parseInt(t * .5);
     if (t < time) t=time;
     if (t > 1500) t=1500;
@@ -34,7 +33,7 @@ var ajaxURL = siteURL + '/ajax';
   }
   
   function showHideTopButton() {
-    $btnTop = $('#goTop')
+    $btnTop = $('#goTop');
     if ($(window).scrollTop() > 300) { 
 			$btnTop.fadeIn(); 
 		} else { 
@@ -64,7 +63,6 @@ var ajaxURL = siteURL + '/ajax';
       }
     });
   }
-  
   
   function loadWindow() {
     configureExternalLinkTarget();
@@ -111,14 +109,17 @@ var ajaxURL = siteURL + '/ajax';
     });
     
     
-    
-    
-    
-    
-    
     if($('#submissionForm').length > 0) {
+      $('input[type=radio][name="opensource_solution"]').change(function() {
+        if (this.value === 'No') {
+          $('#opensource_solution_info').addClass('required');
+        } else {
+          $('#opensource_solution_info').removeClass('required has-error');
+        }
+      });
+      
+      
       $('#submissionForm').submit(function() {
-        
         var $form = $(this);
         isValid = true;
         
@@ -185,15 +186,15 @@ var ajaxURL = siteURL + '/ajax';
           // callback handler that will be called on success
           request.done(function (response, textStatus, jqXHR){
             // log a message to the console
-            console.log("Hooray, it worked!");
+            console.log("Infromation submitted.");
             $.ajax({
               url: ajaxURL+"/submission",
               type: "post",
               data: serializedData
             }).done(function() {
-              console.log("Notification emails has been sent");
+              console.log("Notification emails have been sent.");
               window.location.href = siteURL+'/thank-you/';
-                $form.rest();
+                $('#submissionForm')[0].reset();
             });
             
           });
@@ -207,8 +208,7 @@ var ajaxURL = siteURL + '/ajax';
             );
             $inputs.prop("disabled", false);
             $('body').hideLoading();
-            alert("Error occured while submitting the infromation.")
-    
+            alert("Error occured while submitting the infromation.");
           });
 
           // callback handler that will be called regardless
@@ -218,9 +218,6 @@ var ajaxURL = siteURL + '/ajax';
 //            $inputs.prop("disabled", false);
 //            $form.hideLoading();
           });
-
-          // prevent default posting of form
-          event.preventDefault();
         } else {
           $('.submission-form-message').addClass('error').text(err_msg);
           scrollToElement($('.submission-form-message'), 600, -55);
@@ -292,21 +289,14 @@ var ajaxURL = siteURL + '/ajax';
                   $('#submissionForm').hideLoading();
                 }
               });
-              
             break;
 
             default:
               alert("PNG, JPG, or GIF file format only. Max size 2Mb (megabytes).");
           }
-          
-////          if(fileName!==''){
-////            $('#txt_filename').val(fileName);
-////          }
         });
       });
     }
-    
-    
     
     // Go to top button
     if($('#goTop').length > 0) {
@@ -365,13 +355,12 @@ var ajaxURL = siteURL + '/ajax';
         $item.countdown($item.data('countdown-date'), function(event) {
           $(this).html(event.strftime('<div class="dtobj"><strong>%D</strong><br class="hidden-md-down" />d<span class="hidden-md-down">ays</span></div><div class="dt_colons">:</div><div class="dtobj"><strong>%H</strong><br class="hidden-md-down" />h<span class="hidden-md-down"ays</span>ours</span></div><div class="dt_colons">:</div><div class="dtobj"><strong>%M</strong><br class="hidden-md-down" />m<span class="hidden-md-down"ays</span>inutes</span></div>'));
         }).on('finish.countdown', function() {
-//          alert("a");
+//          console.log("Countdown finished");
         });
       });
     }
     
     
-    /* INDIVIDUAL MEDTHOS */
     if($('[data-bgimg]').length > 0) {
       $('[data-bgimg]').each(function() {
         bgimg = $(this).attr('data-bgimg');
@@ -420,7 +409,7 @@ var ajaxURL = siteURL + '/ajax';
       });
     }
     
-    /* QUESTIONS */
+    /* FAQS */
     function toggleFaqsDropdown($container, $list) {
       if($container.hasClass('dropdown--open')) {
         $list.stop().fadeOut();
