@@ -522,22 +522,22 @@ em {
             
           }
           &.menu-about a {
-            background-image: url(../images/icon-info.svg);
+            background-image: url(../images/footer-icon-info.png);
           }
           &.menu-discourse a {
-            background-image: url(../images/icon-discourse.svg);
+            background-image: url(../images/footer-icon-discourse.png);
           }
           &.menu-terms a {
-            background-image: url(../images/icon-terms.svg);
+            background-image: url(../images/footer-icon-terms.png);
           }
           &.menu-legal a {
-            background-image: url(../images/icon-legal.svg);
+            background-image: url(../images/footer-icon-legal.png);
           }
           &.menu-privacy a {
-            background-image: url(../images/icon-privacy.svg);
+            background-image: url(../images/footer-icon-privacy.png);
           }
           &.menu-cookies a {
-            background-image: url(../images/icon-cookies.svg);
+            background-image: url(../images/footer-icon-cookies.png);
           }
         }
       }
@@ -2496,6 +2496,38 @@ em {
   }
 }
 
+.widget-submit-badge {
+  margin: 40px auto;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: #E04164;
+  a {
+    display: block;
+    width: 100%; height: 100%;
+    text-align: center;
+    border: none;
+    box-sizing: border-box;
+    padding: 70px 20px 0;
+    font-style: italic;
+    font-family: $font-family-sans-serif;
+    font-weight: 300;
+    font-size: 2.25em;
+    line-height: 1.2;
+    color: #fff;
+    strong {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 1.714em;
+      letter-spacing: 2px;
+    }
+  }
+  img {
+    /*display: none;*/
+  }
+}
+
+
+
 
 .widget-recent-posts {
   border: 1px solid #efefef;
@@ -2677,3 +2709,77 @@ em {
     margin: 0 0 200px;
   }
 }
+
+
+
+/**
+ * J U D G E S   P A G E
+ * -----------------------------------
+ */
+#judges-list {
+  margin-top: 40px;
+  .judge {
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    padding-left: 260px;
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border: none;
+    }
+    img {
+      position: absolute;
+      left: 0; top: 0;
+    }
+    
+    h4, .title, .url {
+      font-family: $font-family-sans-serif;
+    }
+    h4 {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin: 0; padding: 0;
+    }
+    .title {
+      font-weight: 300;
+    }
+    .url {
+      font-style: italic;
+    }
+    .about {
+      margin: 20px 0 0;
+      p:last-child {
+        margin: 0;
+      }
+    }
+  }
+  @include media-breakpoint-down(md) {
+    margin-top: 30px;
+    .judge {
+      border-bottom: 1px solid #efefef;
+      padding-bottom: 20px;
+      margin-bottom: 25px;
+      padding-left: 0;
+      img {
+        position: static;
+        margin: auto;
+        margin-bottom: 15px;
+        left: auto; top: auto;
+        
+      }
+
+      h4, .title, .url {
+        font-family: $font-family-sans-serif;
+        text-align: center;
+      }
+      h4 {
+        font-size: 1.5em;
+        font-weight: 700;
+        margin: 0; padding: 0;
+      }
+    }
+  }
+}
+
