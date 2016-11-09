@@ -18,13 +18,11 @@ define( 'OVERVIEW_PAGE_URL', SITE_URL.'/overview/' );
 define( 'FACTS_PAGE_URL', SITE_URL.'/key-facts/' );
 define( 'SOLUTIONS_PAGE_URL', SITE_URL.'/current-solutions/' );
 define( 'SUBMISSION_PAGE_URL', SITE_URL.'/your-submission/' );
+define( 'SUBMISSION_FROM_URL', SITE_URL.'/submission-form/' );
 define( 'SCHEDULE_PAGE_URL', SUBMISSION_PAGE_URL.'#schedule' );
 define( 'FAQS_PAGE_URL', SUBMISSION_PAGE_URL.'faqs/' );
 define( 'RULES_PAGE_URL', SITE_URL.'/challenge-rules/' );
 define( 'AJAX_PAGE_URL', SITE_URL.'/ajax' );
-
-define( 'MAIL_FROM_EMAIL', 'mainwp@mozilla.community' );
-define( 'MAIL_FROM_NAME', 'Open Innovation' );
 
 
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -117,7 +115,7 @@ function twentysixteen_setup() {
 		'footer'  => __( 'Footer Menu', 'twentysixteen' )
 	) );
 }
-endif; // twentysixteen_setup
+endif; // twentysixteen_setup 
 add_action( 'after_setup_theme', 'twentysixteen_setup' );
 
 
@@ -137,7 +135,7 @@ add_action('widgets_init', 'unregister_default_widgets', 11);
 function eric_clean_content($content) {
   $domains = array(
       0 => get_bloginfo('url'),
-      1 => 'https://innoprize.staging.paas.mozilla.community/',
+//      1 => 'https://toolkit.production.paas.mozilla.community',
   );
   foreach($domains as $domain) {
     $content = str_replace(' src="'.$domain, ' src="', $content );
@@ -242,15 +240,17 @@ function twentysixteen_scripts() {
   wp_enqueue_style( 'font-lato', 'https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i', false );
 
 	// Theme stylesheet.
-	wp_enqueue_style( 'equalrating-style', get_stylesheet_uri() );
-  wp_enqueue_style( 'equalrating-styles', THEME_PATH.'/stylesheets/styles.css' );
+	wp_enqueue_style( 'twentysixteen-style', get_stylesheet_uri() );
+  wp_enqueue_style( 'twentysixteen-styles', THEME_PATH.'/stylesheets/styles.css' );
 
   // Loading javascripts and jquery plugins
   wp_enqueue_script('jquery-easing', THEME_PATH . '/js/jquery.easing.1.3.js', array('jquery'), '1.3');
   wp_enqueue_script('jquery-showLoading', THEME_PATH . '/js/jquery.showLoading.min.js', array('jquery'), '1.0', false);
   wp_enqueue_script('jquery-textcounter', THEME_PATH . '/js/textcounter.js', array('jquery'), '0.3.6', false);
+  wp_enqueue_script( 'imagesloaded', THEME_PATH.'/js/imagesloaded.pkgd.min.js', array( 'jquery' ), '3.1.8', false );
   wp_enqueue_script( 'mozilla-newsletter', THEME_PATH . '/js/basket-client.js', array('jquery'), '2.0', true );
   wp_enqueue_script('jquery-countdown', THEME_PATH . '/js/jquery.countdown.min.js', array('jquery'), '2.1.0');
+  
   wp_enqueue_script( 'imagesloaded', THEME_PATH.'/js/imagesloaded.pkgd.min.js', array( 'jquery' ), '3.1.8', false );
   wp_enqueue_script( 'masonry', THEME_PATH.'/js/masonry.pkgd.min.js', array( 'jquery' ), '3.3.2', false );
   
@@ -258,7 +258,7 @@ function twentysixteen_scripts() {
   wp_enqueue_script( 'jquery-bxslider', THEME_PATH . '/js/jquery.bxslider.min.js', array(), 'v4.1.2', false );
   wp_enqueue_style( 'bxslider', THEME_PATH .'/css/jquery.bxslider.css' );
   
-	wp_enqueue_script( 'equalrating-script', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '20161020', true );
+	wp_enqueue_script( 'twentysixteen-script', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '20151204', true );
 }
 add_action( 'wp_enqueue_scripts', 'twentysixteen_scripts' );
 
@@ -516,6 +516,13 @@ function eric_widget_faqs() {
   return $return;
 }
 
+function eric_widget_submit_badge() {
+  $return = '<div class="widget-submit-badge">';
+    $return .= '<a href="'.SUBMISSION_FROM_URL.'"><strong>SUBMIT</strong><br />your proposal now!</a>';
+  $return .= '</div>';
+  return $return;
+}
+
 
 function eric_recent_posts() {
   $args = array( 'numberposts' => '5' );
@@ -735,7 +742,7 @@ function custom_login_redirect() {
     exit();
   }
 }
-add_action( 'wp', 'custom_login_redirect' );
+//add_action( 'wp', 'custom_login_redirect' );
 
 add_action( 'admin_init', 'redirect_non_admin_users' );
 /**
@@ -763,7 +770,6 @@ function shortcodeSubmissionForm($atts=null) {
   extract(shortcode_atts(array(
       'staus' => 'open',
   ), $atts));
-  
   
   $return = '<div class="submission-form-wrapper">';
   $return .= '<form id="submissionForm" name="submissionForm" method="post" action="" class="ajax-form '.$atts['status'].'">';
