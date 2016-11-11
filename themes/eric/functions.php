@@ -518,7 +518,8 @@ function eric_widget_faqs() {
 
 function eric_widget_submit_badge() {
   $return = '<div class="widget-submit-badge">';
-    $return .= '<a href="'.SUBMISSION_FROM_URL.'"><strong>SUBMIT</strong><br />your proposal now!</a>';
+    $return .= '<a href="'.SUBMISSION_FROM_URL.'"><img src="'.THEME_PATH.'/images/badge-submit.png" alt="Submit your proposal now!"></a>';
+//    <strong>SUBMIT</strong><br />your proposal now!
   $return .= '</div>';
   return $return;
 }

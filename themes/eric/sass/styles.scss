@@ -2498,35 +2498,11 @@ em {
 
 .widget-submit-badge {
   margin: 40px auto;
-  width: 260px; height: 260px;
-  border-radius: 50%;
-  background: #E04164;
-  a {
-    display: block;
-    width: 100%; height: 100%;
-    text-align: center;
-    border: none;
-    box-sizing: border-box;
-    padding: 70px 20px 0;
-    font-style: italic;
-    font-family: $font-family-sans-serif;
-    font-weight: 300;
-    font-size: 2.25em;
-    line-height: 1.2;
-    color: #fff;
-    strong {
-      font-style: normal;
-      font-weight: 700;
-      font-size: 1.714em;
-      letter-spacing: 2px;
-    }
-  }
+  max-width: 233px;
   img {
-    /*display: none;*/
+    max-width: 100%;
   }
 }
-
-
 
 
 .widget-recent-posts {
