@@ -18,6 +18,7 @@ define( 'OVERVIEW_PAGE_URL', SITE_URL.'/overview/' );
 define( 'FACTS_PAGE_URL', SITE_URL.'/key-facts/' );
 define( 'SOLUTIONS_PAGE_URL', SITE_URL.'/current-solutions/' );
 define( 'SUBMISSION_PAGE_URL', SITE_URL.'/your-submission/' );
+define( 'SUBMISSION_FROM_URL', SITE_URL.'/submission-form/' );
 define( 'SCHEDULE_PAGE_URL', SUBMISSION_PAGE_URL.'#schedule' );
 define( 'FAQS_PAGE_URL', SUBMISSION_PAGE_URL.'faqs/' );
 define( 'RULES_PAGE_URL', SITE_URL.'/challenge-rules/' );
@@ -515,6 +516,13 @@ function eric_widget_faqs() {
   return $return;
 }
 
+function eric_widget_submit_badge() {
+  $return = '<div class="widget-submit-badge">';
+    $return .= '<a href="'.SUBMISSION_FROM_URL.'"><img src="'.THEME_PATH.'/images/badge-submit.png" alt="Submit your proposal now!"></a>';
+//    <strong>SUBMIT</strong><br />your proposal now!
+  $return .= '</div>';
+  return $return;
+}
 
 function eric_recent_posts() {
   $args = array( 'numberposts' => '5' );
