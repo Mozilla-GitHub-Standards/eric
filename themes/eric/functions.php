@@ -540,6 +540,7 @@ function eric_recent_posts() {
       }
       $return .= '</ul>';
     $return .= '</div>';
+    $return .= '<!-- Mozilla -->';
     return $return;
   }
 }
