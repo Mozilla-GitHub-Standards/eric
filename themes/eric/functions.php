@@ -525,7 +525,7 @@ function eric_widget_submit_badge() {
 }
 
 function eric_recent_posts() {
-  $args = array( 'numberposts' => '5' );
+  $args = array( 'numberposts' => '5', 'post_status' => 'publish' );
   $recent_posts = wp_get_recent_posts( $args );
   
   if($recent_posts) {
