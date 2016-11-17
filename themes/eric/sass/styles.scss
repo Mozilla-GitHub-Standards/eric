@@ -2499,6 +2499,9 @@ em {
 .widget-submit-badge {
   margin: 40px auto;
   max-width: 233px;
+  a {
+    border: none;
+  }
   img {
     max-width: 100%;
   }
