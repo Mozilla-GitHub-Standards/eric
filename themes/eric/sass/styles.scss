@@ -335,7 +335,7 @@ em {
         line-height: 1em;
         text-transform: uppercase;
         color: inherit;
-        padding: 10px 55px;
+        padding: 10px 5px;
       }
       &.current-menu-item, &.current-menu-ancestor {
         color: #fff;
@@ -351,8 +351,8 @@ em {
       }
       .submenu-toggle {
         position: absolute;
-        left: 50%; top: 98px;
-        margin-left: 82px;
+        left: 50%; top: 7px;
+        margin-left: 62px;
         width: 20px; height: 20px;
         display: none;
         background-image: url(../images/arrow-toggle.png);
@@ -446,6 +446,7 @@ em {
       > li {
         float: none;
         padding: 0;
+        margin: 0;
         border-bottom: 1px solid #efefef;
         a {
           display: block;
