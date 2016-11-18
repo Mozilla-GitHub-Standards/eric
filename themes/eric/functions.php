@@ -534,7 +534,7 @@ function eric_recent_posts() {
       $return .= '<ul>';
       foreach( $recent_posts as $recent ){
         $return .= '<li>';
-        $return .= '<h4><a href="'.get_permalink($recent->ID).'">' . $recent["post_title"].'</a></h4>';
+        $return .= '<h4><a href="'.get_permalink($recent['ID']).'">' . $recent["post_title"].'</a></h4>';
         $return .= '<div class="entry-meta">'.date('F d, Y', strtotime($recent['post_date'])).'</div>';
         $return .= '</li>';
       }
