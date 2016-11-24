@@ -5558,31 +5558,33 @@ em {
   position: absolute;
   left: 0;
   top: 0;
+  max-width: 200px;
+  height: auto;
 }
-/* line 2718, ../sass/styles.scss */
+/* line 2720, ../sass/styles.scss */
 #judges-list .judge h4, #judges-list .judge .title, #judges-list .judge .url {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 2721, ../sass/styles.scss */
+/* line 2723, ../sass/styles.scss */
 #judges-list .judge h4 {
   font-size: 1.5em;
   font-weight: 700;
   margin: 0;
   padding: 0;
 }
-/* line 2726, ../sass/styles.scss */
+/* line 2728, ../sass/styles.scss */
 #judges-list .judge .title {
   font-weight: 300;
 }
-/* line 2729, ../sass/styles.scss */
+/* line 2731, ../sass/styles.scss */
 #judges-list .judge .url {
   font-style: italic;
 }
-/* line 2732, ../sass/styles.scss */
+/* line 2734, ../sass/styles.scss */
 #judges-list .judge .about {
   margin: 20px 0 0;
 }
-/* line 2734, ../sass/styles.scss */
+/* line 2736, ../sass/styles.scss */
 #judges-list .judge .about p:last-child {
   margin: 0;
 }
@@ -5591,14 +5593,14 @@ em {
   #judges-list {
     margin-top: 30px;
   }
-  /* line 2741, ../sass/styles.scss */
+  /* line 2743, ../sass/styles.scss */
   #judges-list .judge {
     border-bottom: 1px solid #efefef;
     padding-bottom: 20px;
     margin-bottom: 25px;
     padding-left: 0;
   }
-  /* line 2746, ../sass/styles.scss */
+  /* line 2748, ../sass/styles.scss */
   #judges-list .judge img {
     position: static;
     margin: auto;
@@ -5606,12 +5608,12 @@ em {
     left: auto;
     top: auto;
   }
-  /* line 2754, ../sass/styles.scss */
+  /* line 2756, ../sass/styles.scss */
   #judges-list .judge h4, #judges-list .judge .title, #judges-list .judge .url {
     font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-align: center;
   }
-  /* line 2758, ../sass/styles.scss */
+  /* line 2760, ../sass/styles.scss */
   #judges-list .judge h4 {
     font-size: 1.5em;
     font-weight: 700;

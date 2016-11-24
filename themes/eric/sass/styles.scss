@@ -2713,6 +2713,8 @@ em {
     img {
       position: absolute;
       left: 0; top: 0;
+      max-width: 200px;
+      height: auto;
     }
     
     h4, .title, .url {
