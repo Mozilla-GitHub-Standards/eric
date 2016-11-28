@@ -320,6 +320,7 @@ em {
       display: block;
       float: left;
       position: relative;
+      margin: 0 9px;
       &:hover {
         color: #fff;
         background-color: #000;
@@ -334,7 +335,7 @@ em {
         line-height: 1em;
         text-transform: uppercase;
         color: inherit;
-        padding: 10px 20px;
+        padding: 10px 54px;
       }
       &.current-menu-item, &.current-menu-ancestor {
         color: #fff;
@@ -351,7 +352,7 @@ em {
       .submenu-toggle {
         position: absolute;
         left: 50%; top: 7px;
-        margin-left: 82px;
+        margin-left: 62px;
         width: 20px; height: 20px;
         display: none;
         background-image: url(../images/arrow-toggle.png);
@@ -370,7 +371,7 @@ em {
         display: none;
         position: absolute;
         top: 100%; left: 0;
-        margin: 0; padding: 0;
+        margin: 1px 0 0; padding: 0;
         list-style: none;
         background-color: #fff;
         z-index: 999;
@@ -393,7 +394,7 @@ em {
           a {
             display: block;
             width: 100%;
-            padding: 14px 10px 10px;
+            padding: 14px 0 10px;
             color: #000;
             &:hover {
               color: #fff;
@@ -445,6 +446,7 @@ em {
       > li {
         float: none;
         padding: 0;
+        margin: 0;
         border-bottom: 1px solid #efefef;
         a {
           display: block;
@@ -2711,6 +2713,8 @@ em {
     img {
       position: absolute;
       left: 0; top: 0;
+      max-width: 200px;
+      height: auto;
     }
     
     h4, .title, .url {
