@@ -2710,7 +2710,7 @@ em {
   line-height: 1em;
   text-transform: uppercase;
   color: inherit;
-  padding: 10px 55px;
+  padding: 10px 54px;
 }
 /* line 340, ../sass/styles.scss */
 #site-navigation .primary-menu > li.current-menu-item, #site-navigation .primary-menu > li.current-menu-ancestor {
