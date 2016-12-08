@@ -178,7 +178,7 @@ var ajaxURL = siteURL + '/ajax';
 
           // fire off the request to /form.php
           request = $.ajax({
-            url: "https://script.google.com/macros/s/AKfycbzanUBtLdkRLcviAJNu7D5XL8LPjhnCFAzoeD4DavqBD99c-TXJ/exec",
+            url: "https://script.google.com/macros/s/AKfycbyQYeWKn3EN2W8kR4weWZkQ3h-eqbpSOc2ypi_UnUCFKoH9yMo/exec",
             type: "post",
             data: serializedData
           });
