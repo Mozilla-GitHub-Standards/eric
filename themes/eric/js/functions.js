@@ -514,7 +514,7 @@ var ajaxURL = siteURL + '/ajax';
                   parseInt($('#score_team').val());
           
           $('.total-score').text(total_score);
-          $('#total-score').attr('value', total_score);
+          $('#total_score').attr('value', total_score);
           
         });
       });
