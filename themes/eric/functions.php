@@ -24,6 +24,11 @@ define( 'FAQS_PAGE_URL', SUBMISSION_PAGE_URL.'faqs/' );
 define( 'RULES_PAGE_URL', SITE_URL.'/challenge-rules/' );
 define( 'AJAX_PAGE_URL', SITE_URL.'/ajax' );
 
+define( 'EVALUATION_PAGE_URL', SITE_URL.'/evaluation' );
+define( 'EVALUATION_SUBMIT_PAGE_URL', SITE_URL.'/evaluation/submit' );
+define( 'SUBMISSIONS_PAGE_URL', SITE_URL.'/submissions' );
+define( 'SUBMISSION_VIEW_PAGE_URL', SITE_URL.'/submissions/view' );
+
 
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -33,6 +38,13 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 if(!isset($wpdb->subscribers)) {
   $wpdb->subscribers = $wpdb->prefix . 'subscribers';
+}
+
+if(!isset($wpdb->submissions)) {
+  $wpdb->submissions = $wpdb->prefix . 'submissions';
+}
+if(!isset($wpdb->evaluation)) {
+  $wpdb->evaluation = $wpdb->prefix . 'evaluation';
 }
 
 /*
@@ -246,8 +258,10 @@ function twentysixteen_scripts() {
   // Loading javascripts and jquery plugins
   wp_enqueue_script('jquery-easing', THEME_PATH . '/js/jquery.easing.1.3.js', array('jquery'), '1.3');
   wp_enqueue_script('jquery-showLoading', THEME_PATH . '/js/jquery.showLoading.min.js', array('jquery'), '1.0', false);
+  wp_enqueue_script('jqery-form', THEME_PATH .'/js/jquery.form.js', array('jquery'), '2.67', true);
   wp_enqueue_script('jquery-textcounter', THEME_PATH . '/js/textcounter.js', array('jquery'), '0.3.6', false);
-  wp_enqueue_script( 'imagesloaded', THEME_PATH.'/js/imagesloaded.pkgd.min.js', array( 'jquery' ), '3.1.8', false );
+  wp_enqueue_script('bootstrap-slider', THEME_PATH . '/js/bootstrap-slider.js', array('jquery'), 'v9.5.4');
+  
   wp_enqueue_script( 'mozilla-newsletter', THEME_PATH . '/js/basket-client.js', array('jquery'), '2.0', true );
   wp_enqueue_script('jquery-countdown', THEME_PATH . '/js/jquery.countdown.min.js', array('jquery'), '2.1.0');
   
@@ -438,9 +452,11 @@ function eric_faqs_dropdown($faqs=null) {
 add_filter('query_vars', 'eric_add_custom_var', 0, 1);
 function eric_add_custom_var($vars){
   $vars[] = 'action';
+  $vars[] = 'submission';
   return $vars;
 }
 add_rewrite_rule('^ajax/([^/]+)/?$','index.php?pagename=ajax&action=$matches[1]','top');
+//add_rewrite_rule('^evaluate/([^/]+)/?$','index.php?pagename=evaluate&submission=$matches[1]','top');
 
 
 function addhttp($url) {
@@ -528,7 +544,6 @@ function eric_widget_submit_badge() {
 function eric_recent_posts() {
   $args = array( 'numberposts' => '5', 'post_status' => 'publish' );
   $recent_posts = wp_get_recent_posts( $args );
-  
   if($recent_posts) {
     $return = '<aside class="widget-recent-posts">';
       $return .= '<h3 class="widget-title">Recent Posts</h3>';
@@ -743,7 +758,7 @@ function custom_login_redirect() {
     exit();
   }
 }
-add_action( 'wp', 'custom_login_redirect' );
+//add_action( 'wp', 'custom_login_redirect' );
 
 add_action( 'admin_init', 'redirect_non_admin_users' );
 /**
@@ -1111,4 +1126,438 @@ function remove_http($url) {
       }
    }
    return $url;
+}
+
+
+function eric_submissions() {
+  global $wpdb;
+  $judge_id = get_current_user_id();
+  
+  $return = '';
+  $strqry = "SELECT s.*, e.score, e.submit_status FROM $wpdb->submissions s "
+          . "LEFT JOIN $wpdb->evaluation e ON s.ID=e.submission_id AND e.judge_id='$judge_id' AND e.submit_status IN ('draft', 'submit') "
+          . "WHERE 1=1 "
+          . "ORDER BY s.solution_name ASC";
+  
+  $submissions = $wpdb->get_results($strqry);
+  if($submissions) {
+    $return .= '<div class="tbl-row tbl-row-head clearfix">';
+      $return .= '<div class="tbl-col col-solution-name">Solution Name</div>';
+      $return .= '<div class="tbl-col col-team-leader">Team Leader</div>';
+      $return .= '<div class="tbl-col col-country">Country</div>';
+      $return .= '<div class="tbl-col col-asset">Image</div>';
+      $return .= '<div class="tbl-col col-score">Score</div>';
+      $return .= '<div class="tbl-col col-evalaute">Evaluate</div>';
+    $return .= '</div>';
+    
+    foreach($submissions as $submission) {
+      $return .= '<div class="tbl-row">';
+        $return .= '<div class="tbl-col col-solution-name"><a href="'.SUBMISSION_VIEW_PAGE_URL.'/?secret='.$submission->secret_key.'">'.$submission->solution_name.'</a></div>';
+        $return .= '<div class="tbl-col col-team-leader">'.$submission->leader_name.'&nbsp;</div>';
+        $return .= '<div class="tbl-col col-country">'.$submission->leader_country.'&nbsp;</div>';
+        $return .= '<div class="tbl-col col-asset">'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">View</a>': '-').'</div>';
+        $return .= '<div class="tbl-col col-score">'.(int)$submission->score.'&nbsp;</div>';
+        $return .= '<div class="tbl-col col-evalaute"><a href="'.EVALUATION_PAGE_URL.'/?secret='.$submission->secret_key.'">'.(($submission->submit_status=='submit') ? 'Evaluation Complete': 'Evaluate Now').'</a>&nbsp;</div>';
+        $return .= '<div class="clearfix"></div>';
+      $return .= '</div>';
+    }
+  }
+  echo $return;
+}
+
+function eric_submission_info($secret=null) {
+  global $wpdb;
+  $return = '';
+  
+  if(is_null($secret)) {
+    return "Invalid Request!";
+  }
+  $submission = $wpdb->get_row("SELECT * FROM $wpdb->submissions WHERE secret_key='$secret'");
+  if($submission) {
+    $return .= '<div class="project-info clearfix">';
+      $return .= '<div class="tbl-col col-solution-name">Solution Name<br /><span>'.$submission->solution_name.'</span></div>';
+      $return .= '<div class="tbl-col col-team-leader">Team Leader<br /><span>'.$submission->leader_name.'</span></div>';
+      $return .= '<div class="tbl-col col-country">Country<br /><span>'.$submission->leader_country.'</span></div>';
+      $return .= '<div class="tbl-col col-asset">Image<br /><span>'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">View</a>': '-').'</span></div>';
+      $return .= '<div class="tbl-col col-asset">Submission<br /><span><a href="'.SUBMISSION_VIEW_PAGE_URL.'/?secret='.$submission->secret_key.'" target="_blank">Full Entry</a></span></div>';
+    $return .= '</div>';
+  }
+  echo $return;
+}
+
+function eric_submission_view($secret=null) {
+  global $wpdb;
+  $return = '';
+  
+  if(is_null($secret)) {
+    return "Invalid Request!";
+  }
+  $submission = $wpdb->get_row("SELECT * FROM $wpdb->submissions WHERE secret_key='$secret'", ARRAY_A);
+  if($submission) {
+    $return .= '<div class="solution-details clearfix">';
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>SUMMARY</strong></h4>';
+      $return .= $submission['summary'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>TEAM LEADER</strong></h4>';
+      $return .= '<table>';
+        $return .= '<tr><td width="40%">Team Leader Name</td><td width="60%">'.$submission['leader_name'].'</td></tr>';
+        $return .= '<tr><td>Team Leader Email</td><td>'.$submission['leader_email'].'</td></tr>';
+        $return .= '<tr><td>Team Leader location (city/state)</td><td>'.$submission['leader_location'].'</td></tr>';
+        $return .= '<tr><td>Team Leader country</td><td>'.$submission['leader_country'].'</td></tr>';
+        $return .= '<tr><td>Team Leader phone number</td><td>'.$submission['leader_phone'].' ('.$submission['leader_phone_type'].')</td></tr>';
+        $return .= '<tr><td>Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['leader_url'].'</td></tr>';
+        $return .= '<tr><td>Team Leader bio (80 words max)</td><td>'.$submission['leader_bio'].'</td></tr>';
+      $return .= '</table>';
+      
+      for($i=1; $i<=5; $i++) {
+        if(strlen($submission['member_name_'.$i]) > 1) {
+          $return .= '<div class="hline"></div>';
+          $return .= '<h4 class="section-title"><strong>TEAM MEMBER</strong></h4>';
+          $return .= '<table>';
+            $return .= '<tr><td width="40%">Team Leader Name</td><td width="60%">'.$submission['member_name_'.$i].'</td></tr>';
+            $return .= '<tr><td>Team Leader Email</td><td>'.$submission['member_email_'.$i].'</td></tr>';
+            $return .= '<tr><td>Team Leader location (city/state)</td><td>'.$submission['member_location_'.$i].'</td></tr>';
+            $return .= '<tr><td>Team Leader country</td><td>'.$submission['member_country_'.$i].'</td></tr>';
+            $return .= '<tr><td>Team Leader phone number</td><td>'.$submission['member_phone_'.$i].' ('.$submission['member_phone_type_'.$i].')</td></tr>';
+            $return .= '<tr><td>Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['member_url_'.$i].'</td></tr>';
+            $return .= '<tr><td>Team Leader bio (80 words max)</td><td>'.$submission['member_bio_'.$i].'</td></tr>';
+          $return .= '</table>';
+        }
+      }
+      
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>AFFILIATION</strong></h4>';
+      $return .= $submission['team_affiliated'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>SOLUTION NAME:</strong> (40 characters max)</h4>';
+      $return .= $submission['solution_name'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>DESCRIPTION:</strong> Describe the value and intended outcomes of the proposed solution (50 words max)</h4>';
+      $return .= $submission['solution_description'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, socio-economic, region/geography, etc (50 words max)</h4>';
+      $return .= $submission['solution_audience'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>MATURITY:</strong> Degree of solution maturity:</h4>';
+      $return .= $submission['solution_maturity'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>EQUAL RATING:</strong> How does your solution provide unconnected people affordable access to the full diversity of the open Internet? (100 words max)</h4>';
+      $return .= $submission['solution_equalrating'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>SCALABILITY:</strong> What is your plan to scale your solution? Please provide a clear plan and method for achieving scale. Be specific. (200 words max)</h4>';
+      $return .= $submission['solution_scalability'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>USER EXPERIENCE:</strong> In what ways will your solution provide a positive and enduring experience for its users? (100 words max)</h4>';
+      $return .= $submission['solution_experience'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>DIFFERENTIATION:</strong> What benefits does your proposed solution bring compared to those currently available? (100 words max)</h4>';
+      $return .= $submission['solution_differntiation'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>TIME TO MARKET:</strong> When do you expect to bring your solution to market? If it is already in market, please describe your plan to broaden your audience. (100 words max)</h4>';
+      $return .= $submission['solution_time_market'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>FEASIBILITY & SUSTAINABILITY:</strong> What evidence illustrates that your solution will work from a technical and business perspective? (100 words max)</h4>';
+      $return .= $submission['solution_feasibility'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>ROADMAP & PRIZE MONEY:</strong> Please share your plan for how the prize money will be used for development of your proposed solution. (200 words max)</h4>';
+      $return .= $submission['solution_roadmap'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>TEAM:</strong> Why should your team win this challenge? Please note previous relevant projects and collaborations. (100 words max)</h4>';
+      $return .= $submission['solution_whywin'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>OPEN SOURCE:</strong> Are you open sourcing your solution?</h4>';
+      $return .= '<strong>'.$submission['opensource_solution'].'</strong>';
+      if($submission['opensource_solution']=='No') {
+        $return .= '<p><br /><em>If no, please review Mozilla’s opinion in the FAQ , and describe your alternative path to accomplish similar goals and avoid known pitfalls. (200 words max)</em></p>';
+        $return .= $submission['opensource_solution_info'];
+      }
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>VISUAL ASSET</strong></h4>';
+      $return .= (($submission['solution_asset']) ? '<a href="'.$submission['solution_asset'].'" target="_blank">View</a>': '-');
+    $return .= '</div>';
+  }
+  
+  echo $return;
+}
+
+function eric_evaluation_form($secret=null) {
+  global $wpdb;
+  
+  if(is_null($secret)) {
+    return "Invalid Request!";
+  }
+  
+  $submission_id = $wpdb->get_var("SELECT ID FROM $wpdb->submissions WHERE secret_key='$secret'");
+  
+  $evaluation = $wpdb->get_row("SELECT * FROM $wpdb->evaluation WHERE submission_id='$submission_id' AND submit_status IN ('draft', 'submit')", ARRAY_A);
+  
+  if(!($evaluation)) {
+    $evaluation = array(
+        "score_scalability" => 0,
+        "score_human_centric" => 0,
+        "score_differentiated" => 0,
+        "score_acceleration" => 0,
+        "score_team" => 0,
+        "total_socre" => 0,
+        "benefit_membership" => "Agree",
+        "comments" => "",
+        "score" => 0,
+        "submit_status" => "draft"
+    );
+  }
+  
+  $return = '';
+  $return .= '<form id="evaluation_form" name="evaluation-form" action="'.EVALUATION_SUBMIT_PAGE_URL.'" method="post" class="ajax-form">';
+    if($evaluation['submit_status']==='submit') {
+      $return .= '<p class="evaluation-submitted">Evaluation complete for this solution.</p>';
+    }
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>SCALABILITY [max 30 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">How well does the proposed solution describe a clear path to effective and efficient scalability?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_scalability" name="score_scalability" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="'.$evaluation['score_scalability'].'" data-slider-label="score-scalability" class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-scalability">'.$evaluation['score_scalability'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has the greatest value, 30 points. Suggested ranges:</p><ul><li>30-26: Very strong concept; it’s clear how this team will scale the solution.</li><li>25-21: Concept has great merit but it needs to be evolved – I have confidence this team will be able to scale the solution.</li><li>20-11: Concept has merit and clear value, but it’s unclear how the team will scale it.</li><li>10-1: Viable concept but it’s already out there, it will create more complexity, or there will be real hurdles in achieving scale.</li><li>0: Not a scalable concept</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>HUMAN-CENTRIC [max 20 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">Does the solution as described meet the needs of its target audience in a way that meaningfully considers their experience and context?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_human_centric" name="score_human_centric" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="'.$evaluation['score_human_centric'].'" data-slider-label="score-human_centric"  class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-human_centric">'.$evaluation['score_human_centric'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has a total value of 20 points. Suggested ranges:<p><ul><li>20-11: Very strong solution; it’s clear that this solution will resonate with its target audience.</li><li>10-6: Viable solution but doesn’t address or meet all the core needs of its target audience or it does not have a clear target audience.</li><li>0: Concept does not meet the needs of the target audience.</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>DIFFERENTIATED [max 20 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">Does the solution make a unique contribution to the market from a user, business, or technical standpoint?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_differentiated" name="score_differentiated" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="'.$evaluation['score_differentiated'].'" data-slider-label="score-differentiated"  class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-differentiated">'.$evaluation['score_differentiated'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has a total value of 20 points. Suggested ranges:</p><ul><li>20-11: Very strong solution; it’s clear that this concept will make a significant contribution to this space.</li><li>10-1: Viable solution but similar ones already exist.</li><li>0: Concept is not differentiated.</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>ACCELERATION [max 10 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">Can this solution be deployed to the market quickly? Will the challenge publicity, expert mentorship, and award money help the team move forward efficiently and effectively?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_acceleration" name="score_acceleration" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="'.$evaluation['score_acceleration'].'" data-slider-label="score-acceleration"  class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-acceleration">'.$evaluation['score_acceleration'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has a total value of 10 points. Suggested ranges:</p><ul><li>10-5: This solution is setup to be deployed rapidly, and the team will benefit from the prize money and support.</li><li>4-0: This solution is complex and has many dependencies.</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>TEAM [max 10 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">Is this a team you feel confident in? Consider several factors: ability to clearly articulate the solution throughout the submission form answers; the pedigree of the team; previous successes of relevant solutions?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_team" name="score_team" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="'.$evaluation['score_team'].'" data-slider-label="score-team"  class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-team">'.$evaluation['score_team'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has a total value of 10 points. Suggested ranges:</p><ul><li>10-5: Team shows promise in manifesting this solution.</li><li>4-0: Unsure of team’s abilities.</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<p class="question">This team will benefit from mentorship from Mozilla experts in areas like policy, business modeling, engineering, and design.<p>';
+    $return .= '<div class="form-group-radio clearfix">
+      <label for="benefit_membership_agree">
+        <input type="radio" name="benefit_membership" id="benefit_membership_agree" value="Agree"'.(($evaluation['benefit_membership']=='Agree') ? ' checked="checked"': '').' /><i></i> <span>Agree</span>
+      </label>
+      <label for="benefit_membership_disagree">
+        <input type="radio" name="benefit_membership" id="benefit_membership_disagree" value="Disagree"'.(($evaluation['benefit_membership']=='Disagree') ? ' checked="checked"': '').' /><i></i> <span>Disagree</span>
+      </label>
+      <div class="clear"></div>
+    </div>';
+  
+    $return .= '<div class="hline"></div>';
+    $return .= '<p class="question">Total score for this submission [max 90 points] : <strong class="total-score">'.$evaluation['score'].'</strong></p>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<p class="question">Please share any comments on this submission [optional]</p>';
+    $return .= '<textarea rows="5" name="comments" id="comments" class="form_input">'.$evaluation['comments'].'</textarea>';
+    
+    $return .= '<div class="hline"></div>';
+    if($evaluation['submit_status']==='submit') {
+      $return .= '<p class="evaluation-submitted">Evaluation complete for this solution.</p>';
+    } else {
+      $return .= '<input type="hidden" id="secret" name="secret" value="'.$secret.'">';
+      $return .= '<input type="hidden" id="total_score" name="total_score" value="'.$evaluation['score'].'">';
+      $return .= '<input type="hidden" id="submit_type" name="submit_type" value="draft">';
+      $return .= '<h4>Save Draft</h4>';
+      $return .= '<p>You are allowed to edit the evaluation till the final submission.</p>';
+      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="draft">Save as Draft</button>';
+
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4>Final Submission</h4>';
+      $return .= '<p>Once you submit the evaluation it can&rsquo; be edited.</p>';
+      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="submit">Final Submit</button>';
+    }
+  $return .= '</form>';
+  echo $return;
+}
+
+
+
+add_filter( 'logout_url', 'eric_custom_logout_url', 10, 2 );
+add_action( 'wp_loaded', 'eric_custom_logout_action' );
+
+function eric_custom_logout_url( $logout_url, $redirect ) {
+  $url = add_query_arg( 'logout', 1, home_url( '/' ) );
+  if ( ! empty ( $redirect ) ) {
+    $url = add_query_arg( 'redirect', $redirect, $url );
+  }
+  return $url;
+}
+
+function eric_custom_logout_action() {
+  if ( ! isset ( $_GET['logout'] ) ) {
+    return;
+  }
+  wp_logout();
+  $loc = isset ( $_GET['redirect'] ) ? $_GET['redirect'] : SITE_URL;
+  wp_redirect( $loc );
+  exit;
+}
+
+
+
+add_action('init', 'process_query');
+function process_query(){
+  global $wpdb;
+  $query = "CREATE TABLE IF NOT EXISTS `eric_evaluation` (
+`ID` int(11) NOT NULL,
+  `submission_id` int(11) NOT NULL,
+  `judge_id` int(11) NOT NULL,
+  `score_scalability` int(11) NOT NULL DEFAULT '0',
+  `score_human_centric` int(11) NOT NULL DEFAULT '0',
+  `score_differentiated` int(11) NOT NULL DEFAULT '0',
+  `score_acceleration` int(11) NOT NULL DEFAULT '0',
+  `score_team` int(11) NOT NULL DEFAULT '0',
+  `benefit_membership` varchar(20) NOT NULL,
+  `comments` varchar(1000) NOT NULL,
+  `score` int(11) NOT NULL DEFAULT '0',
+  `submit_status` varchar(10) NOT NULL,
+  `submit_datetime` datetime NOT NULL,
+  `ip_address` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `eric_submissions` (
+`ID` int(11) NOT NULL,
+  `submission_datetime` datetime NOT NULL,
+  `solution_name` varchar(200) NOT NULL,
+  `summary` varchar(2000) NOT NULL,
+  `leader_name` varchar(100) NOT NULL,
+  `leader_email` varchar(100) NOT NULL,
+  `leader_location` varchar(100) NOT NULL,
+  `leader_country` varchar(100) NOT NULL,
+  `leader_phone` varchar(100) NOT NULL,
+  `leader_phone_type` varchar(100) NOT NULL,
+  `leader_url` varchar(200) NOT NULL,
+  `leader_bio` varchar(1000) NOT NULL,
+  `member_name_1` varchar(100) NOT NULL,
+  `member_email_1` varchar(100) NOT NULL,
+  `member_location_1` varchar(100) NOT NULL,
+  `member_country_1` varchar(100) NOT NULL,
+  `member_phone_1` varchar(100) NOT NULL,
+  `member_phone_type_1` varchar(100) NOT NULL,
+  `member_url_1` varchar(200) NOT NULL,
+  `member_bio_1` varchar(1000) NOT NULL,
+  `member_name_2` varchar(100) NOT NULL,
+  `member_email_2` varchar(100) NOT NULL,
+  `member_location_2` varchar(100) NOT NULL,
+  `member_country_2` varchar(100) NOT NULL,
+  `member_phone_2` varchar(100) NOT NULL,
+  `member_phone_type_2` varchar(100) NOT NULL,
+  `member_url_2` varchar(200) NOT NULL,
+  `member_bio_2` varchar(1000) NOT NULL,
+  `member_name_3` varchar(100) NOT NULL,
+  `member_email_3` varchar(100) NOT NULL,
+  `member_location_3` varchar(100) NOT NULL,
+  `member_country_3` varchar(100) NOT NULL,
+  `member_phone_3` varchar(100) NOT NULL,
+  `member_phone_type_3` varchar(100) NOT NULL,
+  `member_url_3` varchar(200) NOT NULL,
+  `member_bio_3` varchar(1000) NOT NULL,
+  `member_name_4` varchar(100) NOT NULL,
+  `member_email_4` varchar(100) NOT NULL,
+  `member_location_4` varchar(100) NOT NULL,
+  `member_country_4` varchar(100) NOT NULL,
+  `member_phone_4` varchar(100) NOT NULL,
+  `member_phone_type_4` varchar(100) NOT NULL,
+  `member_url_4` varchar(200) NOT NULL,
+  `member_bio_4` varchar(1000) NOT NULL,
+  `member_name_5` varchar(100) NOT NULL,
+  `member_email_5` varchar(100) NOT NULL,
+  `member_location_5` varchar(100) NOT NULL,
+  `member_country5` varchar(100) NOT NULL,
+  `member_phone_5` varchar(100) NOT NULL,
+  `member_phone_type_5` varchar(100) NOT NULL,
+  `member_url_5` varchar(200) NOT NULL,
+  `member_bio_5` varchar(1000) NOT NULL,
+  `team_affiliated` varchar(2000) NOT NULL,
+  `solution_description` varchar(2000) NOT NULL,
+  `solution_audience` varchar(2000) NOT NULL,
+  `solution_maturity` varchar(100) NOT NULL,
+  `solution_equalrating` varchar(2000) NOT NULL,
+  `solution_scalability` varchar(2000) NOT NULL,
+  `solution_experience` varchar(2000) NOT NULL,
+  `solution_differntiation` varchar(2000) NOT NULL,
+  `solution_time_market` varchar(2000) NOT NULL,
+  `solution_feasibility` varchar(2000) NOT NULL,
+  `solution_roadmap` varchar(2000) NOT NULL,
+  `solution_whywin` varchar(2000) NOT NULL,
+  `opensource_solution` varchar(10) NOT NULL,
+  `opensource_solution_info` varchar(1000) NOT NULL,
+  `agree_terms` varchar(10) NOT NULL,
+  `solution_asset` varchar(500) NOT NULL,
+  `evaluation_status` tinyint(4) NOT NULL DEFAULT '0',
+  `secret_key` varchar(32) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+INSERT INTO `eric_submissions` (`ID`, `submission_datetime`, `solution_name`, `summary`, `leader_name`, `leader_email`, `leader_location`, `leader_country`, `leader_phone`, `leader_phone_type`, `leader_url`, `leader_bio`, `member_name_1`, `member_email_1`, `member_location_1`, `member_country_1`, `member_phone_1`, `member_phone_type_1`, `member_url_1`, `member_bio_1`, `member_name_2`, `member_email_2`, `member_location_2`, `member_country_2`, `member_phone_2`, `member_phone_type_2`, `member_url_2`, `member_bio_2`, `member_name_3`, `member_email_3`, `member_location_3`, `member_country_3`, `member_phone_3`, `member_phone_type_3`, `member_url_3`, `member_bio_3`, `member_name_4`, `member_email_4`, `member_location_4`, `member_country_4`, `member_phone_4`, `member_phone_type_4`, `member_url_4`, `member_bio_4`, `member_name_5`, `member_email_5`, `member_location_5`, `member_country5`, `member_phone_5`, `member_phone_type_5`, `member_url_5`, `member_bio_5`, `team_affiliated`, `solution_description`, `solution_audience`, `solution_maturity`, `solution_equalrating`, `solution_scalability`, `solution_experience`, `solution_differntiation`, `solution_time_market`, `solution_feasibility`, `solution_roadmap`, `solution_whywin`, `opensource_solution`, `opensource_solution_info`, `agree_terms`, `solution_asset`, `evaluation_status`, `secret_key`) VALUES
+(1, '2017-11-21 00:00:00', 'Dumegi', 'This will be an online platform which will bring all Ugandan media houses into a single integrated platform for ease to content consumers.', 'Bwire Ancel', 'dumegidigital@gmail.com', 'Kampala', 'Uganda', '+256784667725', 'Mobile Phone', 'https://www.linkedin.com/profile/view?id=AAMAAAx-Ap4BzlETlxNSSaOFtg3djjjcTUIMd3k&trk=hp-identity-name', 'Ancel is a passionate user of the internet and has been an advocate for Open Internet governance. He is an entrepreneur running a concept development company called Ancywax. He also runs a food processing company called tuLe Mashariki. By age 33, he wants to be a dollar billionaire and his life long mission is to help others realize their potential and impact peoples lives especially those that people have written off or dont have faith in. ', 'Ernest Kaweesi', 'kaweesiernest@gmail.com', 'Kampala', 'Uganda', '+256703459420', 'Mobile Phone', 'https://www.linkedin.com/in/kaweesi-ernest-90a74b77?authType=NAME_SEARCH&authToken=Wpcl&locale=en_US&srchid=2095847981479725840929&srchindex=1&srchtotal=1&trk=vsrp_people_res_name&trkInfo=VSRPsearchId', 'Ernest is a code developer and runs Batutale as the co-founder. He is a detailed to attention guy who has a vision of making it big one day. Always one to go out of his way he always embraces success and acknowledges failure without shying away. His life long dream is to be wealthy entrepreneur who will not have to wake up to go to work!', 'Viola Nandawula', 'vbviolao2@gmail.com', 'Kampala', 'Uganda', '+256704900114', 'Mobile Phone', 'https://www.linkedin.com/in/viola-nandawula-0b103135?authType=NAME_SEARCH&authToken=Xaky&locale=en_US&srchid=2095847981479725851198&srchindex=1&srchtotal=1&trk=vsrp_people_res_name&trkInfo=VSRPsearchI', 'Viola is a programmer and  avid independent thinker. Strong advocate for what she believes in and relentless in pursuing success. Co founder of Batutale she also loves fashion, praying and helping out people. A very good listener she always offers her mind and also pictures a better life for herself and Batutale.', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Batutale and Ancywax are the principal owners of Dumegi. Batutale is a company that runs an ecommerce plaftorm advertising shops that sell personal items while Ancywax is a company that provides creative solutions in Media. Marketing. Consultancy. They undertake this through a process called Concept Development.', 'This will be an online platform which will bring all Ugandan media houses into a single integrated platform for ease to content consumers.', 'We are targeting Ugandans in the diaspora between the ages of 21-55 years. Those who are in the  lower and upper middle class, have a  disposable income of at least of between 1200-5000 USD monthly, are in the Central Americas, Middle East, Europe and Asia.', 'new to market', 'Due to we are a single platform the people would not need to access several sites for content. We are positioned to cater for news, programs, videos from media houses without the need of  a pay TV service, radio and newspapers which are more expensive and are more regulated by governments.', 'We intend to license versions of Dumegi to different countries start ups specifically targeting the Great Lakes region namely Rwanda, South Sudan, Ethiopia, Somalia, Djibouti, DRC and Burundi. We also will venture into making ads for our target consumers where we can shoot adverts and feature them on the platform, host live events paid for by sponsors, carry out ratings and opinion polls for advertisers to engage with the audience. We shall also sell the data analytics to interested parties who may want to use to reach their demographics.', 'Better platform to access all content in Uganda whether its radio, TV or newspapers. We also will have PVR to play back upto 4 hours of content meaning you can catch what you missed earlier regardless of which media house it is. It will also benefit the users as it saves time, data and is convenient for them to use single handed.', 'We are going to be more customer engaged as our content will be shared along easily and be availed upon demand. We shall also add value to our advertisers as we will avail our ad design and implementation services to them which is not happening now. As we are owned by two companies doing marketing it will boost their customer outlook more and the reverse is true.', 'December 2016.', 'We shall rely on existing infrastructure namely YouTube, New Vision, Daily Monitor and other publications to feed Dumegi''s feed just as kenyamoja.com does it for Kenya. This will ensure we are ever getting content uploaded and direct using the backlinks on Dumegi. Advertisers will come on board initially from Batutale and Ancywax clients who will pay a premium fee as they are already there and when we shall get others specifically for Dumegi standard fees will apply.  We shall also sell data analytics to interested parties alongside sponsored shows online for live coverage. Carrying out opinion polls, surveys, questionnaires', 'We shall apply for an IP  to protect the idea as we already have the prototype and also register the company Dumegi Digital.  Marketing and promotion campaigns offline and online to reach out to our customer base. We then will invest in research to identify new markets, customer habits and areas which we can work on Dumegi. Purchase computers, issue out salaries and wages,  hire rental premises will also come along.', 'We are a team that is set out to achieve greatness in marketing. Our idea Dumegi is a breakthrough of 7 months in deliberating on how Batutale and Ancywax can work together as we have consulted on each others companies namely social media, marketing, brand awareness and identity. We have worked on this idea since and have successfully completed sending it to the Innovation  Africa Challenge 2016  so far and continue seeking more opportunities for it. For Dumegi Batutale took on the coding while Ancywax carried out research. We also together want to disrupt the media industry towards internet.', 'No', 'We are a team that is set out to achieve greatness in marketing. Our idea Dumegi is a breakthrough of 7 months in deliberating on how Batutale and Ancywax can work together as we have consulted on each others companies namely social media, marketing, brand awareness and identity. We have worked on this idea since and have successfully completed sending it to the Innovation  Africa Challenge 2016  so far and continue seeking more opportunities for it. For Dumegi Batutale took on the coding while Ancywax carried out research. We also together want to disrupt the media industry towards internet.', 'Yes', 'https://equalrating.com/wp-content/uploads/submissions/1479724589_TIME LINE.png', 0, 'BrvRjMrDJmmzBUMPHwuMnRVEZdmVdWt'),
+(2, '2016-11-24 00:00:00', 'NKEM', '', 'Olafusi Ofili Uju', 'blessedsoma@yahoo.com', 'Lagos, Lagos State', 'Nigeria', '8063608682', 'Mobile Phone', 'LinkedIn- Olafusi Ofili Uju', 'My name is Olafusi Ofili Uju, a Nigerian, a chemical engineer and  a female that strongly believes what a man can do a woman can do better. I believe a creative individual. I look to discover how things fit and works.', 'Olafusi', 'raymondolafusi@gmail.com', 'Yenagoa, Bayelsa', 'Nigeria', '8063608682', 'Mobile Phone', 'LinkedIn- Olafusi Oluwaseun Raymond (MNSE)', 'I am Olafusi Oluwaseun Raymond, a civil engineer that believes in new challenges and ideas. A Nigerian and resides presently in Nigeria. I am also an expert in project management.', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Team member-\r\nAyodele Ayokunle\r\nCountry- Nigerian\r\nSoftware Engineer and Programmer\r\nE-mail address- raysemond@yahoo.com', 'To create a platform that becomes the largest source of original \"OPINION DRIVEN\" video, photographic and contextual content on the web globally.', 'Aimed at all genders- Gender equality. It would cater for 33% of high school seniors,  45% of online video viewers are ages 35-54', 'concept', 'The concept is aimed to compel users to compete with others by creating their own video based around a daily topic. View the creative videos that other people create with the same topic. This create a competition within users.', '1. Technology we intend to use: PHP/MySQL/Linux for web programming. \r\n2. Interactive components selected for uploading videos/photos and encoding/decoding videos.\r\n3. Time frame-Solution is technically detailed out. 12 weeks development cycle until full launch and 8 weeks  for full launch', 'To provide a positive and enduring experience, we will depend on viral techniques in growing our user base. The website will be an exclusive invite-only network for the first 4 months. We will also ensure that we invite consumers that meet certain criteria in our minds as being online social influencers – for example, someone that has 200+ friends in MySpace. Google Mail (“GMail”) and many other sites started this way.', 'What differentiate us it that by creating your own video based around a \"DAILY\" topic and also allows you view the creative videos that other people create on the same topic. downloading of video to user’s device. You are also free to download at anytime.', 'We intend to market 2017, and we have two phases to follow:\r\n1. Development:  12 weeks development phase until full launch. \r\n2. Beta launch-  8 week', 'The is a level playing ground whereby users compete with each other to be selected as the original video based on a topic for the day. Our website will be an exclusive invite-only network for the first couple of months. We will invite consumers that meet certain criteria in our minds as being online social influencers, Freelancer started this way and was a success.', '1. Website development -  $30, 000\r\n2. Marketing: User affiliate programs (compensate users that bring other active users)- $15, 000\r\n3. Hosting and bandwidth subscriptions for 4 months - $15, 000\r\n4. Gift prize- Daily gift that goes to users valued at $100; prize goes to highest user-rated original video created that day.-$15, 000\r\nOffice rent, utilities and other bills- $10, 000\r\nTotal - US$85, 000', 'The team is made up of talented individuals that are innovative, team builders, enterprising, enthusiasts, and also result oriented. We decided to form a team because we believe our individual strength can be used to create the largest source of original “OPINION DRIVEN” video, photographic, and contextual content on the web (globally). We have got professional in software development and business minded individuals in the team.', 'Yes', '', 'Yes', '', 0, 'WAFKndBXsJgtLywnYAUbftUzurpwaXL');
+  
+ALTER TABLE `eric_evaluation`
+ ADD PRIMARY KEY (`ID`), ADD KEY `submission_id` (`submission_id`,`judge_id`);
+
+ALTER TABLE `eric_submissions`
+ ADD PRIMARY KEY (`ID`);
+
+ALTER TABLE `eric_evaluation`
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `eric_submissions`
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+";
+  if($wpdb->get_var("SHOW TABLES LIKE 'eric_evaluation'") != 'eric_evaluation') {
+    $wpdb->query($query);
+  }
 }

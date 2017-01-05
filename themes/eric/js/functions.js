@@ -41,6 +41,27 @@ var ajaxURL = siteURL + '/ajax';
 		}
   }
   
+  
+  function showRequest(formData, jqForm, options) {
+    var isValid = true;
+    
+    if(isValid) {
+      $('body').showLoading();
+    }
+    
+    return true;
+  }
+
+  function showResponse(responseText, statusText, xhr, jqForm) {
+    if (statusText===" success" || statusText==="success"){
+      var url = window.location.href;
+      url = url.split("?")[0];
+      url += '?secret='+$('#secret', jqForm).val()+'&success='+responseText.success;
+      window.location.href = url;
+    }
+  }
+  
+  
   function verticalCenter() {
     if($('.vertical-center').length > 0) {
       $('.vertical-center').each(function() {
@@ -107,6 +128,29 @@ var ajaxURL = siteURL + '/ajax';
         $("a[href*=#]").not($('a[href*=#'+hash+']')).parents('li').removeClass('current-menu-item');
       });
     });
+    
+    
+    if($('.ajax-form').length > 0) {
+      $('.ajax-form').each(function() {
+        var $form = $(this);
+        if($form.attr("id")=='evaluation_form') {
+          $('.btn-submit', $form).click(function() {
+            $('#submit_type').attr('value', $(this).val());
+//            $form.submit();
+          });
+        }
+        var options = {
+          beforeSubmit:  showRequest, 
+          success: showResponse
+        };
+        
+        $form.submit(function() {
+          $(this).ajaxSubmit(options);
+          return false;
+        });
+      });
+    }
+    
     
     
     if($('#submissionForm').length > 0) {
@@ -452,6 +496,26 @@ var ajaxURL = siteURL + '/ajax';
               scrollToElement($('.faq-item-'+faqId), 600, -30);
             }
           });
+        });
+      });
+    }
+    
+    if($('.input-score-slider').length > 0) {
+      $('.input-score-slider').each(function() {
+        var $item = $(this);
+        $item.slider();
+        $item.on("change", function(slideEvt) {
+          $("#"+$item.data('slider-label')).text(slideEvt.value.newValue);
+          
+          var total_score = parseInt($('#score_scalability').val()) + 
+                  parseInt($('#score_human_centric').val()) + 
+                  parseInt($('#score_differentiated').val()) + 
+                  parseInt($('#score_acceleration').val()) + 
+                  parseInt($('#score_team').val());
+          
+          $('.total-score').text(total_score);
+          $('#total-score').attr('value', total_score);
+          
         });
       });
     }

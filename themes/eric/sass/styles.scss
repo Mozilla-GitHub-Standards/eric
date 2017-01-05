@@ -63,6 +63,7 @@ $grid-gutter-width:          30px !default;
 @import "images";
 @import "utilities";
 @import "utilities-responsive";
+@import "rules";
 @import "components/button-top";
 
 
@@ -2766,3 +2767,193 @@ em {
   }
 }
 
+
+
+.tbl-row {
+  font-family: $font-family-sans-serif;
+  border-bottom: 1px solid #efefef;
+  padding: 15px 0;
+  .tbl-col {
+    float: left;
+    width: (100%/6);
+    padding: 0 20px 0 0;
+    &.col-solution-name {width: 24%;}
+    &.col-team-leader {width: 20%;}
+    &.col-country {width: 18%;}
+    &.col-asset {width: 10%;}
+    &.col-score {width: 10%;}
+    &.col-evalaute {width: 18%;}
+  }
+  &.tbl-row-head {
+    padding: 10px 0;
+    color: $brand-secondary;
+    border-top: 1px solid #efefef;
+    border-bottom: 2px solid #efefef;
+  }
+  &:hover {
+    /*border-color: $brand-secondary;*/
+  }
+}
+
+.project-info {
+  margin: 0;
+  .tbl-col {
+    float: left;
+    width: (100%/5);
+    padding: 0 20px 0 0;
+    font-family: $font-family-sans-serif;
+    font-weight: 300;
+    span {
+      font-size: 1.285rem;
+      font-weight: 400;
+    }
+    &.col-solution-name {width: 25%;}
+    &.col-team-leader {width: 25%;}
+    &.col-country {width: 20%;}
+    &.col-asset {width: 15%;}
+    &.col-view {width: 15%;}
+  }
+}
+
+
+
+#evaluation_form {
+  margin: 30px 0 0;
+  h4 {
+    font-family: $font-family-sans-serif;
+    font-weight: 300;
+    font-size: 1.285rem;
+    /*color: $brand-secondary;*/
+    margin: 0 0 15px;
+  }
+  .question {
+    font-size: 1.071rem;
+    line-height: 1.5;
+  }
+  .score-slider {
+    padding: 10px;
+    margin: 10px 0;
+  }
+  .slider-label {
+    font-family: $font-family-sans-serif;
+    font-size: 1.285rem;
+    font-weight: 300;
+    margin: 0 0 20px;
+    text-align: center;
+    span {
+      font-weight: 700;
+    }
+  }
+  .score-instructions {
+    font-size: 13px;
+    p {
+      margin: 0 0 10px;
+    }
+    ul {
+      margin: 0;
+      padding: 0 0 0 20px;
+      li {
+        margin: 0 0 5px;
+      }
+    }
+  }
+  .hline {
+    height: 1px;
+    background: #f1f1f2;
+    margin: 20px 0;
+  }
+  
+  textarea {
+    width: 100%;
+    border: 1px solid #f1f1f2;
+    background: #f1f1f2;
+    padding: 10px;
+    outline: none !important;
+    &:focus {
+      border-color: $brand-secondary;
+    }
+  }
+  
+  button {
+    outline: none !important;
+    font-family: $font-family-sans-serif;
+    padding: 15px 20px;
+    width: 160px;
+    text-align: center;
+    border: none;
+    color: #fff;
+    background: $brand-secondary;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    line-height: 1;
+    &:hover {
+      background: #000;
+    }
+  }
+  
+  .evaluation-submitted {
+    background: $brand-secondary;
+    font-family: $font-family-sans-serif;
+    padding: 15px 20px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+}
+
+
+.judges-naviation {
+  position: absolute;
+  top: 0; right: 0;
+  margin: 0; padding: 0;
+  list-style: none;
+  font-family: $font-family-sans-serif;
+  top: 50%; right: $grid-gutter-width/2;
+  margin-top: -27px;
+  li {
+    margin: 0 0 15px;
+    border-right: 2px solid $brand-primary;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    text-align: right;
+    padding-right: 10px;
+    &:last-child {
+      margin: 0;
+    }
+    a {
+      color: $brand-secondary;
+    }
+  }
+}
+
+
+
+.solution-details {
+  h4 {
+    font-family: $font-family-sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    margin: 0 0 15px;
+    color: #000;
+  }
+  .hline {
+    height: 1px;
+    background: #f1f1f2;
+    margin: 25px 0 10px;
+  }
+  table {
+    width: 100%;
+    word-wrap:break-word;
+    table-layout: fixed;
+    td {
+      word-wrap:break-word;
+      padding: 8px 10px;
+      border: 1px solid #efefef;
+      vertical-align: top;
+    }
+  }
+}
