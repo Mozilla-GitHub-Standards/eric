@@ -53,6 +53,7 @@ var ajaxURL = siteURL + '/ajax';
   }
 
   function showResponse(responseText, statusText, xhr, jqForm) {
+    console.log(JOSN.stringify(responseText));
     if (statusText===" success" || statusText==="success"){
       var url = window.location.href;
       url = url.split("?")[0];
