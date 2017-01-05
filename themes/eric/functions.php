@@ -758,7 +758,7 @@ function custom_login_redirect() {
     exit();
   }
 }
-//add_action( 'wp', 'custom_login_redirect' );
+add_action( 'wp', 'custom_login_redirect' );
 
 add_action( 'admin_init', 'redirect_non_admin_users' );
 /**
@@ -1444,120 +1444,4 @@ function eric_custom_logout_action() {
   $loc = isset ( $_GET['redirect'] ) ? $_GET['redirect'] : SITE_URL;
   wp_redirect( $loc );
   exit;
-}
-
-
-
-add_action('init', 'process_query');
-function process_query(){
-  global $wpdb;
-  $query = "CREATE TABLE IF NOT EXISTS `eric_evaluation` (
-`ID` int(11) NOT NULL,
-  `submission_id` int(11) NOT NULL,
-  `judge_id` int(11) NOT NULL,
-  `score_scalability` int(11) NOT NULL DEFAULT '0',
-  `score_human_centric` int(11) NOT NULL DEFAULT '0',
-  `score_differentiated` int(11) NOT NULL DEFAULT '0',
-  `score_acceleration` int(11) NOT NULL DEFAULT '0',
-  `score_team` int(11) NOT NULL DEFAULT '0',
-  `benefit_membership` varchar(20) NOT NULL,
-  `comments` varchar(1000) NOT NULL,
-  `score` int(11) NOT NULL DEFAULT '0',
-  `submit_status` varchar(10) NOT NULL,
-  `submit_datetime` datetime NOT NULL,
-  `ip_address` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE IF NOT EXISTS `eric_submissions` (
-`ID` int(11) NOT NULL,
-  `submission_datetime` datetime NOT NULL,
-  `solution_name` varchar(200) NOT NULL,
-  `summary` varchar(2000) NOT NULL,
-  `leader_name` varchar(100) NOT NULL,
-  `leader_email` varchar(100) NOT NULL,
-  `leader_location` varchar(100) NOT NULL,
-  `leader_country` varchar(100) NOT NULL,
-  `leader_phone` varchar(100) NOT NULL,
-  `leader_phone_type` varchar(100) NOT NULL,
-  `leader_url` varchar(200) NOT NULL,
-  `leader_bio` varchar(1000) NOT NULL,
-  `member_name_1` varchar(100) NOT NULL,
-  `member_email_1` varchar(100) NOT NULL,
-  `member_location_1` varchar(100) NOT NULL,
-  `member_country_1` varchar(100) NOT NULL,
-  `member_phone_1` varchar(100) NOT NULL,
-  `member_phone_type_1` varchar(100) NOT NULL,
-  `member_url_1` varchar(200) NOT NULL,
-  `member_bio_1` varchar(1000) NOT NULL,
-  `member_name_2` varchar(100) NOT NULL,
-  `member_email_2` varchar(100) NOT NULL,
-  `member_location_2` varchar(100) NOT NULL,
-  `member_country_2` varchar(100) NOT NULL,
-  `member_phone_2` varchar(100) NOT NULL,
-  `member_phone_type_2` varchar(100) NOT NULL,
-  `member_url_2` varchar(200) NOT NULL,
-  `member_bio_2` varchar(1000) NOT NULL,
-  `member_name_3` varchar(100) NOT NULL,
-  `member_email_3` varchar(100) NOT NULL,
-  `member_location_3` varchar(100) NOT NULL,
-  `member_country_3` varchar(100) NOT NULL,
-  `member_phone_3` varchar(100) NOT NULL,
-  `member_phone_type_3` varchar(100) NOT NULL,
-  `member_url_3` varchar(200) NOT NULL,
-  `member_bio_3` varchar(1000) NOT NULL,
-  `member_name_4` varchar(100) NOT NULL,
-  `member_email_4` varchar(100) NOT NULL,
-  `member_location_4` varchar(100) NOT NULL,
-  `member_country_4` varchar(100) NOT NULL,
-  `member_phone_4` varchar(100) NOT NULL,
-  `member_phone_type_4` varchar(100) NOT NULL,
-  `member_url_4` varchar(200) NOT NULL,
-  `member_bio_4` varchar(1000) NOT NULL,
-  `member_name_5` varchar(100) NOT NULL,
-  `member_email_5` varchar(100) NOT NULL,
-  `member_location_5` varchar(100) NOT NULL,
-  `member_country5` varchar(100) NOT NULL,
-  `member_phone_5` varchar(100) NOT NULL,
-  `member_phone_type_5` varchar(100) NOT NULL,
-  `member_url_5` varchar(200) NOT NULL,
-  `member_bio_5` varchar(1000) NOT NULL,
-  `team_affiliated` varchar(2000) NOT NULL,
-  `solution_description` varchar(2000) NOT NULL,
-  `solution_audience` varchar(2000) NOT NULL,
-  `solution_maturity` varchar(100) NOT NULL,
-  `solution_equalrating` varchar(2000) NOT NULL,
-  `solution_scalability` varchar(2000) NOT NULL,
-  `solution_experience` varchar(2000) NOT NULL,
-  `solution_differntiation` varchar(2000) NOT NULL,
-  `solution_time_market` varchar(2000) NOT NULL,
-  `solution_feasibility` varchar(2000) NOT NULL,
-  `solution_roadmap` varchar(2000) NOT NULL,
-  `solution_whywin` varchar(2000) NOT NULL,
-  `opensource_solution` varchar(10) NOT NULL,
-  `opensource_solution_info` varchar(1000) NOT NULL,
-  `agree_terms` varchar(10) NOT NULL,
-  `solution_asset` varchar(500) NOT NULL,
-  `evaluation_status` tinyint(4) NOT NULL DEFAULT '0',
-  `secret_key` varchar(32) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
-
-INSERT INTO `eric_submissions` (`ID`, `submission_datetime`, `solution_name`, `summary`, `leader_name`, `leader_email`, `leader_location`, `leader_country`, `leader_phone`, `leader_phone_type`, `leader_url`, `leader_bio`, `member_name_1`, `member_email_1`, `member_location_1`, `member_country_1`, `member_phone_1`, `member_phone_type_1`, `member_url_1`, `member_bio_1`, `member_name_2`, `member_email_2`, `member_location_2`, `member_country_2`, `member_phone_2`, `member_phone_type_2`, `member_url_2`, `member_bio_2`, `member_name_3`, `member_email_3`, `member_location_3`, `member_country_3`, `member_phone_3`, `member_phone_type_3`, `member_url_3`, `member_bio_3`, `member_name_4`, `member_email_4`, `member_location_4`, `member_country_4`, `member_phone_4`, `member_phone_type_4`, `member_url_4`, `member_bio_4`, `member_name_5`, `member_email_5`, `member_location_5`, `member_country5`, `member_phone_5`, `member_phone_type_5`, `member_url_5`, `member_bio_5`, `team_affiliated`, `solution_description`, `solution_audience`, `solution_maturity`, `solution_equalrating`, `solution_scalability`, `solution_experience`, `solution_differntiation`, `solution_time_market`, `solution_feasibility`, `solution_roadmap`, `solution_whywin`, `opensource_solution`, `opensource_solution_info`, `agree_terms`, `solution_asset`, `evaluation_status`, `secret_key`) VALUES
-(1, '2017-11-21 00:00:00', 'Dumegi', 'This will be an online platform which will bring all Ugandan media houses into a single integrated platform for ease to content consumers.', 'Bwire Ancel', 'dumegidigital@gmail.com', 'Kampala', 'Uganda', '+256784667725', 'Mobile Phone', 'https://www.linkedin.com/profile/view?id=AAMAAAx-Ap4BzlETlxNSSaOFtg3djjjcTUIMd3k&trk=hp-identity-name', 'Ancel is a passionate user of the internet and has been an advocate for Open Internet governance. He is an entrepreneur running a concept development company called Ancywax. He also runs a food processing company called tuLe Mashariki. By age 33, he wants to be a dollar billionaire and his life long mission is to help others realize their potential and impact peoples lives especially those that people have written off or dont have faith in. ', 'Ernest Kaweesi', 'kaweesiernest@gmail.com', 'Kampala', 'Uganda', '+256703459420', 'Mobile Phone', 'https://www.linkedin.com/in/kaweesi-ernest-90a74b77?authType=NAME_SEARCH&authToken=Wpcl&locale=en_US&srchid=2095847981479725840929&srchindex=1&srchtotal=1&trk=vsrp_people_res_name&trkInfo=VSRPsearchId', 'Ernest is a code developer and runs Batutale as the co-founder. He is a detailed to attention guy who has a vision of making it big one day. Always one to go out of his way he always embraces success and acknowledges failure without shying away. His life long dream is to be wealthy entrepreneur who will not have to wake up to go to work!', 'Viola Nandawula', 'vbviolao2@gmail.com', 'Kampala', 'Uganda', '+256704900114', 'Mobile Phone', 'https://www.linkedin.com/in/viola-nandawula-0b103135?authType=NAME_SEARCH&authToken=Xaky&locale=en_US&srchid=2095847981479725851198&srchindex=1&srchtotal=1&trk=vsrp_people_res_name&trkInfo=VSRPsearchI', 'Viola is a programmer and  avid independent thinker. Strong advocate for what she believes in and relentless in pursuing success. Co founder of Batutale she also loves fashion, praying and helping out people. A very good listener she always offers her mind and also pictures a better life for herself and Batutale.', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Batutale and Ancywax are the principal owners of Dumegi. Batutale is a company that runs an ecommerce plaftorm advertising shops that sell personal items while Ancywax is a company that provides creative solutions in Media. Marketing. Consultancy. They undertake this through a process called Concept Development.', 'This will be an online platform which will bring all Ugandan media houses into a single integrated platform for ease to content consumers.', 'We are targeting Ugandans in the diaspora between the ages of 21-55 years. Those who are in the  lower and upper middle class, have a  disposable income of at least of between 1200-5000 USD monthly, are in the Central Americas, Middle East, Europe and Asia.', 'new to market', 'Due to we are a single platform the people would not need to access several sites for content. We are positioned to cater for news, programs, videos from media houses without the need of  a pay TV service, radio and newspapers which are more expensive and are more regulated by governments.', 'We intend to license versions of Dumegi to different countries start ups specifically targeting the Great Lakes region namely Rwanda, South Sudan, Ethiopia, Somalia, Djibouti, DRC and Burundi. We also will venture into making ads for our target consumers where we can shoot adverts and feature them on the platform, host live events paid for by sponsors, carry out ratings and opinion polls for advertisers to engage with the audience. We shall also sell the data analytics to interested parties who may want to use to reach their demographics.', 'Better platform to access all content in Uganda whether its radio, TV or newspapers. We also will have PVR to play back upto 4 hours of content meaning you can catch what you missed earlier regardless of which media house it is. It will also benefit the users as it saves time, data and is convenient for them to use single handed.', 'We are going to be more customer engaged as our content will be shared along easily and be availed upon demand. We shall also add value to our advertisers as we will avail our ad design and implementation services to them which is not happening now. As we are owned by two companies doing marketing it will boost their customer outlook more and the reverse is true.', 'December 2016.', 'We shall rely on existing infrastructure namely YouTube, New Vision, Daily Monitor and other publications to feed Dumegi''s feed just as kenyamoja.com does it for Kenya. This will ensure we are ever getting content uploaded and direct using the backlinks on Dumegi. Advertisers will come on board initially from Batutale and Ancywax clients who will pay a premium fee as they are already there and when we shall get others specifically for Dumegi standard fees will apply.  We shall also sell data analytics to interested parties alongside sponsored shows online for live coverage. Carrying out opinion polls, surveys, questionnaires', 'We shall apply for an IP  to protect the idea as we already have the prototype and also register the company Dumegi Digital.  Marketing and promotion campaigns offline and online to reach out to our customer base. We then will invest in research to identify new markets, customer habits and areas which we can work on Dumegi. Purchase computers, issue out salaries and wages,  hire rental premises will also come along.', 'We are a team that is set out to achieve greatness in marketing. Our idea Dumegi is a breakthrough of 7 months in deliberating on how Batutale and Ancywax can work together as we have consulted on each others companies namely social media, marketing, brand awareness and identity. We have worked on this idea since and have successfully completed sending it to the Innovation  Africa Challenge 2016  so far and continue seeking more opportunities for it. For Dumegi Batutale took on the coding while Ancywax carried out research. We also together want to disrupt the media industry towards internet.', 'No', 'We are a team that is set out to achieve greatness in marketing. Our idea Dumegi is a breakthrough of 7 months in deliberating on how Batutale and Ancywax can work together as we have consulted on each others companies namely social media, marketing, brand awareness and identity. We have worked on this idea since and have successfully completed sending it to the Innovation  Africa Challenge 2016  so far and continue seeking more opportunities for it. For Dumegi Batutale took on the coding while Ancywax carried out research. We also together want to disrupt the media industry towards internet.', 'Yes', 'https://equalrating.com/wp-content/uploads/submissions/1479724589_TIME LINE.png', 0, 'BrvRjMrDJmmzBUMPHwuMnRVEZdmVdWt'),
-(2, '2016-11-24 00:00:00', 'NKEM', '', 'Olafusi Ofili Uju', 'blessedsoma@yahoo.com', 'Lagos, Lagos State', 'Nigeria', '8063608682', 'Mobile Phone', 'LinkedIn- Olafusi Ofili Uju', 'My name is Olafusi Ofili Uju, a Nigerian, a chemical engineer and  a female that strongly believes what a man can do a woman can do better. I believe a creative individual. I look to discover how things fit and works.', 'Olafusi', 'raymondolafusi@gmail.com', 'Yenagoa, Bayelsa', 'Nigeria', '8063608682', 'Mobile Phone', 'LinkedIn- Olafusi Oluwaseun Raymond (MNSE)', 'I am Olafusi Oluwaseun Raymond, a civil engineer that believes in new challenges and ideas. A Nigerian and resides presently in Nigeria. I am also an expert in project management.', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Team member-\r\nAyodele Ayokunle\r\nCountry- Nigerian\r\nSoftware Engineer and Programmer\r\nE-mail address- raysemond@yahoo.com', 'To create a platform that becomes the largest source of original \"OPINION DRIVEN\" video, photographic and contextual content on the web globally.', 'Aimed at all genders- Gender equality. It would cater for 33% of high school seniors,  45% of online video viewers are ages 35-54', 'concept', 'The concept is aimed to compel users to compete with others by creating their own video based around a daily topic. View the creative videos that other people create with the same topic. This create a competition within users.', '1. Technology we intend to use: PHP/MySQL/Linux for web programming. \r\n2. Interactive components selected for uploading videos/photos and encoding/decoding videos.\r\n3. Time frame-Solution is technically detailed out. 12 weeks development cycle until full launch and 8 weeks  for full launch', 'To provide a positive and enduring experience, we will depend on viral techniques in growing our user base. The website will be an exclusive invite-only network for the first 4 months. We will also ensure that we invite consumers that meet certain criteria in our minds as being online social influencers – for example, someone that has 200+ friends in MySpace. Google Mail (“GMail”) and many other sites started this way.', 'What differentiate us it that by creating your own video based around a \"DAILY\" topic and also allows you view the creative videos that other people create on the same topic. downloading of video to user’s device. You are also free to download at anytime.', 'We intend to market 2017, and we have two phases to follow:\r\n1. Development:  12 weeks development phase until full launch. \r\n2. Beta launch-  8 week', 'The is a level playing ground whereby users compete with each other to be selected as the original video based on a topic for the day. Our website will be an exclusive invite-only network for the first couple of months. We will invite consumers that meet certain criteria in our minds as being online social influencers, Freelancer started this way and was a success.', '1. Website development -  $30, 000\r\n2. Marketing: User affiliate programs (compensate users that bring other active users)- $15, 000\r\n3. Hosting and bandwidth subscriptions for 4 months - $15, 000\r\n4. Gift prize- Daily gift that goes to users valued at $100; prize goes to highest user-rated original video created that day.-$15, 000\r\nOffice rent, utilities and other bills- $10, 000\r\nTotal - US$85, 000', 'The team is made up of talented individuals that are innovative, team builders, enterprising, enthusiasts, and also result oriented. We decided to form a team because we believe our individual strength can be used to create the largest source of original “OPINION DRIVEN” video, photographic, and contextual content on the web (globally). We have got professional in software development and business minded individuals in the team.', 'Yes', '', 'Yes', '', 0, 'WAFKndBXsJgtLywnYAUbftUzurpwaXL');
-  
-ALTER TABLE `eric_evaluation`
- ADD PRIMARY KEY (`ID`), ADD KEY `submission_id` (`submission_id`,`judge_id`);
-
-ALTER TABLE `eric_submissions`
- ADD PRIMARY KEY (`ID`);
-
-ALTER TABLE `eric_evaluation`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `eric_submissions`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
-";
-  if($wpdb->get_var("SHOW TABLES LIKE 'eric_evaluation'") != 'eric_evaluation') {
-    $wpdb->query($query);
-  }
 }
