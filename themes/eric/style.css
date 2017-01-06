@@ -8,11 +8,11 @@ Version: 1.0
 */
 
 .submission-form-status.closed {
-  background-color: #E04164 !important;
+  background-color: #E24165 !important;
 }
 
 @media (max-width: 991px) {
   .site-header .countdown-wrapper {
-    background: #E04164 !important;
+    background: #E24165 !important;
   }
 }
