@@ -1338,14 +1338,14 @@ function eric_submission_view($secret=null) {
 
 function eric_evaluation_form($secret=null) {
   global $wpdb;
-  
+  $judge_id = get_current_user_id();
   if(is_null($secret)) {
     return "Invalid Request!";
   }
   
   $submission_id = $wpdb->get_var("SELECT ID FROM $wpdb->submissions WHERE secret_key='$secret'");
   
-  $evaluation = $wpdb->get_row("SELECT * FROM $wpdb->evaluation WHERE submission_id='$submission_id' AND submit_status IN ('draft', 'submit')", ARRAY_A);
+  $evaluation = $wpdb->get_row("SELECT * FROM $wpdb->evaluation WHERE judge_id='$judge_id' AND submission_id='$submission_id' AND submit_status IN ('draft', 'submit')", ARRAY_A);
   
   if(!($evaluation)) {
     $evaluation = array(
