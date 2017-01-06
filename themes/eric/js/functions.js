@@ -10,6 +10,7 @@ var request;
 var siteURL = get_hostname(document.location.href);
 var uploadURL = siteURL + '/upload';
 var ajaxURL = siteURL + '/ajax';
+//siteURL += '/equalrating';
 
 ( function( $ ) {
   $.fn.equalizeHeights = function(){
@@ -53,7 +54,6 @@ var ajaxURL = siteURL + '/ajax';
   }
 
   function showResponse(responseText, statusText, xhr, jqForm) {
-    console.log(JSON.stringify(responseText));
     if (statusText===" success" || statusText==="success"){
       var url = window.location.href;
       url = url.split("?")[0];
@@ -130,16 +130,59 @@ var ajaxURL = siteURL + '/ajax';
       });
     });
     
+    if($(".btn-submit-evaluation").length > 0) {
+      $(".btn-submit-evaluation").each(function() {
+        var $item = $(this);
+        var $parent = $item.parents('.tbl-row');
+        var $link = $('a', $item);
+        
+        $link.click(function(e) {
+          e.preventDefault();
+          $.confirm({
+            title: 'Confirm!',
+            content: 'Would like to submit yourscore?',
+            type: 'green',
+            buttons: {
+              confirm: {
+                text: 'Yes',
+                btnClass: 'btn-primary',
+                action: function() {
+                  var itemInfo = {
+                    secret: $item.data('secret'),
+                    action: 'submit'
+                  };
+                  $('body').showLoading();
+                  $.ajax({
+                    url: siteURL+'/evaluation/submit',
+                    type: 'post',
+                    dataType: 'json',
+                    data: itemInfo,
+                    success: function (data) {
+                      $('body').hideLoading();
+                      if(data.success==1) {
+                        $item.html('<strong>SUBMITTED</strong>');
+                        $('.evaluate-now', $parent).text('Evaluate now');
+                      }
+                      $.alert({
+                        title: data.message,
+                        content: ''
+                      });
+                    }
+                  });
+                }
+              },
+              cancel: {
+                text: 'No'
+              }
+            }
+          });
+        });
+      });
+    }
     
     if($('.ajax-form').length > 0) {
       $('.ajax-form').each(function() {
         var $form = $(this);
-        if($form.attr("id")=='evaluation_form') {
-          $('.btn-submit', $form).click(function() {
-            $('#submit_type').attr('value', $(this).val());
-//            $form.submit();
-          });
-        }
         var options = {
           beforeSubmit:  showRequest, 
           success: showResponse

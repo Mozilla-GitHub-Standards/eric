@@ -262,6 +262,7 @@ function twentysixteen_scripts() {
   wp_enqueue_script('jquery-textcounter', THEME_PATH . '/js/textcounter.js', array('jquery'), '0.3.6', false);
   wp_enqueue_script('bootstrap-slider', THEME_PATH . '/js/bootstrap-slider.js', array('jquery'), 'v9.5.4');
   
+  
   wp_enqueue_script( 'mozilla-newsletter', THEME_PATH . '/js/basket-client.js', array('jquery'), '2.0', true );
   wp_enqueue_script('jquery-countdown', THEME_PATH . '/js/jquery.countdown.min.js', array('jquery'), '2.1.0');
   
@@ -272,6 +273,8 @@ function twentysixteen_scripts() {
   wp_enqueue_script( 'jquery-bxslider', THEME_PATH . '/js/jquery.bxslider.min.js', array(), 'v4.1.2', false );
   wp_enqueue_style( 'bxslider', THEME_PATH .'/css/jquery.bxslider.css' );
   
+  
+  wp_enqueue_script('jquery.confirm', THEME_PATH . '/js/jquery-confirm.js', array('jquery'), 'v3.0.1');
 	wp_enqueue_script( 'twentysixteen-script', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '20151204', true );
 }
 add_action( 'wp_enqueue_scripts', 'twentysixteen_scripts' );
@@ -766,8 +769,8 @@ add_action( 'admin_init', 'redirect_non_admin_users' );
  * This function is attached to the 'admin_init' action hook.
  */
 function redirect_non_admin_users() {
-	if ( ! current_user_can( 'manage_options' ) && '/wp-admin/admin-ajax.php' != $_SERVER['PHP_SELF'] ) {
-		wp_redirect( SITE_URL() );
+	if ( ! current_user_can( 'edit_posts' ) && '/wp-admin/admin-ajax.php' != $_SERVER['PHP_SELF'] ) {
+		wp_redirect( SUBMISSIONS_PAGE_URL );
 		exit;
 	}
 }
@@ -1140,28 +1143,64 @@ function eric_submissions() {
           . "ORDER BY s.solution_name ASC";
   
   $submissions = $wpdb->get_results($strqry);
+//  var_dump($submissions);
+  
+  
   if($submissions) {
     $return .= '<div class="tbl-row tbl-row-head clearfix">';
-      $return .= '<div class="tbl-col col-solution-name">Solution Name</div>';
+      $return .= '<div class="tbl-col col-sn">No.</div>';
+      $return .= '<div class="tbl-col col-project-name">Project Name</div>';
       $return .= '<div class="tbl-col col-team-leader">Team Leader</div>';
       $return .= '<div class="tbl-col col-country">Country</div>';
-      $return .= '<div class="tbl-col col-asset">Image</div>';
+      $return .= '<div class="tbl-col col-image">Image</div>';
+      $return .= '<div class="tbl-col col-evaluation">Evaluation</div>';
       $return .= '<div class="tbl-col col-score">Score</div>';
-      $return .= '<div class="tbl-col col-evalaute">Evaluate</div>';
+      $return .= '<div class="tbl-col col-status">Status</div>';
     $return .= '</div>';
-    
+    $counter=1;
     foreach($submissions as $submission) {
+      $evaluation_link_url = EVALUATION_PAGE_URL.'/?secret='.$submission->secret_key;
       $return .= '<div class="tbl-row">';
-        $return .= '<div class="tbl-col col-solution-name"><a href="'.SUBMISSION_VIEW_PAGE_URL.'/?secret='.$submission->secret_key.'">'.$submission->solution_name.'</a></div>';
+        $return .= '<div class="tbl-col col-sn">'.$counter.'</div>';
+        $return .= '<div class="tbl-col col-project-name"><a href="'.SUBMISSION_VIEW_PAGE_URL.'/?secret='.$submission->secret_key.'">'.$submission->solution_name.'</a></div>';
         $return .= '<div class="tbl-col col-team-leader">'.$submission->leader_name.'&nbsp;</div>';
         $return .= '<div class="tbl-col col-country">'.$submission->leader_country.'&nbsp;</div>';
-        $return .= '<div class="tbl-col col-asset">'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">View</a>': '-').'</div>';
-        $return .= '<div class="tbl-col col-score">'.(int)$submission->score.'&nbsp;</div>';
-        $return .= '<div class="tbl-col col-evalaute"><a href="'.EVALUATION_PAGE_URL.'/?secret='.$submission->secret_key.'">'.(($submission->submit_status=='submit') ? 'Evaluation Complete': 'Evaluate Now').'</a>&nbsp;</div>';
+        $return .= '<div class="tbl-col col-image">'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">Yes</a>': 'No').'</div>';
+        $return .= '<div class="tbl-col col-evaluation">';
+          if($submission->submit_status === 'draft') {
+            $return .= '<span class="evaluate-now"><a href="'.$evaluation_link_url.'" target="_blank"><strong>Evaluate now</strong></a></span> | <strong>Evaluation completed</strong>';
+          } elseif ($submission->submit_status === 'submit' ) {
+            $return .= '<span class="evaluate-now">Evaluate now</strong> | <strong>Evaluation completed</strong>';
+          } else {
+            $return .= '<span class="evaluate-now"><a href="'.$evaluation_link_url.'" target="_blank"><strong>Evaluate now</strong></a></span> | Evaluation completed';
+          }
+        $return .= '</div>';
+        
+        $return .= '<div class="tbl-col col-score">';
+          if($submission->submit_status === 'draft' OR $submission->submit_status === 'submit' ) {
+            $return .= '<strong>'.(int)$submission->score.'</strong>';
+          } else{
+            $return .= '<a href="'.$evaluation_link_url.'" target="_blank">Not scored</a>';
+          }
+        $return .= '</div>';
+        $return .= '<div class="tbl-col col-stauts">';
+        
+          if($submission->submit_status === 'draft') {
+            $return .= '<span class="btn-submit-evaluation" data-secret="'.$submission->secret_key.'"><a href="javascript:void();"><strong>Submit now</strong></a></span>';
+          } elseif ($submission->submit_status === 'submit' ) {
+            $return .= '<strong>SUBMITTED</strong>';
+          } else{
+            $return .= '<a href="'.$evaluation_link_url.'" target="_blank">Not scored</a>';
+          }
+        $return .= '</div>';
+        
         $return .= '<div class="clearfix"></div>';
       $return .= '</div>';
+      $counter++;
     }
   }
+  
+  //<a href="'.EVALUATION_PAGE_URL.'/?secret='.$submission->secret_key.'">'.(($submission->submit_status=='submit') ? 'Evaluation Complete': 'Evaluate Now').'</a>
   echo $return;
 }
 
@@ -1175,10 +1214,10 @@ function eric_submission_info($secret=null) {
   $submission = $wpdb->get_row("SELECT * FROM $wpdb->submissions WHERE secret_key='$secret'");
   if($submission) {
     $return .= '<div class="project-info clearfix">';
-      $return .= '<div class="tbl-col col-solution-name">Solution Name<br /><span>'.$submission->solution_name.'</span></div>';
+      $return .= '<div class="tbl-col col-solution-name">Project Name<br /><span>'.$submission->solution_name.'</span></div>';
       $return .= '<div class="tbl-col col-team-leader">Team Leader<br /><span>'.$submission->leader_name.'</span></div>';
       $return .= '<div class="tbl-col col-country">Country<br /><span>'.$submission->leader_country.'</span></div>';
-      $return .= '<div class="tbl-col col-asset">Image<br /><span>'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">View</a>': '-').'</span></div>';
+      $return .= '<div class="tbl-col col-asset">Image<br /><span>'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">Yes</a>': 'No').'</span></div>';
       $return .= '<div class="tbl-col col-asset">Submission<br /><span><a href="'.SUBMISSION_VIEW_PAGE_URL.'/?secret='.$submission->secret_key.'" target="_blank">Full Entry</a></span></div>';
     $return .= '</div>';
   }
@@ -1410,14 +1449,7 @@ function eric_evaluation_form($secret=null) {
       $return .= '<input type="hidden" id="secret" name="secret" value="'.$secret.'">';
       $return .= '<input type="hidden" id="total_score" name="total_score" value="'.$evaluation['score'].'">';
       $return .= '<input type="hidden" id="submit_type" name="submit_type" value="draft">';
-      $return .= '<h4>Save Draft</h4>';
-      $return .= '<p>You are allowed to edit the evaluation till the final submission.</p>';
-      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="draft">Save as Draft</button>';
-
-      $return .= '<div class="hline"></div>';
-      $return .= '<h4>Final Submission</h4>';
-      $return .= '<p>Once you submit the evaluation it can&rsquo; be edited.</p>';
-      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="submit">Final Submit</button>';
+      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="draft">Done</button>';
     }
   $return .= '</form>';
   echo $return;
