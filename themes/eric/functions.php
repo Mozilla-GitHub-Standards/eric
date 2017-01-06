@@ -1454,26 +1454,3 @@ function eric_evaluation_form($secret=null) {
   $return .= '</form>';
   echo $return;
 }
-
-
-
-add_filter( 'logout_url', 'eric_custom_logout_url', 10, 2 );
-add_action( 'wp_loaded', 'eric_custom_logout_action' );
-
-function eric_custom_logout_url( $logout_url, $redirect ) {
-  $url = add_query_arg( 'logout', 1, home_url( '/' ) );
-  if ( ! empty ( $redirect ) ) {
-    $url = add_query_arg( 'redirect', $redirect, $url );
-  }
-  return $url;
-}
-
-function eric_custom_logout_action() {
-  if ( ! isset ( $_GET['logout'] ) ) {
-    return;
-  }
-  wp_logout();
-  $loc = isset ( $_GET['redirect'] ) ? $_GET['redirect'] : SITE_URL;
-  wp_redirect( $loc );
-  exit;
-}

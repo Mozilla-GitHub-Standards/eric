@@ -30,7 +30,7 @@
       
       <ul class="judges-naviation">
         <li><a href="<?php echo SITE_URL.'/submissions';?>">Submissions</a></li>
-        <li><a href="<?php echo SITE_URL.'/logout';?>">Log out</a></li>
+        <li><a href="<?php echo wp_logout_url();?>">Log out</a></li>
       </ul>
     </div>
   </header><!-- .site-header -->
