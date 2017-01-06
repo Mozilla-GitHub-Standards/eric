@@ -140,7 +140,7 @@ var ajaxURL = siteURL + '/ajax';
           e.preventDefault();
           $.confirm({
             title: 'Confirm!',
-            content: 'Would like to submit yourscore?',
+            content: 'Would like to submit your score?',
             type: 'green',
             buttons: {
               confirm: {
