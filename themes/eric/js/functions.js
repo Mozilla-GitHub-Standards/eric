@@ -55,9 +55,11 @@ var ajaxURL = siteURL + '/ajax';
 
   function showResponse(responseText, statusText, xhr, jqForm) {
     if (statusText===" success" || statusText==="success"){
-      var url = window.location.href;
-      url = url.split("?")[0];
-      url += '?secret='+$('#secret', jqForm).val()+'&success='+responseText.success;
+//      var url = window.location.href;
+//      url = url.split("?")[0];
+//      url += '?secret='+$('#secret', jqForm).val()+'&success='+responseText.success;
+
+      var url = siteURL + '/submissions';
       window.location.href = url;
     }
   }

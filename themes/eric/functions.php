@@ -1167,12 +1167,10 @@ function eric_submissions() {
         $return .= '<div class="tbl-col col-country">'.$submission->leader_country.'&nbsp;</div>';
         $return .= '<div class="tbl-col col-image">'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">Yes</a>': 'No').'</div>';
         $return .= '<div class="tbl-col col-evaluation">';
-          if($submission->submit_status === 'draft') {
-            $return .= '<span class="evaluate-now"><a href="'.$evaluation_link_url.'" target="_blank"><strong>Evaluate now</strong></a></span> | <strong>Evaluation completed</strong>';
-          } elseif ($submission->submit_status === 'submit' ) {
-            $return .= '<span class="evaluate-now">Evaluate now</strong> | <strong>Evaluation completed</strong>';
+          if($submission->submit_status === 'submit') {
+            $return .= '<strong>Evaluation completed</strong>';
           } else {
-            $return .= '<span class="evaluate-now"><a href="'.$evaluation_link_url.'" target="_blank"><strong>Evaluate now</strong></a></span> | Evaluation completed';
+            $return .= '<span class="evaluate-now"><a href="'.$evaluation_link_url.'"><strong>Evaluate now</strong></a></span>';
           }
         $return .= '</div>';
         
@@ -1180,7 +1178,7 @@ function eric_submissions() {
           if($submission->submit_status === 'draft' OR $submission->submit_status === 'submit' ) {
             $return .= '<strong>'.(int)$submission->score.'</strong>';
           } else{
-            $return .= '<a href="'.$evaluation_link_url.'" target="_blank">Not scored</a>';
+            $return .= '<a href="'.$evaluation_link_url.'">Not scored</a>';
           }
         $return .= '</div>';
         $return .= '<div class="tbl-col col-stauts">';
@@ -1190,7 +1188,7 @@ function eric_submissions() {
           } elseif ($submission->submit_status === 'submit' ) {
             $return .= '<strong>SUBMITTED</strong>';
           } else{
-            $return .= '<a href="'.$evaluation_link_url.'" target="_blank">Not scored</a>';
+            $return .= '<a href="'.$evaluation_link_url.'">Not scored</a>';
           }
         $return .= '</div>';
         
@@ -1233,21 +1231,17 @@ function eric_submission_view($secret=null) {
   }
   $submission = $wpdb->get_row("SELECT * FROM $wpdb->submissions WHERE secret_key='$secret'", ARRAY_A);
   if($submission) {
+    $return .= '<h2 class="page-heading">Submission: '.$submission['solution_name'].'</h2>';
     $return .= '<div class="solution-details clearfix">';
-      $return .= '<div class="hline"></div>';
-      $return .= '<h4 class="section-title"><strong>SUMMARY</strong></h4>';
-      $return .= $submission['summary'];
-      
-      $return .= '<div class="hline"></div>';
       $return .= '<h4 class="section-title"><strong>TEAM LEADER</strong></h4>';
       $return .= '<table>';
-        $return .= '<tr><td width="40%">Team Leader Name</td><td width="60%">'.$submission['leader_name'].'</td></tr>';
-        $return .= '<tr><td>Team Leader Email</td><td>'.$submission['leader_email'].'</td></tr>';
-        $return .= '<tr><td>Team Leader location (city/state)</td><td>'.$submission['leader_location'].'</td></tr>';
-        $return .= '<tr><td>Team Leader country</td><td>'.$submission['leader_country'].'</td></tr>';
-        $return .= '<tr><td>Team Leader phone number</td><td>'.$submission['leader_phone'].' ('.$submission['leader_phone_type'].')</td></tr>';
-        $return .= '<tr><td>Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['leader_url'].'</td></tr>';
-        $return .= '<tr><td>Team Leader bio (80 words max)</td><td>'.$submission['leader_bio'].'</td></tr>';
+        $return .= '<tr><td width="40%" class="question">Team Leader Name</td><td width="60%">'.$submission['leader_name'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader Email</td><td>'.$submission['leader_email'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader location (city/state)</td><td>'.$submission['leader_location'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader country</td><td>'.$submission['leader_country'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader phone number</td><td>'.$submission['leader_phone'].' ('.$submission['leader_phone_type'].')</td></tr>';
+        $return .= '<tr><td class="question">Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['leader_url'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader bio (80 words max)</td><td>'.$submission['leader_bio'].'</td></tr>';
       $return .= '</table>';
       
       for($i=1; $i<=5; $i++) {
@@ -1255,13 +1249,13 @@ function eric_submission_view($secret=null) {
           $return .= '<div class="hline"></div>';
           $return .= '<h4 class="section-title"><strong>TEAM MEMBER</strong></h4>';
           $return .= '<table>';
-            $return .= '<tr><td width="40%">Team Leader Name</td><td width="60%">'.$submission['member_name_'.$i].'</td></tr>';
-            $return .= '<tr><td>Team Leader Email</td><td>'.$submission['member_email_'.$i].'</td></tr>';
-            $return .= '<tr><td>Team Leader location (city/state)</td><td>'.$submission['member_location_'.$i].'</td></tr>';
-            $return .= '<tr><td>Team Leader country</td><td>'.$submission['member_country_'.$i].'</td></tr>';
-            $return .= '<tr><td>Team Leader phone number</td><td>'.$submission['member_phone_'.$i].' ('.$submission['member_phone_type_'.$i].')</td></tr>';
-            $return .= '<tr><td>Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['member_url_'.$i].'</td></tr>';
-            $return .= '<tr><td>Team Leader bio (80 words max)</td><td>'.$submission['member_bio_'.$i].'</td></tr>';
+            $return .= '<tr><td width="40%" class="question">Team Leader Name</td><td width="60%">'.$submission['member_name_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader Email</td><td>'.$submission['member_email_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader location (city/state)</td><td>'.$submission['member_location_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader country</td><td>'.$submission['member_country_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader phone number</td><td>'.$submission['member_phone_'.$i].' ('.$submission['member_phone_type_'.$i].')</td></tr>';
+            $return .= '<tr><td class="question">Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['member_url_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader bio (80 words max)</td><td>'.$submission['member_bio_'.$i].'</td></tr>';
           $return .= '</table>';
         }
       }
@@ -1327,9 +1321,9 @@ function eric_submission_view($secret=null) {
         $return .= $submission['opensource_solution_info'];
       }
       
-      $return .= '<div class="hline"></div>';
-      $return .= '<h4 class="section-title"><strong>VISUAL ASSET</strong></h4>';
-      $return .= (($submission['solution_asset']) ? '<a href="'.$submission['solution_asset'].'" target="_blank">View</a>': '-');
+//      $return .= '<div class="hline"></div>';
+//      $return .= '<h4 class="section-title"><strong>VISUAL ASSET</strong></h4>';
+//      $return .= (($submission['solution_asset']) ? '<a href="'.$submission['solution_asset'].'" target="_blank">Yes</a>': 'No');
     $return .= '</div>';
   }
   

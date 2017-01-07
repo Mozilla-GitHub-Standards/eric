@@ -13,8 +13,6 @@ get_header('evaluation'); ?>
       <section class="page-section">
       <?php
         while ( have_posts() ) : the_post();
-          echo '<h2 class="page-heading">Solution Details</h2>';
-          
           eric_submission_view($_GET['secret']);
         endwhile;
       ?>
