@@ -1317,7 +1317,7 @@ function eric_submission_view($secret=null) {
       $return .= '<h4 class="section-title"><strong>OPEN SOURCE:</strong> Are you open sourcing your solution?</h4>';
       $return .= '<strong>'.$submission['opensource_solution'].'</strong>';
       if($submission['opensource_solution']=='No') {
-        $return .= '<p><br /><em>If no, please review Mozilla’s opinion in the FAQ , and describe your alternative path to accomplish similar goals and avoid known pitfalls. (200 words max)</em></p>';
+        $return .= '<h4 class="section-title"><br />If no, please review Mozilla&rsquo;s opinion in the FAQ , and describe your alternative path to accomplish similar goals and avoid known pitfalls. (200 words max)</h4>';
         $return .= $submission['opensource_solution_info'];
       }
       
