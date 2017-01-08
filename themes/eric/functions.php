@@ -1321,7 +1321,9 @@ function eric_submission_view($secret=null) {
         $return .= $submission['opensource_solution_info'];
       }
       
-//      $return .= '<div class="hline"></div>';
+      $return .= '<div class="hline"></div>';
+      $evaluation_link_url = EVALUATION_PAGE_URL.'/?secret='.$secret;
+      $return .= '<a href="'.$evaluation_link_url.'" class="link-button">Evaluate now</a>';
 //      $return .= '<h4 class="section-title"><strong>VISUAL ASSET</strong></h4>';
 //      $return .= (($submission['solution_asset']) ? '<a href="'.$submission['solution_asset'].'" target="_blank">Yes</a>': 'No');
     $return .= '</div>';
