@@ -1321,9 +1321,17 @@ function eric_submission_view($secret=null) {
         $return .= $submission['opensource_solution_info'];
       }
       
+      
       $return .= '<div class="hline"></div>';
+      $judge_id = get_current_user_id();
+      $submission_id = $wpdb->get_var("SELECT ID FROM $wpdb->submissions WHERE secret_key='$secret'");
+      $evaluation_status = $wpdb->get_var("SELECT submit_status FROM $wpdb->evaluation WHERE judge_id='$judge_id' AND submission_id='$submission_id' AND submit_status IN ('draft', 'submit')");
       $evaluation_link_url = EVALUATION_PAGE_URL.'/?secret='.$secret;
-      $return .= '<a href="'.$evaluation_link_url.'" class="link-button">Evaluate now</a>';
+      if($evaluation_status == 'submit') {
+        $return .= '<a href="'.$evaluation_link_url.'" class="link-button">Evaluation completed</a>';
+      } else {
+        $return .= '<a href="'.$evaluation_link_url.'" class="link-button">Evaluate now</a>';
+      }
 //      $return .= '<h4 class="section-title"><strong>VISUAL ASSET</strong></h4>';
 //      $return .= (($submission['solution_asset']) ? '<a href="'.$submission['solution_asset'].'" target="_blank">Yes</a>': 'No');
     $return .= '</div>';
