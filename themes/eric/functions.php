@@ -43,6 +43,9 @@ if(!isset($wpdb->subscribers)) {
 if(!isset($wpdb->submissions)) {
   $wpdb->submissions = $wpdb->prefix . 'submissions';
 }
+if(!isset($wpdb->submission_members)) {
+  $wpdb->submission_members = $wpdb->prefix . 'submission_members';
+}
 if(!isset($wpdb->evaluation)) {
   $wpdb->evaluation = $wpdb->prefix . 'evaluation';
 }
@@ -1137,14 +1140,14 @@ function eric_submissions() {
   $judge_id = get_current_user_id();
   
   $return = '';
-  $strqry = "SELECT s.*, e.score, e.submit_status FROM $wpdb->submissions s "
+  $strqry = "SELECT s.secret_key, s.solution_name, s.solution_asset, sm.leader_name, sm.leader_country, e.score, e.submit_status "
+          . "FROM $wpdb->submissions s "
+          . "LEFT JOIN $wpdb->submission_members sm ON s.ID=sm.submission_id "
           . "LEFT JOIN $wpdb->evaluation e ON s.ID=e.submission_id AND e.judge_id='$judge_id' AND e.submit_status IN ('draft', 'submit') "
           . "WHERE 1=1 "
           . "ORDER BY s.solution_name ASC";
   
   $submissions = $wpdb->get_results($strqry);
-//  var_dump($submissions);
-  
   
   if($submissions) {
     $return .= '<div class="tbl-row tbl-row-head clearfix">';
@@ -1209,7 +1212,7 @@ function eric_submission_info($secret=null) {
   if(is_null($secret)) {
     return "Invalid Request!";
   }
-  $submission = $wpdb->get_row("SELECT * FROM $wpdb->submissions WHERE secret_key='$secret'");
+  $submission = $wpdb->get_row("SELECT s.solution_name, s.solution_asset, s.secret_key, sm.leader_name, sm.leader_country  FROM $wpdb->submissions s LEFT JOIN $wpdb->submission_members sm ON s.ID=sm.submission_id WHERE secret_key='$secret'");
   if($submission) {
     $return .= '<div class="project-info clearfix">';
       $return .= '<div class="tbl-col col-solution-name">Project Name<br /><span>'.$submission->solution_name.'</span></div>';
@@ -1229,7 +1232,8 @@ function eric_submission_view($secret=null) {
   if(is_null($secret)) {
     return "Invalid Request!";
   }
-  $submission = $wpdb->get_row("SELECT * FROM $wpdb->submissions WHERE secret_key='$secret'", ARRAY_A);
+  $submission = $wpdb->get_row("SELECT s.*, sm.* FROM $wpdb->submissions s LEFT JOIN $wpdb->submission_members sm ON s.ID=sm.submission_id WHERE secret_key='$secret'", ARRAY_A);
+  
   if($submission) {
     $return .= '<h2 class="page-heading">Submission: '.$submission['solution_name'].'</h2>';
     $return .= '<div class="solution-details clearfix">';
@@ -1259,7 +1263,6 @@ function eric_submission_view($secret=null) {
           $return .= '</table>';
         }
       }
-      
       
       $return .= '<div class="hline"></div>';
       $return .= '<h4 class="section-title"><strong>AFFILIATION</strong></h4>';
@@ -1337,7 +1340,7 @@ function eric_submission_view($secret=null) {
     $return .= '</div>';
   }
   
-  echo $return;
+  echo nl2br(make_clickable($return));
 }
 
 function eric_evaluation_form($secret=null) {
@@ -1458,3 +1461,11 @@ function eric_evaluation_form($secret=null) {
   $return .= '</form>';
   echo $return;
 }
+
+
+//function make_clickable($text) {
+////	$url_pattern = "@(https?://([-\w\.]+)+(/([\w/_\.]*(\?\S+)?(#\S+)?)?)?)@";
+////  $replace = '<a href="$1" target="_blank">$1</a>';
+////  $text = preg_replace($url_pattern, $replace, $text);
+//	return $text;
+//}
