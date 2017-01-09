@@ -1228,7 +1228,7 @@ function eric_submission_view($secret=null) {
         $return .= '<tr><td class="question">Team Leader Email</td><td>'.$submission['leader_email'].'</td></tr>';
         $return .= '<tr><td class="question">Team Leader location (city/state)</td><td>'.$submission['leader_location'].'</td></tr>';
         $return .= '<tr><td class="question">Team Leader country</td><td>'.$submission['leader_country'].'</td></tr>';
-        $return .= '<tr><td class="question">Team Leader phone number</td><td>'.$submission['leader_phone'].' ('.$submission['leader_phone_type'].')</td></tr>';
+        $return .= '<tr><td class="question">Team Leader phone number</td><td>'.$submission['leader_phone'].'</td></tr>';
         $return .= '<tr><td class="question">Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['leader_url'].'</td></tr>';
         $return .= '<tr><td class="question">Team Leader bio (80 words max)</td><td>'.$submission['leader_bio'].'</td></tr>';
       $return .= '</table>';
@@ -1441,7 +1441,7 @@ function eric_evaluation_form($secret=null) {
       $return .= '<input type="hidden" id="secret" name="secret" value="'.$secret.'">';
       $return .= '<input type="hidden" id="total_score" name="total_score" value="'.$evaluation['score'].'">';
       $return .= '<input type="hidden" id="submit_type" name="submit_type" value="draft">';
-      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="draft">Done</button>';
+      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="draft">Save</button>';
     }
   $return .= '</form>';
   echo $return;
