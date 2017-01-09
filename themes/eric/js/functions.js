@@ -41,6 +41,29 @@ var ajaxURL = siteURL + '/ajax';
 		}
   }
   
+  
+  function showRequest(formData, jqForm, options) {
+    var isValid = true;
+    
+    if(isValid) {
+      $('body').showLoading();
+    }
+    
+    return true;
+  }
+
+  function showResponse(responseText, statusText, xhr, jqForm) {
+    if (statusText===" success" || statusText==="success"){
+//      var url = window.location.href;
+//      url = url.split("?")[0];
+//      url += '?secret='+$('#secret', jqForm).val()+'&success='+responseText.success;
+
+      var url = siteURL + '/submissions';
+      window.location.href = url;
+    }
+  }
+  
+  
   function verticalCenter() {
     if($('.vertical-center').length > 0) {
       $('.vertical-center').each(function() {
@@ -107,6 +130,72 @@ var ajaxURL = siteURL + '/ajax';
         $("a[href*=#]").not($('a[href*=#'+hash+']')).parents('li').removeClass('current-menu-item');
       });
     });
+    
+    if($(".btn-submit-evaluation").length > 0) {
+      $(".btn-submit-evaluation").each(function() {
+        var $item = $(this);
+        var $parent = $item.parents('.tbl-row');
+        var $link = $('a', $item);
+        
+        $link.click(function(e) {
+          e.preventDefault();
+          $.confirm({
+            title: 'Confirm!',
+            content: 'Would like to submit your score?',
+            type: 'green',
+            buttons: {
+              confirm: {
+                text: 'Yes',
+                btnClass: 'btn-primary',
+                action: function() {
+                  var itemInfo = {
+                    secret: $item.data('secret'),
+                    action: 'submit'
+                  };
+                  $('body').showLoading();
+                  $.ajax({
+                    url: siteURL+'/evaluation/submit',
+                    type: 'post',
+                    dataType: 'json',
+                    data: itemInfo,
+                    success: function (data) {
+                      $('body').hideLoading();
+                      if(data.success==1) {
+                        $item.html('<strong>SUBMITTED</strong>');
+                        $('.evaluate-now', $parent).text('<strong>Evaluation completed</strong>');
+                      }
+                      $.alert({
+                        title: data.message,
+                        content: ''
+                      });
+                    }
+                  });
+                }
+              },
+              cancel: {
+                text: 'No'
+              }
+            }
+          });
+        });
+      });
+    }
+    
+    if($('.ajax-form').length > 0) {
+      $('.ajax-form').each(function() {
+        var $form = $(this);
+        var options = {
+          beforeSubmit:  showRequest, 
+          success: showResponse
+        };
+        
+        $form.submit(function() {
+          $(this).ajaxSubmit(options);
+          return false;
+        });
+      });
+    }
+    
     
     
     if($('#submissionForm').length > 0) {
@@ -178,7 +267,7 @@ var ajaxURL = siteURL + '/ajax';
 
           // fire off the request to /form.php
           request = $.ajax({
-            url: "https://script.google.com/macros/s/AKfycbzanUBtLdkRLcviAJNu7D5XL8LPjhnCFAzoeD4DavqBD99c-TXJ/exec",
+            url: "https://script.google.com/macros/s/AKfycbyQYeWKn3EN2W8kR4weWZkQ3h-eqbpSOc2ypi_UnUCFKoH9yMo/exec",
             type: "post",
             data: serializedData
           });
@@ -452,6 +541,26 @@ var ajaxURL = siteURL + '/ajax';
               scrollToElement($('.faq-item-'+faqId), 600, -30);
             }
           });
+        });
+      });
+    }
+    
+    if($('.input-score-slider').length > 0) {
+      $('.input-score-slider').each(function() {
+        var $item = $(this);
+        $item.slider();
+        $item.on("change", function(slideEvt) {
+          $("#"+$item.data('slider-label')).text(slideEvt.value.newValue);
+          
+          var total_score = parseInt($('#score_scalability').val()) + 
+                  parseInt($('#score_human_centric').val()) + 
+                  parseInt($('#score_differentiated').val()) + 
+                  parseInt($('#score_acceleration').val()) + 
+                  parseInt($('#score_team').val());
+          
+          $('.total-score').text(total_score);
+          $('#total_score').attr('value', total_score);
+          
         });
       });
     }

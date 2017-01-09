@@ -24,6 +24,10 @@ define( 'FAQS_PAGE_URL', SUBMISSION_PAGE_URL.'faqs/' );
 define( 'RULES_PAGE_URL', SITE_URL.'/challenge-rules/' );
 define( 'AJAX_PAGE_URL', SITE_URL.'/ajax' );
 
+define( 'EVALUATION_PAGE_URL', SITE_URL.'/evaluation' );
+define( 'EVALUATION_SUBMIT_PAGE_URL', SITE_URL.'/evaluation/submit' );
+define( 'SUBMISSIONS_PAGE_URL', SITE_URL.'/submissions' );
+define( 'SUBMISSION_VIEW_PAGE_URL', SITE_URL.'/submissions/view' );
 
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -33,6 +37,15 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 if(!isset($wpdb->subscribers)) {
   $wpdb->subscribers = $wpdb->prefix . 'subscribers';
+}
+if(!isset($wpdb->submissions)) {
+  $wpdb->submissions = $wpdb->prefix . 'submissions';
+}
+if(!isset($wpdb->submission_members)) {
+  $wpdb->submission_members = $wpdb->prefix . 'submission_members';
+}
+if(!isset($wpdb->evaluation)) {
+  $wpdb->evaluation = $wpdb->prefix . 'evaluation';
 }
 
 /*
@@ -1111,4 +1124,331 @@ function remove_http($url) {
       }
    }
    return $url;
+}
+
+function eric_submissions() {
+  global $wpdb;
+  $judge_id = get_current_user_id();
+  
+  $return = '';
+  $strqry = "SELECT s.secret_key, s.solution_name, s.solution_asset, sm.leader_name, sm.leader_country, e.score, e.submit_status "
+          . "FROM $wpdb->submissions s "
+          . "LEFT JOIN $wpdb->submission_members sm ON s.ID=sm.submission_id "
+          . "LEFT JOIN $wpdb->evaluation e ON s.ID=e.submission_id AND e.judge_id='$judge_id' AND e.submit_status IN ('draft', 'submit') "
+          . "WHERE 1=1 "
+          . "ORDER BY s.solution_name ASC";
+  
+  $submissions = $wpdb->get_results($strqry);
+  
+  if($submissions) {
+    $return .= '<div class="tbl-row tbl-row-head clearfix">';
+      $return .= '<div class="tbl-col col-sn">No.</div>';
+      $return .= '<div class="tbl-col col-project-name">Project Name</div>';
+      $return .= '<div class="tbl-col col-team-leader">Team Leader</div>';
+      $return .= '<div class="tbl-col col-country">Country</div>';
+      $return .= '<div class="tbl-col col-image">Image</div>';
+      $return .= '<div class="tbl-col col-evaluation">Evaluation</div>';
+      $return .= '<div class="tbl-col col-score">Score</div>';
+      $return .= '<div class="tbl-col col-status">Status</div>';
+    $return .= '</div>';
+    $counter=1;
+    foreach($submissions as $submission) {
+      $evaluation_link_url = EVALUATION_PAGE_URL.'/?secret='.$submission->secret_key;
+      $return .= '<div class="tbl-row">';
+        $return .= '<div class="tbl-col col-sn">'.$counter.'</div>';
+        $return .= '<div class="tbl-col col-project-name"><a href="'.SUBMISSION_VIEW_PAGE_URL.'/?secret='.$submission->secret_key.'">'.$submission->solution_name.'</a></div>';
+        $return .= '<div class="tbl-col col-team-leader">'.$submission->leader_name.'&nbsp;</div>';
+        $return .= '<div class="tbl-col col-country">'.$submission->leader_country.'&nbsp;</div>';
+        $return .= '<div class="tbl-col col-image">'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">Yes</a>': 'No').'</div>';
+        $return .= '<div class="tbl-col col-evaluation">';
+          if($submission->submit_status === 'submit') {
+            $return .= '<strong>Evaluation completed</strong>';
+          } else {
+            $return .= '<span class="evaluate-now"><a href="'.$evaluation_link_url.'"><strong>Evaluate now</strong></a></span>';
+          }
+        $return .= '</div>';
+        
+        $return .= '<div class="tbl-col col-score">';
+          if($submission->submit_status === 'draft' OR $submission->submit_status === 'submit' ) {
+            $return .= '<strong>'.(int)$submission->score.'</strong>';
+          } else{
+            $return .= '<a href="'.$evaluation_link_url.'">Not scored</a>';
+          }
+        $return .= '</div>';
+        $return .= '<div class="tbl-col col-stauts">';
+        
+          if($submission->submit_status === 'draft') {
+            $return .= '<span class="btn-submit-evaluation" data-secret="'.$submission->secret_key.'"><a href="javascript:void();"><strong>Submit now</strong></a></span>';
+          } elseif ($submission->submit_status === 'submit' ) {
+            $return .= '<strong>SUBMITTED</strong>';
+          } else{
+            $return .= '<a href="'.$evaluation_link_url.'">Not scored</a>';
+          }
+        $return .= '</div>';
+        
+        $return .= '<div class="clearfix"></div>';
+      $return .= '</div>';
+      $counter++;
+    }
+  }
+  
+  //<a href="'.EVALUATION_PAGE_URL.'/?secret='.$submission->secret_key.'">'.(($submission->submit_status=='submit') ? 'Evaluation Complete': 'Evaluate Now').'</a>
+  echo $return;
+}
+
+function eric_submission_info($secret=null) {
+  global $wpdb;
+  $return = '';
+  
+  if(is_null($secret)) {
+    return "Invalid Request!";
+  }
+  $submission = $wpdb->get_row("SELECT s.solution_name, s.solution_asset, s.secret_key, sm.leader_name, sm.leader_country  FROM $wpdb->submissions s LEFT JOIN $wpdb->submission_members sm ON s.ID=sm.submission_id WHERE secret_key='$secret'");
+  if($submission) {
+    $return .= '<div class="project-info clearfix">';
+      $return .= '<div class="tbl-col col-solution-name">Project Name<br /><span>'.$submission->solution_name.'</span></div>';
+      $return .= '<div class="tbl-col col-team-leader">Team Leader<br /><span>'.$submission->leader_name.'</span></div>';
+      $return .= '<div class="tbl-col col-country">Country<br /><span>'.$submission->leader_country.'</span></div>';
+      $return .= '<div class="tbl-col col-asset">Image<br /><span>'.(($submission->solution_asset) ? '<a href="'.$submission->solution_asset.'" target="_blank">Yes</a>': 'No').'</span></div>';
+      $return .= '<div class="tbl-col col-asset">Submission<br /><span><a href="'.SUBMISSION_VIEW_PAGE_URL.'/?secret='.$submission->secret_key.'" target="_blank">Full Entry</a></span></div>';
+    $return .= '</div>';
+  }
+  echo $return;
+}
+
+function eric_submission_view($secret=null) {
+  global $wpdb;
+  $return = '';
+  
+  if(is_null($secret)) {
+    return "Invalid Request!";
+  }
+  $submission = $wpdb->get_row("SELECT s.*, sm.* FROM $wpdb->submissions s LEFT JOIN $wpdb->submission_members sm ON s.ID=sm.submission_id WHERE secret_key='$secret'", ARRAY_A);
+  
+  if($submission) {
+    $return .= '<h2 class="page-heading">Submission: '.$submission['solution_name'].'</h2>';
+    $return .= '<div class="solution-details clearfix">';
+      $return .= '<h4 class="section-title"><strong>TEAM LEADER</strong></h4>';
+      $return .= '<table>';
+        $return .= '<tr><td width="40%" class="question">Team Leader Name</td><td width="60%">'.$submission['leader_name'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader Email</td><td>'.$submission['leader_email'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader location (city/state)</td><td>'.$submission['leader_location'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader country</td><td>'.$submission['leader_country'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader phone number</td><td>'.$submission['leader_phone'].' ('.$submission['leader_phone_type'].')</td></tr>';
+        $return .= '<tr><td class="question">Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['leader_url'].'</td></tr>';
+        $return .= '<tr><td class="question">Team Leader bio (80 words max)</td><td>'.$submission['leader_bio'].'</td></tr>';
+      $return .= '</table>';
+      
+      for($i=1; $i<=5; $i++) {
+        if(strlen($submission['member_name_'.$i]) > 1) {
+          $return .= '<div class="hline"></div>';
+          $return .= '<h4 class="section-title"><strong>TEAM MEMBER</strong></h4>';
+          $return .= '<table>';
+            $return .= '<tr><td width="40%" class="question">Team Leader Name</td><td width="60%">'.$submission['member_name_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader Email</td><td>'.$submission['member_email_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader location (city/state)</td><td>'.$submission['member_location_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader country</td><td>'.$submission['member_country_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader phone number</td><td>'.$submission['member_phone_'.$i].' ('.$submission['member_phone_type_'.$i].')</td></tr>';
+            $return .= '<tr><td class="question">Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['member_url_'.$i].'</td></tr>';
+            $return .= '<tr><td class="question">Team Leader bio (80 words max)</td><td>'.$submission['member_bio_'.$i].'</td></tr>';
+          $return .= '</table>';
+        }
+      }
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>AFFILIATION</strong></h4>';
+      $return .= $submission['team_affiliated'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>SOLUTION NAME:</strong> (40 characters max)</h4>';
+      $return .= $submission['solution_name'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>DESCRIPTION:</strong> Describe the value and intended outcomes of the proposed solution (50 words max)</h4>';
+      $return .= $submission['solution_description'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>TARGET AUDIENCE:</strong> Please include details like gender, age/lifestage, socio-economic, region/geography, etc (50 words max)</h4>';
+      $return .= $submission['solution_audience'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>MATURITY:</strong> Degree of solution maturity:</h4>';
+      $return .= $submission['solution_maturity'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>EQUAL RATING:</strong> How does your solution provide unconnected people affordable access to the full diversity of the open Internet? (100 words max)</h4>';
+      $return .= $submission['solution_equalrating'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>SCALABILITY:</strong> What is your plan to scale your solution? Please provide a clear plan and method for achieving scale. Be specific. (200 words max)</h4>';
+      $return .= $submission['solution_scalability'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>USER EXPERIENCE:</strong> In what ways will your solution provide a positive and enduring experience for its users? (100 words max)</h4>';
+      $return .= $submission['solution_experience'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>DIFFERENTIATION:</strong> What benefits does your proposed solution bring compared to those currently available? (100 words max)</h4>';
+      $return .= $submission['solution_differntiation'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>TIME TO MARKET:</strong> When do you expect to bring your solution to market? If it is already in market, please describe your plan to broaden your audience. (100 words max)</h4>';
+      $return .= $submission['solution_time_market'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>FEASIBILITY & SUSTAINABILITY:</strong> What evidence illustrates that your solution will work from a technical and business perspective? (100 words max)</h4>';
+      $return .= $submission['solution_feasibility'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>ROADMAP & PRIZE MONEY:</strong> Please share your plan for how the prize money will be used for development of your proposed solution. (200 words max)</h4>';
+      $return .= $submission['solution_roadmap'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>TEAM:</strong> Why should your team win this challenge? Please note previous relevant projects and collaborations. (100 words max)</h4>';
+      $return .= $submission['solution_whywin'];
+      
+      $return .= '<div class="hline"></div>';
+      $return .= '<h4 class="section-title"><strong>OPEN SOURCE:</strong> Are you open sourcing your solution?</h4>';
+      $return .= '<strong>'.$submission['opensource_solution'].'</strong>';
+      if($submission['opensource_solution']=='No') {
+        $return .= '<h4 class="section-title"><br />If no, please review Mozilla&rsquo;s opinion in the FAQ , and describe your alternative path to accomplish similar goals and avoid known pitfalls. (200 words max)</h4>';
+        $return .= $submission['opensource_solution_info'];
+      }
+      
+      
+      $return .= '<div class="hline"></div>';
+      $judge_id = get_current_user_id();
+      $submission_id = $wpdb->get_var("SELECT ID FROM $wpdb->submissions WHERE secret_key='$secret'");
+      $evaluation_status = $wpdb->get_var("SELECT submit_status FROM $wpdb->evaluation WHERE judge_id='$judge_id' AND submission_id='$submission_id' AND submit_status IN ('draft', 'submit')");
+      $evaluation_link_url = EVALUATION_PAGE_URL.'/?secret='.$secret;
+      if($evaluation_status == 'submit') {
+        $return .= '<a href="'.$evaluation_link_url.'" class="link-button">Evaluation completed</a>';
+      } else {
+        $return .= '<a href="'.$evaluation_link_url.'" class="link-button">Evaluate now</a>';
+      }
+//      $return .= '<h4 class="section-title"><strong>VISUAL ASSET</strong></h4>';
+//      $return .= (($submission['solution_asset']) ? '<a href="'.$submission['solution_asset'].'" target="_blank">Yes</a>': 'No');
+    $return .= '</div>';
+  }
+  
+  echo nl2br(make_clickable($return));
+}
+
+function eric_evaluation_form($secret=null) {
+  global $wpdb;
+  $judge_id = get_current_user_id();
+  if(is_null($secret)) {
+    return "Invalid Request!";
+  }
+  
+  $submission_id = $wpdb->get_var("SELECT ID FROM $wpdb->submissions WHERE secret_key='$secret'");
+  
+  $evaluation = $wpdb->get_row("SELECT * FROM $wpdb->evaluation WHERE judge_id='$judge_id' AND submission_id='$submission_id' AND submit_status IN ('draft', 'submit')", ARRAY_A);
+  
+  if(!($evaluation)) {
+    $evaluation = array(
+        "score_scalability" => 0,
+        "score_human_centric" => 0,
+        "score_differentiated" => 0,
+        "score_acceleration" => 0,
+        "score_team" => 0,
+        "total_socre" => 0,
+        "benefit_membership" => "Agree",
+        "comments" => "",
+        "score" => 0,
+        "submit_status" => "draft"
+    );
+  }
+  
+  $return = '';
+  $return .= '<form id="evaluation_form" name="evaluation-form" action="'.EVALUATION_SUBMIT_PAGE_URL.'" method="post" class="ajax-form">';
+    if($evaluation['submit_status']==='submit') {
+      $return .= '<p class="evaluation-submitted">Evaluation complete for this solution.</p>';
+    }
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>SCALABILITY [max 30 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">How well does the proposed solution describe a clear path to effective and efficient scalability?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_scalability" name="score_scalability" data-slider-min="0" data-slider-max="30" data-slider-step="1" data-slider-value="'.$evaluation['score_scalability'].'" data-slider-label="score-scalability" class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-scalability">'.$evaluation['score_scalability'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has the greatest value, 30 points. Suggested ranges:</p><ul><li>30-26: Very strong concept; it’s clear how this team will scale the solution.</li><li>25-21: Concept has great merit but it needs to be evolved – I have confidence this team will be able to scale the solution.</li><li>20-11: Concept has merit and clear value, but it’s unclear how the team will scale it.</li><li>10-1: Viable concept but it’s already out there, it will create more complexity, or there will be real hurdles in achieving scale.</li><li>0: Not a scalable concept</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>HUMAN-CENTRIC [max 20 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">Does the solution as described meet the needs of its target audience in a way that meaningfully considers their experience and context?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_human_centric" name="score_human_centric" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="'.$evaluation['score_human_centric'].'" data-slider-label="score-human_centric"  class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-human_centric">'.$evaluation['score_human_centric'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has a total value of 20 points. Suggested ranges:<p><ul><li>20-11: Very strong solution; it’s clear that this solution will resonate with its target audience.</li><li>10-6: Viable solution but doesn’t address or meet all the core needs of its target audience or it does not have a clear target audience.</li><li>0: Concept does not meet the needs of the target audience.</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>DIFFERENTIATED [max 20 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">Does the solution make a unique contribution to the market from a user, business, or technical standpoint?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_differentiated" name="score_differentiated" data-slider-min="0" data-slider-max="20" data-slider-step="1" data-slider-value="'.$evaluation['score_differentiated'].'" data-slider-label="score-differentiated"  class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-differentiated">'.$evaluation['score_differentiated'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has a total value of 20 points. Suggested ranges:</p><ul><li>20-11: Very strong solution; it’s clear that this concept will make a significant contribution to this space.</li><li>10-1: Viable solution but similar ones already exist.</li><li>0: Concept is not differentiated.</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>ACCELERATION [max 10 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">Can this solution be deployed to the market quickly? Will the challenge publicity, expert mentorship, and award money help the team move forward efficiently and effectively?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_acceleration" name="score_acceleration" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="'.$evaluation['score_acceleration'].'" data-slider-label="score-acceleration"  class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-acceleration">'.$evaluation['score_acceleration'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has a total value of 10 points. Suggested ranges:</p><ul><li>10-5: This solution is setup to be deployed rapidly, and the team will benefit from the prize money and support.</li><li>4-0: This solution is complex and has many dependencies.</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<h4>TEAM [max 10 points]</h4>';
+    $return .= '<div class="row">';
+      $return .= '<div class="col-md-6 col-sm-12">';
+        $return .= '<p class="question">Is this a team you feel confident in? Consider several factors: ability to clearly articulate the solution throughout the submission form answers; the pedigree of the team; previous successes of relevant solutions?</p>';
+        $return .= '<div class="score-slider"><input type="text" id="score_team" name="score_team" data-slider-min="0" data-slider-max="10" data-slider-step="1" data-slider-value="'.$evaluation['score_team'].'" data-slider-label="score-team"  class="input-score-slider" /></div>';
+        $return .= '<div class="slider-label">Your score is <span id="score-team">'.$evaluation['score_team'].'</span></div>';
+      $return .= '</div>';
+      $return .= '<div class="col-md-6 col-sm-12"><div class="score-instructions"><p>This question has a total value of 10 points. Suggested ranges:</p><ul><li>10-5: Team shows promise in manifesting this solution.</li><li>4-0: Unsure of team’s abilities.</li></ul></div></div>';
+    $return .= '</div>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<p class="question">This team will benefit from mentorship from Mozilla experts in areas like policy, business modeling, engineering, and design.<p>';
+    $return .= '<div class="form-group-radio clearfix">
+      <label for="benefit_membership_agree">
+        <input type="radio" name="benefit_membership" id="benefit_membership_agree" value="Agree"'.(($evaluation['benefit_membership']=='Agree') ? ' checked="checked"': '').' /><i></i> <span>Agree</span>
+      </label>
+      <label for="benefit_membership_disagree">
+        <input type="radio" name="benefit_membership" id="benefit_membership_disagree" value="Disagree"'.(($evaluation['benefit_membership']=='Disagree') ? ' checked="checked"': '').' /><i></i> <span>Disagree</span>
+      </label>
+      <div class="clear"></div>
+    </div>';
+  
+    $return .= '<div class="hline"></div>';
+    $return .= '<p class="question">Total score for this submission [max 90 points] : <strong class="total-score">'.$evaluation['score'].'</strong></p>';
+    
+    $return .= '<div class="hline"></div>';
+    $return .= '<p class="question">Please share any comments on this submission [optional]</p>';
+    $return .= '<textarea rows="5" name="comments" id="comments" class="form_input">'.$evaluation['comments'].'</textarea>';
+    
+    $return .= '<div class="hline"></div>';
+    if($evaluation['submit_status']==='submit') {
+      $return .= '<p class="evaluation-submitted">Evaluation complete for this solution.</p>';
+    } else {
+      $return .= '<input type="hidden" id="secret" name="secret" value="'.$secret.'">';
+      $return .= '<input type="hidden" id="total_score" name="total_score" value="'.$evaluation['score'].'">';
+      $return .= '<input type="hidden" id="submit_type" name="submit_type" value="draft">';
+      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="draft">Done</button>';
+    }
+  $return .= '</form>';
+  echo $return;
 }
