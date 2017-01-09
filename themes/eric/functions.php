@@ -1163,11 +1163,11 @@ function eric_submissions() {
         $return .= '</div>';
         
         $return .= '<div class="tbl-col col-score">';
-          if($submission->submit_status === 'draft' OR $submission->submit_status === 'submit' ) {
+//          if($submission->submit_status === 'draft' OR $submission->submit_status === 'submit' ) {
             $return .= '<strong>'.(int)$submission->score.'</strong>';
-          } else{
-            $return .= '<a href="'.$evaluation_link_url.'">Not scored</a>';
-          }
+//          } else{
+//            $return .= '<a href="'.$evaluation_link_url.'">Not scored</a>';
+//          }
         $return .= '</div>';
         $return .= '<div class="tbl-col col-stauts">';
         
