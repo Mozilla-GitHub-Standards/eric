@@ -162,7 +162,7 @@ var ajaxURL = siteURL + '/ajax';
                       $('body').hideLoading();
                       if(data.success==1) {
                         $item.html('<strong>SUBMITTED</strong>');
-                        $('.evaluate-now', $parent).text('<strong>Evaluation completed</strong>');
+                        $('.evaluate-now', $parent).html('<strong>Evaluation completed</strong>');
                       }
                       $.alert({
                         title: data.message,
