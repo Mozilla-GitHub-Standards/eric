@@ -763,7 +763,7 @@ function custom_login_redirect() {
 }
 //add_action( 'wp', 'custom_login_redirect' );
 
-add_action( 'admin_init', 'redirect_non_admin_users' );
+//add_action( 'admin_init', 'redirect_non_admin_users' );
 /**
  * Redirect non-admin users to home page
  * This function is attached to the 'admin_init' action hook.
