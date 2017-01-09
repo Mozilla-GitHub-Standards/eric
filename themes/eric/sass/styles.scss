@@ -2944,14 +2944,15 @@ em {
   h4 {
     font-family: $font-family-sans-serif;
     font-weight: 400;
-    font-size: 1rem;
-    margin: 0 0 15px;
-    color: #000;
+    font-size: 1.142rem;
+    margin: 0 0 10px;
+    color: $brand-secondary;
+    
   }
   .hline {
-    height: 1px;
-    background: #f1f1f2;
-    margin: 25px 0 10px;
+    height: 2px;
+    background: #ddd;
+    margin: 35px 0 15px;
   }
   table {
     width: 100%;
