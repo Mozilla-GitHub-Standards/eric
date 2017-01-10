@@ -24,7 +24,7 @@ if ( !is_user_logged_in() && $pagenow != 'wp-login.php' ){
   $data = $wpdb->get_results($strqry, ARRAY_A);
   
   $headers = array(
-      'evaluation_datetime' => 'Last Updated',
+      'submit_datetime' => 'Last Updated',
       'solution_name' => 'Project Name',
       'display_name' => 'Judge',
       'score_scalability' => 'SCALABILITY [max 30 points]',
