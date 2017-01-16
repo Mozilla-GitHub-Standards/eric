@@ -29,7 +29,6 @@ define( 'EVALUATION_SUBMIT_PAGE_URL', SITE_URL.'/evaluation/submit' );
 define( 'SUBMISSIONS_PAGE_URL', SITE_URL.'/submissions' );
 define( 'SUBMISSION_VIEW_PAGE_URL', SITE_URL.'/submissions/view' );
 
-
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -39,7 +38,6 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 if(!isset($wpdb->subscribers)) {
   $wpdb->subscribers = $wpdb->prefix . 'subscribers';
 }
-
 if(!isset($wpdb->submissions)) {
   $wpdb->submissions = $wpdb->prefix . 'submissions';
 }
@@ -458,11 +456,9 @@ function eric_faqs_dropdown($faqs=null) {
 add_filter('query_vars', 'eric_add_custom_var', 0, 1);
 function eric_add_custom_var($vars){
   $vars[] = 'action';
-  $vars[] = 'submission';
   return $vars;
 }
 add_rewrite_rule('^ajax/([^/]+)/?$','index.php?pagename=ajax&action=$matches[1]','top');
-//add_rewrite_rule('^evaluate/([^/]+)/?$','index.php?pagename=evaluate&submission=$matches[1]','top');
 
 
 function addhttp($url) {
@@ -546,10 +542,10 @@ function eric_widget_submit_badge() {
   return $return;
 }
 
-
 function eric_recent_posts() {
   $args = array( 'numberposts' => '5', 'post_status' => 'publish' );
   $recent_posts = wp_get_recent_posts( $args );
+  
   if($recent_posts) {
     $return = '<aside class="widget-recent-posts">';
       $return .= '<h3 class="widget-title">Recent Posts</h3>';
@@ -562,6 +558,7 @@ function eric_recent_posts() {
       }
       $return .= '</ul>';
     $return .= '</div>';
+    $return .= '<!-- Mozilla -->';
     return $return;
   }
 }
@@ -764,19 +761,8 @@ function custom_login_redirect() {
     exit();
   }
 }
-add_action( 'wp', 'custom_login_redirect' );
+//add_action( 'wp', 'custom_login_redirect' );
 
-add_action( 'admin_init', 'redirect_non_admin_users' );
-/**
- * Redirect non-admin users to home page
- * This function is attached to the 'admin_init' action hook.
- */
-function redirect_non_admin_users() {
-	if ( ! current_user_can( 'edit_posts' ) && '/wp-admin/admin-ajax.php' != $_SERVER['PHP_SELF'] ) {
-		wp_redirect( SUBMISSIONS_PAGE_URL );
-		exit;
-	}
-}
 
 add_shortcode('submission_form_status', 'shortcodeSubmissionFormStatus');
 function shortcodeSubmissionFormStatus($atts=null, $content) {
@@ -1134,7 +1120,6 @@ function remove_http($url) {
    return $url;
 }
 
-
 function eric_submissions() {
   global $wpdb;
   $judge_id = get_current_user_id();
@@ -1178,11 +1163,11 @@ function eric_submissions() {
         $return .= '</div>';
         
         $return .= '<div class="tbl-col col-score">';
-          if($submission->submit_status === 'draft' OR $submission->submit_status === 'submit' ) {
+//          if($submission->submit_status === 'draft' OR $submission->submit_status === 'submit' ) {
             $return .= '<strong>'.(int)$submission->score.'</strong>';
-          } else{
-            $return .= '<a href="'.$evaluation_link_url.'">Not scored</a>';
-          }
+//          } else{
+//            $return .= '<a href="'.$evaluation_link_url.'">Not scored</a>';
+//          }
         $return .= '</div>';
         $return .= '<div class="tbl-col col-stauts">';
         
@@ -1243,7 +1228,7 @@ function eric_submission_view($secret=null) {
         $return .= '<tr><td class="question">Team Leader Email</td><td>'.$submission['leader_email'].'</td></tr>';
         $return .= '<tr><td class="question">Team Leader location (city/state)</td><td>'.$submission['leader_location'].'</td></tr>';
         $return .= '<tr><td class="question">Team Leader country</td><td>'.$submission['leader_country'].'</td></tr>';
-        $return .= '<tr><td class="question">Team Leader phone number</td><td>'.$submission['leader_phone'].' ('.$submission['leader_phone_type'].')</td></tr>';
+        $return .= '<tr><td class="question">Team Leader phone number</td><td>'.$submission['leader_phone'].'</td></tr>';
         $return .= '<tr><td class="question">Team Leader url (ex: LinkedIn, GitHub, personal website)</td><td>'.$submission['leader_url'].'</td></tr>';
         $return .= '<tr><td class="question">Team Leader bio (80 words max)</td><td>'.$submission['leader_bio'].'</td></tr>';
       $return .= '</table>';
@@ -1456,10 +1441,19 @@ function eric_evaluation_form($secret=null) {
       $return .= '<input type="hidden" id="secret" name="secret" value="'.$secret.'">';
       $return .= '<input type="hidden" id="total_score" name="total_score" value="'.$evaluation['score'].'">';
       $return .= '<input type="hidden" id="submit_type" name="submit_type" value="draft">';
-      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="draft">Done</button>';
+      $return .= '<button type="submit" name="btn_submit" class="btn-submit" value="draft">Save</button>';
     }
   $return .= '</form>';
   echo $return;
+}
+
+
+add_action( 'admin_init', 'redirect_non_admin_users' );
+function redirect_non_admin_users() {
+	if ( ! current_user_can( 'edit_posts' ) && '/wp-admin/admin-ajax.php' != $_SERVER['PHP_SELF'] ) {
+		wp_redirect( SUBMISSIONS_PAGE_URL );
+		exit;
+	}
 }
 
 
@@ -1510,8 +1504,9 @@ function shortcodeSemifinalists($atts=null) {
         $return .= '<div class="semifinalist">';
           $return .= '<img src="'.$semifinalist['logo'].'" alt="'.$semifinalist['name'].'" class="img-fluid" />';
           $return .= '<h4>'.$semifinalist['name'].'</h4>';
-          $return .= '<div class="title">'.$semifinalist['title'].'</div>';
-          $return .= '<div class="url"><a href="'.$semifinalist['url'].'" target="_blank">'.remove_http($semifinalist['url']).'</a></div>';
+          $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
+          $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
+//          $return .= '<div class="url"><a href="'.$semifinalist['url'].'" target="_blank">'.remove_http($semifinalist['url']).'</a></div>';
           $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
         $return .= '</div>';
       $return .= '</div>';
