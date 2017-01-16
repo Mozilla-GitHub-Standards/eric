@@ -25,7 +25,7 @@
 
       <div class="col-md-4 col-sm-12 col-xs-12">
         <?php echo eric_widget_equalrating();?>
-        <?php echo eric_widget_submit_badge();?>
+        <?php // echo eric_widget_submit_badge();?>
       </div>
     </div>
   </div>
