@@ -7309,16 +7309,17 @@ body[class*=jconfirm-no-scroll-] {
 /* line 3871, ../sass/styles.scss */
 #semifinalists-list .semifinalist .title {
   font-weight: 300;
+  margin: 15px 0;
 }
-/* line 3874, ../sass/styles.scss */
+/* line 3875, ../sass/styles.scss */
 #semifinalists-list .semifinalist .url {
   font-style: italic;
 }
-/* line 3877, ../sass/styles.scss */
+/* line 3878, ../sass/styles.scss */
 #semifinalists-list .semifinalist .description {
   margin: 20px 0 0;
 }
-/* line 3879, ../sass/styles.scss */
+/* line 3880, ../sass/styles.scss */
 #semifinalists-list .semifinalist .description p:last-child {
   margin: 0;
 }
@@ -7327,15 +7328,15 @@ body[class*=jconfirm-no-scroll-] {
   #semifinalists-list {
     margin-top: 30px;
   }
-  /* line 3886, ../sass/styles.scss */
+  /* line 3887, ../sass/styles.scss */
   #semifinalists-list .banner-demoday {
     margin: 0 auto;
   }
-  /* line 3890, ../sass/styles.scss */
+  /* line 3891, ../sass/styles.scss */
   #semifinalists-list .col-md-4:nth-of-type(1n+4) .semifinalist {
     margin-bottom: 40px;
   }
-  /* line 3895, ../sass/styles.scss */
+  /* line 3896, ../sass/styles.scss */
   #semifinalists-list .semifinalist h4 {
     font-size: 1.5em;
     font-weight: 700;

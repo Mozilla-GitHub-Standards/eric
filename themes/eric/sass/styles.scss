@@ -3870,12 +3870,12 @@ body[class*=jconfirm-no-scroll-] {
     }
     .title {
       font-weight: 300;
+      margin: 15px 0;
     }
     .url {
       font-style: italic;
     }
     .description {
-      margin: 20px 0 0;
       p:last-child {
         margin: 0;
       }
