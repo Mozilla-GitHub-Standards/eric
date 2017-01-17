@@ -508,7 +508,7 @@ function eric_widget_awards() {
 
 
 function eric_widget_equalrating() {
-  $return = '<div class="widget-equalrating-means">';
+  $return = '<div class="widget-definition widget-equalrating-means">';
     $return .= '<h3 class="widget-title">Equal Rating</h3>';
     $return .= '<div class="widget-meta">e·qual rat·ing<br />/\'ēkwəl \' rādiNG/</div>';
     $return .= '<p><small>noun</small><br /><br />1.  A model where consumers choose content based on the quality of that content, not the financial power and business partnerships of the provider. &ldquo;Equal rating&rdquo; is in contrast to the term &ldquo;zero rating,&rdquo; which is fraught with limitations set into motion by a few powerful players dictating terms for users.</p>
@@ -1454,4 +1454,68 @@ function redirect_non_admin_users() {
 		wp_redirect( SUBMISSIONS_PAGE_URL );
 		exit;
 	}
+}
+
+
+function eric_widget_mentorship() {
+  $return = '<div class="widget-definition widget-definition-mentorship">';
+    $return .= '<h3 class="widget-title">Mentorship</h3>';
+    $return .= '<div class="widget-meta">men·tor·ship<br />/men-tawr,ship/</div>';
+    $return .= '<p>1. A way to create outsized impact from limited interventions</p>
+      <p>2. Transforming Equal Rating Innovation Challenge semifinalists with the power of the Mozilla community</p>';
+    $return .= '</div>';
+  return $return;
+}
+
+function eric_widget_mentor() {
+  $return = '<div class="widget-definition widget-definition-mentor">';
+    $return .= '<h3 class="widget-title">Mentor</h3>';
+    $return .= '<div class="widget-meta">men·tor<br />/ˈmenˌtôr/</div>';
+    $return .= '<p><small>noun</small><br /><br />1. a wise and trusted counselor or teacher</p>
+      <p>2. an influential senior sponsor or supporter</p>';
+    $return .= '</div>';
+  return $return;
+}
+
+add_shortcode('semifinalists_list', 'shortcodeSemifinalists');
+function shortcodeSemifinalists($atts=null) {
+  extract(shortcode_atts(array(
+      'staus' => 'open',
+  ), $atts));
+  
+  global $post;
+  $return = '';
+  
+  $semifinalists = get_field('semifinalists', $post->ID);
+  if($semifinalists) {
+    $return .= '<div id="semifinalists-list">';
+    $return .= '<div class="row">';
+    $counter = 0;
+    foreach($semifinalists as $semifinalist) {
+      if($counter === 2) {
+        $return .= '<div class="col-md-4 col-sm-12">';
+          $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-down" />';
+        $return .= '</div>';
+        $return .= '<div class="clearfix"></div>';
+        $counter++;
+      }
+    
+      $return .= '<div class="col-md-4 col-sm-12">';
+        $return .= '<div class="semifinalist">';
+          $return .= '<img src="'.$semifinalist['logo'].'" alt="'.$semifinalist['name'].'" class="img-fluid" />';
+          $return .= '<h4>'.$semifinalist['name'].'</h4>';
+          $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
+          $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
+//          $return .= '<div class="url"><a href="'.$semifinalist['url'].'" target="_blank">'.remove_http($semifinalist['url']).'</a></div>';
+          $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
+        $return .= '</div>';
+      $return .= '</div>';
+      
+      $counter++;
+    }
+    $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-up" />';
+    $return .= '</div>';
+    $return .= '</div>';
+  }
+  return $return;
 }
