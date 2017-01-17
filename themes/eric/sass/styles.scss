@@ -300,8 +300,6 @@ em {
         }
       }
     }
-    
-    //#E04164
   }
 }
 
@@ -338,14 +336,13 @@ em {
         line-height: 1em;
         text-transform: uppercase;
         color: inherit;
-        /*padding: 10px 25px;*/
-        padding: 10px 54px;
+        padding: 10px 25px;
       }
-/*      &:first-child {
+      &:first-child {
         > a {
           padding: 10px 28px;
         }
-      }*/
+      }
       &.current-menu-item, &.current-menu-ancestor {
         color: #fff;
         background-color: #000;
