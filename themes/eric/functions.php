@@ -764,6 +764,7 @@ function custom_login_redirect() {
 add_action( 'wp', 'custom_login_redirect' );
 
 
+
 add_shortcode('submission_form_status', 'shortcodeSubmissionFormStatus');
 function shortcodeSubmissionFormStatus($atts=null, $content) {
   extract(shortcode_atts(array(
