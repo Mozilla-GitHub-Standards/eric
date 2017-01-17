@@ -2466,9 +2466,7 @@ em {
     color: #000;
     margin: 10px 0 0 -12px;
     padding: 0;
-    background: url(../images/txt_equal-rating.png) no-repeat 0 0;
-    background-size: 160px 26px;
-    width: 100%; height: 26px;
+    width: 100%; height: 36px;
     text-indent: -999em;
     line-height: 0;
   }
@@ -2503,7 +2501,16 @@ em {
   }
 }
 .widget-definition-mentor {
-  
+  .widget-title {
+    background: url(../images/txt_mentor.png) no-repeat 0 0;
+    background-size: 165px 36px;
+  }
+}
+.widget-definition-mentorship {
+  .widget-title {
+    background: url(../images/txt_mentorship.png) no-repeat 0 0;
+    background-size: 165px 36px;
+  }
 }
 
 
@@ -3898,5 +3905,12 @@ body[class*=jconfirm-no-scroll-] {
         margin: 0; padding: 0;
       }
     }
+  }
+}
+
+.banner-mentorship {
+  img {
+    width: 100%;
+    height: auto;
   }
 }

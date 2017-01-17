@@ -508,7 +508,7 @@ function eric_widget_awards() {
 
 
 function eric_widget_equalrating() {
-  $return = '<div class="widget-equalrating-means">';
+  $return = '<div class="widget-definition widget-equalrating-means">';
     $return .= '<h3 class="widget-title">Equal Rating</h3>';
     $return .= '<div class="widget-meta">e·qual rat·ing<br />/\'ēkwəl \' rādiNG/</div>';
     $return .= '<p><small>noun</small><br /><br />1.  A model where consumers choose content based on the quality of that content, not the financial power and business partnerships of the provider. &ldquo;Equal rating&rdquo; is in contrast to the term &ldquo;zero rating,&rdquo; which is fraught with limitations set into motion by a few powerful players dictating terms for users.</p>
@@ -761,7 +761,7 @@ function custom_login_redirect() {
     exit();
   }
 }
-//add_action( 'wp', 'custom_login_redirect' );
+add_action( 'wp', 'custom_login_redirect' );
 
 
 add_shortcode('submission_form_status', 'shortcodeSubmissionFormStatus');
@@ -1494,7 +1494,7 @@ function shortcodeSemifinalists($atts=null) {
     foreach($semifinalists as $semifinalist) {
       if($counter === 2) {
         $return .= '<div class="col-md-4 col-sm-12">';
-          $return .= '<img src="'.THEME_PATH.'/images/banner_demoday.jpg" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-down" />';
+          $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-down" />';
         $return .= '</div>';
         $return .= '<div class="clearfix"></div>';
         $counter++;
@@ -1513,7 +1513,7 @@ function shortcodeSemifinalists($atts=null) {
       
       $counter++;
     }
-    $return .= '<img src="'.THEME_PATH.'/images/banner_demoday.jpg" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-up" />';
+    $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-up" />';
     $return .= '</div>';
     $return .= '</div>';
   }

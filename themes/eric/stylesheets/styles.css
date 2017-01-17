@@ -5572,23 +5572,21 @@ em {
   color: #000;
   margin: 10px 0 0 -12px;
   padding: 0;
-  background: url(../images/txt_equal-rating.png) no-repeat 0 0;
-  background-size: 160px 26px;
   width: 100%;
-  height: 26px;
+  height: 36px;
   text-indent: -999em;
   line-height: 0;
 }
-/* line 2475, ../sass/styles.scss */
+/* line 2473, ../sass/styles.scss */
 .widget-definition .widget-meta {
   margin: 0 0 20px;
 }
-/* line 2478, ../sass/styles.scss */
+/* line 2476, ../sass/styles.scss */
 .widget-definition p {
   font-family: "Merriweather", Georgia, serif;
   font-size: 1.071em;
 }
-/* line 2481, ../sass/styles.scss */
+/* line 2479, ../sass/styles.scss */
 .widget-definition p small {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1em;
@@ -5596,23 +5594,35 @@ em {
   font-weight: 400;
 }
 
-/* line 2491, ../sass/styles.scss */
+/* line 2489, ../sass/styles.scss */
 .widget-equalrating-means::before {
   background-color: #2098d5;
 }
-/* line 2494, ../sass/styles.scss */
+/* line 2492, ../sass/styles.scss */
 .widget-equalrating-means .widget-title {
   background: url(../images/txt_equal-rating.png) no-repeat 0 0;
   background-size: 160px 26px;
 }
 
-/* line 2501, ../sass/styles.scss */
+/* line 2499, ../sass/styles.scss */
 .widget-definition-mentorship::before,
 .widget-definition-mentor::before {
   background-color: #f06c23;
 }
 
+/* line 2504, ../sass/styles.scss */
+.widget-definition-mentor .widget-title {
+  background: url(../images/txt_mentor.png) no-repeat 0 0;
+  background-size: 165px 36px;
+}
+
 /* line 2510, ../sass/styles.scss */
+.widget-definition-mentorship .widget-title {
+  background: url(../images/txt_mentorship.png) no-repeat 0 0;
+  background-size: 165px 36px;
+}
+
+/* line 2517, ../sass/styles.scss */
 .widget-faqs {
   margin: 40px auto;
   width: 260px;
@@ -5620,7 +5630,7 @@ em {
   border-radius: 50%;
   background: #A6CE42;
 }
-/* line 2515, ../sass/styles.scss */
+/* line 2522, ../sass/styles.scss */
 .widget-faqs a {
   display: block;
   width: 100%;
@@ -5635,33 +5645,33 @@ em {
   color: #1f356b;
   /*background: url(../images/graphic-faqs_badge.png) no-repeat;*/
 }
-/* line 2527, ../sass/styles.scss */
+/* line 2534, ../sass/styles.scss */
 .widget-faqs a strong {
   font-style: normal;
   font-weight: 700;
   font-size: 2.25em;
   letter-spacing: 2px;
 }
-/* line 2534, ../sass/styles.scss */
+/* line 2541, ../sass/styles.scss */
 .widget-faqs img {
   /*display: none;*/
 }
 
-/* line 2539, ../sass/styles.scss */
+/* line 2546, ../sass/styles.scss */
 .widget-submit-badge {
   margin: 40px auto;
   max-width: 233px;
 }
-/* line 2542, ../sass/styles.scss */
+/* line 2549, ../sass/styles.scss */
 .widget-submit-badge a {
   border: none;
 }
-/* line 2545, ../sass/styles.scss */
+/* line 2552, ../sass/styles.scss */
 .widget-submit-badge img {
   max-width: 100%;
 }
 
-/* line 2551, ../sass/styles.scss */
+/* line 2558, ../sass/styles.scss */
 .widget-recent-posts {
   border: 1px solid #efefef;
   border-top: 5px solid #fdcc05;
@@ -5670,7 +5680,7 @@ em {
   font-weight: 300;
   margin: 0 0 40px;
 }
-/* line 2558, ../sass/styles.scss */
+/* line 2565, ../sass/styles.scss */
 .widget-recent-posts .widget-title {
   color: #000;
   text-transform: uppercase;
@@ -5678,88 +5688,88 @@ em {
   margin: 10px 0 20px;
   padding: 0;
 }
-/* line 2565, ../sass/styles.scss */
+/* line 2572, ../sass/styles.scss */
 .widget-recent-posts ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-/* line 2568, ../sass/styles.scss */
+/* line 2575, ../sass/styles.scss */
 .widget-recent-posts ul li {
   margin-bottom: 20px;
 }
-/* line 2570, ../sass/styles.scss */
+/* line 2577, ../sass/styles.scss */
 .widget-recent-posts ul li h4 {
   font-size: 1.142em;
   font-weight: 700;
   margin: 0;
 }
-/* line 2574, ../sass/styles.scss */
+/* line 2581, ../sass/styles.scss */
 .widget-recent-posts ul li h4 a {
   color: #000;
   border: none;
 }
-/* line 2579, ../sass/styles.scss */
+/* line 2586, ../sass/styles.scss */
 .widget-recent-posts ul li:last-child {
   margin: 0;
 }
 
 /*
 */
-/* line 2591, ../sass/styles.scss */
+/* line 2598, ../sass/styles.scss */
 .entry-content {
   line-height: 1.5;
 }
-/* line 2593, ../sass/styles.scss */
+/* line 2600, ../sass/styles.scss */
 .entry-content a {
   border-bottom: 1px solid #fdcc05;
 }
-/* line 2596, ../sass/styles.scss */
+/* line 2603, ../sass/styles.scss */
 .entry-content h3 {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.285em;
   margin: 5px 0;
 }
-/* line 2601, ../sass/styles.scss */
+/* line 2608, ../sass/styles.scss */
 .entry-content img {
   max-width: 100%;
   height: auto;
 }
-/* line 2605, ../sass/styles.scss */
+/* line 2612, ../sass/styles.scss */
 .entry-content p {
   margin: 0 0 20px;
 }
-/* line 2608, ../sass/styles.scss */
+/* line 2615, ../sass/styles.scss */
 .entry-content ul, .entry-content ol {
   margin: 0 0 25px;
   padding: 0 0 0 25px;
 }
-/* line 2611, ../sass/styles.scss */
+/* line 2618, ../sass/styles.scss */
 .entry-content ul li, .entry-content ol li {
   margin: 0 0 8px;
 }
-/* line 2615, ../sass/styles.scss */
+/* line 2622, ../sass/styles.scss */
 .entry-content .indent {
   padding-left: 40px;
 }
-/* line 2618, ../sass/styles.scss */
+/* line 2625, ../sass/styles.scss */
 .entry-content .smalltext {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-style: italic;
 }
 
-/* line 2625, ../sass/styles.scss */
+/* line 2632, ../sass/styles.scss */
 .hentry {
   border-top: 5px solid #000;
   margin-bottom: 40px;
   padding-top: 20px;
 }
-/* line 2629, ../sass/styles.scss */
+/* line 2636, ../sass/styles.scss */
 .hentry:first-child {
   border-top: none;
   padding-top: 0;
 }
-/* line 2634, ../sass/styles.scss */
+/* line 2641, ../sass/styles.scss */
 .hentry .entry-title {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
@@ -5767,7 +5777,7 @@ em {
   line-height: 1.1;
   margin: 0 0 10px;
 }
-/* line 2641, ../sass/styles.scss */
+/* line 2648, ../sass/styles.scss */
 .hentry .entry-meta {
   margin: 0 0 10px;
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -5775,21 +5785,21 @@ em {
   text-transform: uppercase;
   font-weight: 600;
 }
-/* line 2649, ../sass/styles.scss */
+/* line 2656, ../sass/styles.scss */
 .hentry .entry-content {
   line-height: 1.5;
 }
-/* line 2651, ../sass/styles.scss */
+/* line 2658, ../sass/styles.scss */
 .hentry .entry-content img {
   max-width: 100%;
   height: auto;
 }
-/* line 2655, ../sass/styles.scss */
+/* line 2662, ../sass/styles.scss */
 .hentry .entry-content p {
   margin: 0 0 25px;
 }
 
-/* line 2661, ../sass/styles.scss */
+/* line 2668, ../sass/styles.scss */
 .pagination {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-top: 5px solid #000;
@@ -5797,11 +5807,11 @@ em {
   margin: 0 0 30px;
   text-transform: uppercase;
 }
-/* line 2667, ../sass/styles.scss */
+/* line 2674, ../sass/styles.scss */
 .pagination .page-link {
   display: inline-block;
 }
-/* line 2669, ../sass/styles.scss */
+/* line 2676, ../sass/styles.scss */
 .pagination .page-link::after {
   content: '';
   border-right: 1px solid #999;
@@ -5810,21 +5820,21 @@ em {
   cursor: none;
   cursor: default;
 }
-/* line 2677, ../sass/styles.scss */
+/* line 2684, ../sass/styles.scss */
 .pagination .page-link:last-child::after {
   display: none;
 }
-/* line 2681, ../sass/styles.scss */
+/* line 2688, ../sass/styles.scss */
 .pagination a, .pagination .current {
   font-weight: 600;
   border: none;
 }
-/* line 2685, ../sass/styles.scss */
+/* line 2692, ../sass/styles.scss */
 .pagination .current {
   color: #fdcc05;
 }
 
-/* line 2690, ../sass/styles.scss */
+/* line 2697, ../sass/styles.scss */
 .post-navigation {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-top: 5px solid #000;
@@ -5837,42 +5847,42 @@ em {
   display: table;
   clear: both;
 }
-/* line 2696, ../sass/styles.scss */
+/* line 2703, ../sass/styles.scss */
 .post-navigation a {
   border: none;
 }
-/* line 2699, ../sass/styles.scss */
+/* line 2706, ../sass/styles.scss */
 .post-navigation .meta-nav {
   text-transform: uppercase;
 }
-/* line 2702, ../sass/styles.scss */
+/* line 2709, ../sass/styles.scss */
 .post-navigation .post-title {
   font-weight: 600;
   font-size: 1.142em;
 }
-/* line 2707, ../sass/styles.scss */
+/* line 2714, ../sass/styles.scss */
 .post-navigation .nav-previous {
   float: left;
   width: 40%;
 }
-/* line 2711, ../sass/styles.scss */
+/* line 2718, ../sass/styles.scss */
 .post-navigation .nav-next {
   text-align: right;
   float: right;
   width: 40%;
 }
 
-/* line 2718, ../sass/styles.scss */
+/* line 2725, ../sass/styles.scss */
 .thank-you {
   text-align: center;
   color: #2098d5;
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 2722, ../sass/styles.scss */
+/* line 2729, ../sass/styles.scss */
 .thank-you a {
   color: #2098d5;
 }
-/* line 2725, ../sass/styles.scss */
+/* line 2732, ../sass/styles.scss */
 .thank-you .entry-content {
   font-style: italic;
   font-size: 1.142em;
@@ -5883,11 +5893,11 @@ em {
  * J U D G E S   P A G E
  * -----------------------------------
  */
-/* line 2738, ../sass/styles.scss */
+/* line 2745, ../sass/styles.scss */
 #judges-list {
   margin-top: 40px;
 }
-/* line 2740, ../sass/styles.scss */
+/* line 2747, ../sass/styles.scss */
 #judges-list .judge {
   border-bottom: 1px solid #efefef;
   padding-bottom: 20px;
@@ -5895,13 +5905,13 @@ em {
   position: relative;
   padding-left: 260px;
 }
-/* line 2746, ../sass/styles.scss */
+/* line 2753, ../sass/styles.scss */
 #judges-list .judge:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
   border: none;
 }
-/* line 2751, ../sass/styles.scss */
+/* line 2758, ../sass/styles.scss */
 #judges-list .judge img {
   position: absolute;
   left: 0;
@@ -5909,46 +5919,46 @@ em {
   max-width: 200px;
   height: auto;
 }
-/* line 2758, ../sass/styles.scss */
+/* line 2765, ../sass/styles.scss */
 #judges-list .judge h4, #judges-list .judge .title, #judges-list .judge .url {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 2761, ../sass/styles.scss */
+/* line 2768, ../sass/styles.scss */
 #judges-list .judge h4 {
   font-size: 1.5em;
   font-weight: 700;
   margin: 0;
   padding: 0;
 }
-/* line 2766, ../sass/styles.scss */
+/* line 2773, ../sass/styles.scss */
 #judges-list .judge .title {
   font-weight: 300;
 }
-/* line 2769, ../sass/styles.scss */
+/* line 2776, ../sass/styles.scss */
 #judges-list .judge .url {
   font-style: italic;
 }
-/* line 2772, ../sass/styles.scss */
+/* line 2779, ../sass/styles.scss */
 #judges-list .judge .about {
   margin: 20px 0 0;
 }
-/* line 2774, ../sass/styles.scss */
+/* line 2781, ../sass/styles.scss */
 #judges-list .judge .about p:last-child {
   margin: 0;
 }
 @media (max-width: 991px) {
-  /* line 2738, ../sass/styles.scss */
+  /* line 2745, ../sass/styles.scss */
   #judges-list {
     margin-top: 30px;
   }
-  /* line 2781, ../sass/styles.scss */
+  /* line 2788, ../sass/styles.scss */
   #judges-list .judge {
     border-bottom: 1px solid #efefef;
     padding-bottom: 20px;
     margin-bottom: 25px;
     padding-left: 0;
   }
-  /* line 2786, ../sass/styles.scss */
+  /* line 2793, ../sass/styles.scss */
   #judges-list .judge img {
     position: static;
     margin: auto;
@@ -5956,12 +5966,12 @@ em {
     left: auto;
     top: auto;
   }
-  /* line 2794, ../sass/styles.scss */
+  /* line 2801, ../sass/styles.scss */
   #judges-list .judge h4, #judges-list .judge .title, #judges-list .judge .url {
     font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-align: center;
   }
-  /* line 2798, ../sass/styles.scss */
+  /* line 2805, ../sass/styles.scss */
   #judges-list .judge h4 {
     font-size: 1.5em;
     font-weight: 700;
@@ -5970,66 +5980,66 @@ em {
   }
 }
 
-/* line 2807, ../sass/styles.scss */
+/* line 2814, ../sass/styles.scss */
 .tbl-row {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-bottom: 1px solid #efefef;
   padding: 15px 0;
 }
-/* line 2811, ../sass/styles.scss */
+/* line 2818, ../sass/styles.scss */
 .tbl-row .tbl-col {
   float: left;
   padding: 0 10px 0 0;
 }
-/* line 2814, ../sass/styles.scss */
+/* line 2821, ../sass/styles.scss */
 .tbl-row .tbl-col.col-sn {
   width: 4%;
 }
-/* line 2815, ../sass/styles.scss */
+/* line 2822, ../sass/styles.scss */
 .tbl-row .tbl-col.col-project-name {
   width: 18%;
 }
-/* line 2816, ../sass/styles.scss */
+/* line 2823, ../sass/styles.scss */
 .tbl-row .tbl-col.col-team-leader {
   width: 18%;
 }
-/* line 2817, ../sass/styles.scss */
+/* line 2824, ../sass/styles.scss */
 .tbl-row .tbl-col.col-country {
   width: 14%;
 }
-/* line 2818, ../sass/styles.scss */
+/* line 2825, ../sass/styles.scss */
 .tbl-row .tbl-col.col-image {
   width: 8%;
 }
-/* line 2819, ../sass/styles.scss */
+/* line 2826, ../sass/styles.scss */
 .tbl-row .tbl-col.col-evaluation {
   width: 18%;
 }
-/* line 2820, ../sass/styles.scss */
+/* line 2827, ../sass/styles.scss */
 .tbl-row .tbl-col.col-score {
   width: 10%;
 }
-/* line 2821, ../sass/styles.scss */
+/* line 2828, ../sass/styles.scss */
 .tbl-row .tbl-col.col-status {
   width: 10%;
 }
-/* line 2823, ../sass/styles.scss */
+/* line 2830, ../sass/styles.scss */
 .tbl-row.tbl-row-head {
   padding: 10px 0;
   color: #2098d5;
   border-top: 1px solid #efefef;
   border-bottom: 2px solid #efefef;
 }
-/* line 2829, ../sass/styles.scss */
+/* line 2836, ../sass/styles.scss */
 .tbl-row:hover {
   /*border-color: $brand-secondary;*/
 }
 
-/* line 2835, ../sass/styles.scss */
+/* line 2842, ../sass/styles.scss */
 .project-info {
   margin: 0;
 }
-/* line 2837, ../sass/styles.scss */
+/* line 2844, ../sass/styles.scss */
 .project-info .tbl-col {
   float: left;
   width: 20%;
@@ -6037,38 +6047,38 @@ em {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
-/* line 2843, ../sass/styles.scss */
+/* line 2850, ../sass/styles.scss */
 .project-info .tbl-col span {
   font-size: 1.142rem;
   line-height: 1.3;
   font-weight: 400;
 }
-/* line 2848, ../sass/styles.scss */
+/* line 2855, ../sass/styles.scss */
 .project-info .tbl-col.col-solution-name {
   width: 25%;
 }
-/* line 2849, ../sass/styles.scss */
+/* line 2856, ../sass/styles.scss */
 .project-info .tbl-col.col-team-leader {
   width: 25%;
 }
-/* line 2850, ../sass/styles.scss */
+/* line 2857, ../sass/styles.scss */
 .project-info .tbl-col.col-country {
   width: 20%;
 }
-/* line 2851, ../sass/styles.scss */
+/* line 2858, ../sass/styles.scss */
 .project-info .tbl-col.col-asset {
   width: 15%;
 }
-/* line 2852, ../sass/styles.scss */
+/* line 2859, ../sass/styles.scss */
 .project-info .tbl-col.col-view {
   width: 15%;
 }
 
-/* line 2858, ../sass/styles.scss */
+/* line 2865, ../sass/styles.scss */
 #evaluation_form {
   margin: 30px 0 0;
 }
-/* line 2860, ../sass/styles.scss */
+/* line 2867, ../sass/styles.scss */
 #evaluation_form h4 {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 700;
@@ -6076,17 +6086,17 @@ em {
   /*color: $brand-secondary;*/
   margin: 0 0 15px;
 }
-/* line 2867, ../sass/styles.scss */
+/* line 2874, ../sass/styles.scss */
 #evaluation_form .question {
   font-size: 1.071rem;
   line-height: 1.5;
 }
-/* line 2871, ../sass/styles.scss */
+/* line 2878, ../sass/styles.scss */
 #evaluation_form .score-slider {
   padding: 10px;
   margin: 10px 0;
 }
-/* line 2875, ../sass/styles.scss */
+/* line 2882, ../sass/styles.scss */
 #evaluation_form .slider-label {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.285rem;
@@ -6094,36 +6104,36 @@ em {
   margin: 0 0 20px;
   text-align: center;
 }
-/* line 2881, ../sass/styles.scss */
+/* line 2888, ../sass/styles.scss */
 #evaluation_form .slider-label span {
   font-weight: 700;
 }
-/* line 2885, ../sass/styles.scss */
+/* line 2892, ../sass/styles.scss */
 #evaluation_form .score-instructions {
   padding: 10px;
   background: #F2F2F2;
   font-size: 13px;
 }
-/* line 2889, ../sass/styles.scss */
+/* line 2896, ../sass/styles.scss */
 #evaluation_form .score-instructions p {
   margin: 0 0 10px;
 }
-/* line 2892, ../sass/styles.scss */
+/* line 2899, ../sass/styles.scss */
 #evaluation_form .score-instructions ul {
   margin: 0;
   padding: 0 0 0 20px;
 }
-/* line 2895, ../sass/styles.scss */
+/* line 2902, ../sass/styles.scss */
 #evaluation_form .score-instructions ul li {
   margin: 0 0 5px;
 }
-/* line 2900, ../sass/styles.scss */
+/* line 2907, ../sass/styles.scss */
 #evaluation_form .hline {
   height: 2px;
   background: #f1f1f2;
   margin: 20px 0;
 }
-/* line 2906, ../sass/styles.scss */
+/* line 2913, ../sass/styles.scss */
 #evaluation_form textarea {
   width: 100%;
   border: 1px solid #f1f1f2;
@@ -6131,11 +6141,11 @@ em {
   padding: 10px;
   outline: none !important;
 }
-/* line 2912, ../sass/styles.scss */
+/* line 2919, ../sass/styles.scss */
 #evaluation_form textarea:focus {
   border-color: #2098d5;
 }
-/* line 2917, ../sass/styles.scss */
+/* line 2924, ../sass/styles.scss */
 #evaluation_form button {
   outline: none !important;
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -6150,11 +6160,11 @@ em {
   font-size: 14px;
   line-height: 1;
 }
-/* line 2930, ../sass/styles.scss */
+/* line 2937, ../sass/styles.scss */
 #evaluation_form button:hover {
   background: #000;
 }
-/* line 2935, ../sass/styles.scss */
+/* line 2942, ../sass/styles.scss */
 #evaluation_form .evaluation-submitted {
   background: #2098d5;
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -6166,7 +6176,7 @@ em {
   font-weight: 700;
 }
 
-/* line 2948, ../sass/styles.scss */
+/* line 2955, ../sass/styles.scss */
 .judges-naviation {
   position: absolute;
   top: 0;
@@ -6179,7 +6189,7 @@ em {
   right: 15px;
   margin-top: -27px;
 }
-/* line 2956, ../sass/styles.scss */
+/* line 2963, ../sass/styles.scss */
 .judges-naviation li {
   margin: 0 0 15px;
   border-right: 2px solid #fdcc05;
@@ -6189,16 +6199,16 @@ em {
   text-align: right;
   padding-right: 10px;
 }
-/* line 2964, ../sass/styles.scss */
+/* line 2971, ../sass/styles.scss */
 .judges-naviation li:last-child {
   margin: 0;
 }
-/* line 2967, ../sass/styles.scss */
+/* line 2974, ../sass/styles.scss */
 .judges-naviation li a {
   color: #2098d5;
 }
 
-/* line 2976, ../sass/styles.scss */
+/* line 2983, ../sass/styles.scss */
 .solution-details h4 {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
@@ -6206,26 +6216,26 @@ em {
   margin: 0 0 10px;
   color: #2098d5;
 }
-/* line 2984, ../sass/styles.scss */
+/* line 2991, ../sass/styles.scss */
 .solution-details .hline {
   height: 2px;
   background: #ddd;
   margin: 35px 0 15px;
 }
-/* line 2989, ../sass/styles.scss */
+/* line 2996, ../sass/styles.scss */
 .solution-details table {
   width: 100%;
   word-wrap: break-word;
   table-layout: fixed;
 }
-/* line 2993, ../sass/styles.scss */
+/* line 3000, ../sass/styles.scss */
 .solution-details table td {
   word-wrap: break-word;
   padding: 8px 10px;
   border: 1px solid #efefef;
   vertical-align: top;
 }
-/* line 2998, ../sass/styles.scss */
+/* line 3005, ../sass/styles.scss */
 .solution-details table td.question {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -6259,12 +6269,12 @@ em {
     transform: rotate(360deg);
   }
 }
-/* line 3036, ../sass/styles.scss */
+/* line 3043, ../sass/styles.scss */
 body[class*=jconfirm-no-scroll-] {
   overflow: hidden !important;
 }
 
-/* line 3039, ../sass/styles.scss */
+/* line 3046, ../sass/styles.scss */
 .jconfirm {
   position: fixed;
   top: 0;
@@ -6277,7 +6287,7 @@ body[class*=jconfirm-no-scroll-] {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-/* line 3050, ../sass/styles.scss */
+/* line 3057, ../sass/styles.scss */
 .jconfirm .jconfirm-bg {
   position: fixed;
   top: 0;
@@ -6288,12 +6298,12 @@ body[class*=jconfirm-no-scroll-] {
   transition: opacity .4s;
 }
 
-/* line 3059, ../sass/styles.scss */
+/* line 3066, ../sass/styles.scss */
 .jconfirm .jconfirm-bg.jconfirm-bg-h {
   opacity: 0 !important;
 }
 
-/* line 3062, ../sass/styles.scss */
+/* line 3069, ../sass/styles.scss */
 .jconfirm .jconfirm-scrollpane {
   position: fixed;
   top: 0;
@@ -6307,7 +6317,7 @@ body[class*=jconfirm-no-scroll-] {
   perspective-origin: center;
 }
 
-/* line 3074, ../sass/styles.scss */
+/* line 3081, ../sass/styles.scss */
 .jconfirm .jconfirm-box {
   background: white;
   border-radius: 4px;
@@ -6425,7 +6435,7 @@ body[class*=jconfirm-no-scroll-] {
     border-color: #46627f;
   }
 }
-/* line 3190, ../sass/styles.scss */
+/* line 3197, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-type-animated {
   -webkit-animation-duration: 2s;
   animation-duration: 2s;
@@ -6433,54 +6443,54 @@ body[class*=jconfirm-no-scroll-] {
   animation-iteration-count: infinite;
 }
 
-/* line 3196, ../sass/styles.scss */
+/* line 3203, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-blue {
   border-top: solid 7px #3498db;
   -webkit-animation-name: type-blue;
   animation-name: type-blue;
 }
 
-/* line 3201, ../sass/styles.scss */
+/* line 3208, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-green {
   border-top: solid 7px #2ecc71;
   -webkit-animation-name: type-green;
   animation-name: type-green;
 }
 
-/* line 3206, ../sass/styles.scss */
+/* line 3213, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-red {
   border-top: solid 7px #e74c3c;
   -webkit-animation-name: type-red;
   animation-name: type-red;
 }
 
-/* line 3211, ../sass/styles.scss */
+/* line 3218, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-orange {
   border-top: solid 7px #f1c40f;
   -webkit-animation-name: type-orange;
   animation-name: type-orange;
 }
 
-/* line 3216, ../sass/styles.scss */
+/* line 3223, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-purple {
   border-top: solid 7px #9b59b6;
   -webkit-animation-name: type-purple;
   animation-name: type-purple;
 }
 
-/* line 3221, ../sass/styles.scss */
+/* line 3228, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-dark {
   border-top: solid 7px #34495e;
   -webkit-animation-name: type-dark;
   animation-name: type-dark;
 }
 
-/* line 3226, ../sass/styles.scss */
+/* line 3233, ../sass/styles.scss */
 .jconfirm .jconfirm-box.loading {
   height: 120px;
 }
 
-/* line 3229, ../sass/styles.scss */
+/* line 3236, ../sass/styles.scss */
 .jconfirm .jconfirm-box.loading:before {
   content: '';
   position: absolute;
@@ -6493,7 +6503,7 @@ body[class*=jconfirm-no-scroll-] {
   z-index: 1;
 }
 
-/* line 3240, ../sass/styles.scss */
+/* line 3247, ../sass/styles.scss */
 .jconfirm .jconfirm-box.loading:after {
   opacity: 0.6;
   content: '';
@@ -6512,7 +6522,7 @@ body[class*=jconfirm-no-scroll-] {
   z-index: 2;
 }
 
-/* line 3257, ../sass/styles.scss */
+/* line 3264, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-closeIcon {
   height: 20px;
   width: 20px;
@@ -6529,39 +6539,39 @@ body[class*=jconfirm-no-scroll-] {
   display: none;
 }
 
-/* line 3272, ../sass/styles.scss */
+/* line 3279, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-closeIcon:empty {
   display: none;
 }
 
-/* line 3275, ../sass/styles.scss */
+/* line 3282, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-closeIcon .fa {
   font-size: 16px;
 }
 
-/* line 3278, ../sass/styles.scss */
+/* line 3285, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-closeIcon .glyphicon {
   font-size: 16px;
 }
 
-/* line 3281, ../sass/styles.scss */
+/* line 3288, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-closeIcon .zmdi {
   font-size: 16px;
 }
 
-/* line 3284, ../sass/styles.scss */
+/* line 3291, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-closeIcon:hover {
   opacity: 1;
 }
 
-/* line 3287, ../sass/styles.scss */
+/* line 3294, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-title-c {
   display: block;
   font-size: 22px;
   line-height: 20px;
 }
 
-/* line 3292, ../sass/styles.scss */
+/* line 3299, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-icon-c {
   font-size: inherit;
   padding-bottom: 15px;
@@ -6570,17 +6580,17 @@ body[class*=jconfirm-no-scroll-] {
   vertical-align: middle;
 }
 
-/* line 3299, ../sass/styles.scss */
+/* line 3306, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-icon-c i {
   vertical-align: middle;
 }
 
-/* line 3302, ../sass/styles.scss */
+/* line 3309, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-icon-c:empty {
   display: none;
 }
 
-/* line 3305, ../sass/styles.scss */
+/* line 3312, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-title {
   font-size: inherit;
   font-family: inherit;
@@ -6589,12 +6599,12 @@ body[class*=jconfirm-no-scroll-] {
   padding-bottom: 15px;
 }
 
-/* line 3312, ../sass/styles.scss */
+/* line 3319, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-title:empty {
   display: none;
 }
 
-/* line 3315, ../sass/styles.scss */
+/* line 3322, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-content-pane {
   margin-bottom: 15px;
   height: auto;
@@ -6606,30 +6616,30 @@ body[class*=jconfirm-no-scroll-] {
   overflow: hidden;
 }
 
-/* line 3325, ../sass/styles.scss */
+/* line 3332, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-content-pane .jconfirm-content img {
   max-width: 100%;
   height: auto;
 }
 
-/* line 3329, ../sass/styles.scss */
+/* line 3336, ../sass/styles.scss */
 .jconfirm .jconfirm-box div.jconfirm-content-pane .jconfirm-content:empty {
   display: none;
 }
 
-/* line 3332, ../sass/styles.scss */
+/* line 3339, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons {
   padding-bottom: 11px;
 }
 
-/* line 3335, ../sass/styles.scss */
+/* line 3342, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons > button {
   margin-bottom: 4px;
   margin-left: 2px;
   margin-right: 2px;
 }
 
-/* line 3340, ../sass/styles.scss */
+/* line 3347, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button {
   display: inline-block;
   padding: 6px 12px;
@@ -6659,7 +6669,7 @@ body[class*=jconfirm-no-scroll-] {
   background-image: none;
 }
 
-/* line 3368, ../sass/styles.scss */
+/* line 3375, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-blue {
   background-color: #3498db;
   color: #FFF;
@@ -6668,13 +6678,13 @@ body[class*=jconfirm-no-scroll-] {
   transition: background .2s;
 }
 
-/* line 3375, ../sass/styles.scss */
+/* line 3382, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-blue:hover {
   background-color: #2980b9;
   color: #FFF;
 }
 
-/* line 3379, ../sass/styles.scss */
+/* line 3386, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-green {
   background-color: #2ecc71;
   color: #FFF;
@@ -6683,13 +6693,13 @@ body[class*=jconfirm-no-scroll-] {
   transition: background .2s;
 }
 
-/* line 3386, ../sass/styles.scss */
+/* line 3393, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-green:hover {
   background-color: #27ae60;
   color: #FFF;
 }
 
-/* line 3390, ../sass/styles.scss */
+/* line 3397, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-red {
   background-color: #e74c3c;
   color: #FFF;
@@ -6698,13 +6708,13 @@ body[class*=jconfirm-no-scroll-] {
   transition: background .2s;
 }
 
-/* line 3397, ../sass/styles.scss */
+/* line 3404, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-red:hover {
   background-color: #c0392b;
   color: #FFF;
 }
 
-/* line 3401, ../sass/styles.scss */
+/* line 3408, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-orange {
   background-color: #f1c40f;
   color: #FFF;
@@ -6713,13 +6723,13 @@ body[class*=jconfirm-no-scroll-] {
   transition: background .2s;
 }
 
-/* line 3408, ../sass/styles.scss */
+/* line 3415, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-orange:hover {
   background-color: #f39c12;
   color: #FFF;
 }
 
-/* line 3412, ../sass/styles.scss */
+/* line 3419, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-default {
   background-color: #ecf0f1;
   color: #000;
@@ -6728,13 +6738,13 @@ body[class*=jconfirm-no-scroll-] {
   transition: background .2s;
 }
 
-/* line 3419, ../sass/styles.scss */
+/* line 3426, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-default:hover {
   background-color: #bdc3c7;
   color: #000;
 }
 
-/* line 3423, ../sass/styles.scss */
+/* line 3430, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-purple {
   background-color: #9b59b6;
   color: #FFF;
@@ -6743,13 +6753,13 @@ body[class*=jconfirm-no-scroll-] {
   transition: background .2s;
 }
 
-/* line 3430, ../sass/styles.scss */
+/* line 3437, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-purple:hover {
   background-color: #8e44ad;
   color: #FFF;
 }
 
-/* line 3434, ../sass/styles.scss */
+/* line 3441, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-dark {
   background-color: #34495e;
   color: #FFF;
@@ -6758,36 +6768,36 @@ body[class*=jconfirm-no-scroll-] {
   transition: background .2s;
 }
 
-/* line 3441, ../sass/styles.scss */
+/* line 3448, ../sass/styles.scss */
 .jconfirm .jconfirm-box .jconfirm-buttons button.btn-dark:hover {
   background-color: #2c3e50;
   color: #FFF;
 }
 
-/* line 3445, ../sass/styles.scss */
+/* line 3452, ../sass/styles.scss */
 .jconfirm .jconfirm-clear {
   clear: both;
 }
 
-/* line 3448, ../sass/styles.scss */
+/* line 3455, ../sass/styles.scss */
 .jconfirm.jconfirm-rtl {
   direction: rtl;
 }
 
-/* line 3451, ../sass/styles.scss */
+/* line 3458, ../sass/styles.scss */
 .jconfirm.jconfirm-rtl div.jconfirm-closeIcon {
   left: 5px;
   right: auto;
 }
 
-/* line 3455, ../sass/styles.scss */
+/* line 3462, ../sass/styles.scss */
 .jconfirm.jconfirm-white .jconfirm-bg,
 .jconfirm.jconfirm-light .jconfirm-bg {
   background-color: #444;
   opacity: .2;
 }
 
-/* line 3460, ../sass/styles.scss */
+/* line 3467, ../sass/styles.scss */
 .jconfirm.jconfirm-white .jconfirm-box,
 .jconfirm.jconfirm-light .jconfirm-box {
   margin: 0 auto;
@@ -6795,13 +6805,13 @@ body[class*=jconfirm-no-scroll-] {
   border-radius: 5px;
 }
 
-/* line 3466, ../sass/styles.scss */
+/* line 3473, ../sass/styles.scss */
 .jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons,
 .jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons {
   float: right;
 }
 
-/* line 3470, ../sass/styles.scss */
+/* line 3477, ../sass/styles.scss */
 .jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button,
 .jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button {
   text-transform: uppercase;
@@ -6810,27 +6820,27 @@ body[class*=jconfirm-no-scroll-] {
   text-shadow: none;
 }
 
-/* line 3477, ../sass/styles.scss */
+/* line 3484, ../sass/styles.scss */
 .jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button.btn-default,
 .jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button.btn-default {
   box-shadow: none;
   color: #333;
 }
 
-/* line 3482, ../sass/styles.scss */
+/* line 3489, ../sass/styles.scss */
 .jconfirm.jconfirm-white .jconfirm-box .jconfirm-buttons button.btn-default:hover,
 .jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button.btn-default:hover {
   background: #ddd;
 }
 
-/* line 3486, ../sass/styles.scss */
+/* line 3493, ../sass/styles.scss */
 .jconfirm.jconfirm-black .jconfirm-bg,
 .jconfirm.jconfirm-dark .jconfirm-bg {
   background-color: darkslategray;
   opacity: .4;
 }
 
-/* line 3491, ../sass/styles.scss */
+/* line 3498, ../sass/styles.scss */
 .jconfirm.jconfirm-black .jconfirm-box,
 .jconfirm.jconfirm-dark .jconfirm-box {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
@@ -6839,13 +6849,13 @@ body[class*=jconfirm-no-scroll-] {
   color: white;
 }
 
-/* line 3498, ../sass/styles.scss */
+/* line 3505, ../sass/styles.scss */
 .jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons,
 .jconfirm.jconfirm-dark .jconfirm-box .jconfirm-buttons {
   float: right;
 }
 
-/* line 3502, ../sass/styles.scss */
+/* line 3509, ../sass/styles.scss */
 .jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button,
 .jconfirm.jconfirm-dark .jconfirm-box .jconfirm-buttons button {
   border: none;
@@ -6859,7 +6869,7 @@ body[class*=jconfirm-no-scroll-] {
   color: white;
 }
 
-/* line 3514, ../sass/styles.scss */
+/* line 3521, ../sass/styles.scss */
 .jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button.btn-default,
 .jconfirm.jconfirm-dark .jconfirm-box .jconfirm-buttons button.btn-default {
   box-shadow: none;
@@ -6867,13 +6877,13 @@ body[class*=jconfirm-no-scroll-] {
   background: none;
 }
 
-/* line 3520, ../sass/styles.scss */
+/* line 3527, ../sass/styles.scss */
 .jconfirm.jconfirm-black .jconfirm-box .jconfirm-buttons button.btn-default:hover,
 .jconfirm.jconfirm-dark .jconfirm-box .jconfirm-buttons button.btn-default:hover {
   background: #666;
 }
 
-/* line 3524, ../sass/styles.scss */
+/* line 3531, ../sass/styles.scss */
 .jconfirm .jconfirm-box.hilight.jconfirm-hilight-shake {
   -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
@@ -6881,7 +6891,7 @@ body[class*=jconfirm-no-scroll-] {
   transform: translate3d(0, 0, 0);
 }
 
-/* line 3530, ../sass/styles.scss */
+/* line 3537, ../sass/styles.scss */
 .jconfirm .jconfirm-box.hilight.jconfirm-hilight-glow {
   -webkit-animation: glow 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   animation: glow 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
@@ -6954,20 +6964,20 @@ body[class*=jconfirm-no-scroll-] {
   }
 }
 /*Transition rules*/
-/* line 3601, ../sass/styles.scss */
+/* line 3608, ../sass/styles.scss */
 .jconfirm {
   -webkit-perspective: 400px;
   perspective: 400px;
 }
 
-/* line 3605, ../sass/styles.scss */
+/* line 3612, ../sass/styles.scss */
 .jconfirm .jconfirm-box {
   opacity: 1;
   -webkit-transition-property: all;
   transition-property: all;
 }
 
-/* line 3610, ../sass/styles.scss */
+/* line 3617, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-top,
 .jconfirm .jconfirm-box.jconfirm-animation-left,
 .jconfirm .jconfirm-box.jconfirm-animation-right,
@@ -6984,14 +6994,14 @@ body[class*=jconfirm-no-scroll-] {
   opacity: 0;
 }
 
-/* line 3625, ../sass/styles.scss */
+/* line 3632, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-rotate {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
-/* line 3630, ../sass/styles.scss */
+/* line 3637, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-rotatex {
   -webkit-transform: rotateX(90deg);
   transform: rotateX(90deg);
@@ -7000,7 +7010,7 @@ body[class*=jconfirm-no-scroll-] {
   transform-origin: center;
 }
 
-/* line 3637, ../sass/styles.scss */
+/* line 3644, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-rotatexr {
   -webkit-transform: rotateX(-90deg);
   transform: rotateX(-90deg);
@@ -7009,7 +7019,7 @@ body[class*=jconfirm-no-scroll-] {
   transform-origin: center;
 }
 
-/* line 3644, ../sass/styles.scss */
+/* line 3651, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-rotatey {
   -webkit-transform: rotatey(90deg);
   -ms-transform: rotatey(90deg);
@@ -7019,7 +7029,7 @@ body[class*=jconfirm-no-scroll-] {
   transform-origin: center;
 }
 
-/* line 3652, ../sass/styles.scss */
+/* line 3659, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-rotateyr {
   -webkit-transform: rotatey(-90deg);
   -ms-transform: rotatey(-90deg);
@@ -7029,7 +7039,7 @@ body[class*=jconfirm-no-scroll-] {
   transform-origin: center;
 }
 
-/* line 3660, ../sass/styles.scss */
+/* line 3667, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-scaley {
   -webkit-transform: scaley(1.5);
   -ms-transform: scaley(1.5);
@@ -7039,7 +7049,7 @@ body[class*=jconfirm-no-scroll-] {
   transform-origin: center;
 }
 
-/* line 3668, ../sass/styles.scss */
+/* line 3675, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-scalex {
   -webkit-transform: scalex(1.5);
   -ms-transform: scalex(1.5);
@@ -7049,69 +7059,69 @@ body[class*=jconfirm-no-scroll-] {
   transform-origin: center;
 }
 
-/* line 3676, ../sass/styles.scss */
+/* line 3683, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-top {
   -webkit-transform: translate(0px, -100px);
   -ms-transform: translate(0px, -100px);
   transform: translate(0px, -100px);
 }
 
-/* line 3681, ../sass/styles.scss */
+/* line 3688, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-left {
   -webkit-transform: translate(-100px, 0px);
   -ms-transform: translate(-100px, 0px);
   transform: translate(-100px, 0px);
 }
 
-/* line 3686, ../sass/styles.scss */
+/* line 3693, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-right {
   -webkit-transform: translate(100px, 0px);
   -ms-transform: translate(100px, 0px);
   transform: translate(100px, 0px);
 }
 
-/* line 3691, ../sass/styles.scss */
+/* line 3698, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-bottom {
   -webkit-transform: translate(0px, 100px);
   -ms-transform: translate(0px, 100px);
   transform: translate(0px, 100px);
 }
 
-/* line 3696, ../sass/styles.scss */
+/* line 3703, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-zoom {
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
   transform: scale(1.2);
 }
 
-/* line 3701, ../sass/styles.scss */
+/* line 3708, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-scale {
   -webkit-transform: scale(0.5);
   -ms-transform: scale(0.5);
   transform: scale(0.5);
 }
 
-/* line 3706, ../sass/styles.scss */
+/* line 3713, ../sass/styles.scss */
 .jconfirm .jconfirm-box.jconfirm-animation-none {
   visibility: hidden;
 }
 
-/* line 3709, ../sass/styles.scss */
+/* line 3716, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-bg {
   background-color: rgba(54, 70, 93, 0.95);
 }
 
-/* line 3712, ../sass/styles.scss */
+/* line 3719, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-box {
   background-color: transparent;
 }
 
-/* line 3715, ../sass/styles.scss */
+/* line 3722, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-box div.jconfirm-closeIcon {
   color: white;
 }
 
-/* line 3718, ../sass/styles.scss */
+/* line 3725, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-box div.jconfirm-title-c {
   text-align: center;
   color: white;
@@ -7119,28 +7129,28 @@ body[class*=jconfirm-no-scroll-] {
   font-weight: normal;
 }
 
-/* line 3724, ../sass/styles.scss */
+/* line 3731, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-box div.jconfirm-title-c > * {
   padding-bottom: 25px;
 }
 
-/* line 3727, ../sass/styles.scss */
+/* line 3734, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-box div.jconfirm-content-pane {
   margin-bottom: 25px;
 }
 
-/* line 3730, ../sass/styles.scss */
+/* line 3737, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-box div.jconfirm-content {
   text-align: center;
   color: white;
 }
 
-/* line 3734, ../sass/styles.scss */
+/* line 3741, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-box .jconfirm-buttons {
   text-align: center;
 }
 
-/* line 3737, ../sass/styles.scss */
+/* line 3744, ../sass/styles.scss */
 .jconfirm.jconfirm-supervan .jconfirm-box .jconfirm-buttons button {
   font-size: 16px;
   border-radius: 2px;
@@ -7152,53 +7162,53 @@ body[class*=jconfirm-no-scroll-] {
   min-width: 100px;
 }
 
-/* line 3747, ../sass/styles.scss */
+/* line 3754, ../sass/styles.scss */
 .jconfirm.jconfirm-material .jconfirm-bg {
   background-color: rgba(0, 0, 0, 0.67);
 }
 
-/* line 3750, ../sass/styles.scss */
+/* line 3757, ../sass/styles.scss */
 .jconfirm.jconfirm-material .jconfirm-box {
   background-color: white;
   box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
   padding: 30px 25px 10px 25px;
 }
 
-/* line 3755, ../sass/styles.scss */
+/* line 3762, ../sass/styles.scss */
 .jconfirm.jconfirm-material .jconfirm-box div.jconfirm-closeIcon {
   color: rgba(0, 0, 0, 0.87);
 }
 
-/* line 3758, ../sass/styles.scss */
+/* line 3765, ../sass/styles.scss */
 .jconfirm.jconfirm-material .jconfirm-box div.jconfirm-title-c {
   color: rgba(0, 0, 0, 0.87);
   font-size: 22px;
   font-weight: bold;
 }
 
-/* line 3763, ../sass/styles.scss */
+/* line 3770, ../sass/styles.scss */
 .jconfirm.jconfirm-material .jconfirm-box div.jconfirm-content {
   text-align: left;
   color: rgba(0, 0, 0, 0.87);
 }
 
-/* line 3767, ../sass/styles.scss */
+/* line 3774, ../sass/styles.scss */
 .jconfirm.jconfirm-material .jconfirm-box .jconfirm-buttons {
   text-align: right;
 }
 
-/* line 3770, ../sass/styles.scss */
+/* line 3777, ../sass/styles.scss */
 .jconfirm.jconfirm-material .jconfirm-box .jconfirm-buttons button {
   text-transform: uppercase;
   font-weight: 500;
 }
 
-/* line 3774, ../sass/styles.scss */
+/* line 3781, ../sass/styles.scss */
 .jconfirm.jconfirm-bootstrap .jconfirm-bg {
   background-color: rgba(0, 0, 0, 0.21);
 }
 
-/* line 3777, ../sass/styles.scss */
+/* line 3784, ../sass/styles.scss */
 .jconfirm.jconfirm-bootstrap .jconfirm-box {
   background-color: white;
   box-shadow: 0 3px 8px 0px rgba(0, 0, 0, 0.2);
@@ -7206,12 +7216,12 @@ body[class*=jconfirm-no-scroll-] {
   padding: 15px 0 0;
 }
 
-/* line 3783, ../sass/styles.scss */
+/* line 3790, ../sass/styles.scss */
 .jconfirm.jconfirm-bootstrap .jconfirm-box div.jconfirm-closeIcon {
   color: rgba(0, 0, 0, 0.87);
 }
 
-/* line 3786, ../sass/styles.scss */
+/* line 3793, ../sass/styles.scss */
 .jconfirm.jconfirm-bootstrap .jconfirm-box div.jconfirm-title-c {
   color: rgba(0, 0, 0, 0.87);
   font-size: 22px;
@@ -7220,14 +7230,14 @@ body[class*=jconfirm-no-scroll-] {
   padding-right: 15px;
 }
 
-/* line 3793, ../sass/styles.scss */
+/* line 3800, ../sass/styles.scss */
 .jconfirm.jconfirm-bootstrap .jconfirm-box div.jconfirm-content {
   text-align: left;
   color: rgba(0, 0, 0, 0.87);
   padding: 0px 15px;
 }
 
-/* line 3798, ../sass/styles.scss */
+/* line 3805, ../sass/styles.scss */
 .jconfirm.jconfirm-bootstrap .jconfirm-box .jconfirm-buttons {
   text-align: right;
   padding: 0px 0 0px;
@@ -7237,7 +7247,7 @@ body[class*=jconfirm-no-scroll-] {
   border-radius: 0 0 4px 4px;
 }
 
-/* line 3806, ../sass/styles.scss */
+/* line 3813, ../sass/styles.scss */
 .jconfirm.jconfirm-bootstrap .jconfirm-box .jconfirm-buttons button {
   font-weight: 500;
   border-radius: 0px;
@@ -7245,7 +7255,7 @@ body[class*=jconfirm-no-scroll-] {
   border-left: solid 1px #ddd;
 }
 
-/* line 3816, ../sass/styles.scss */
+/* line 3823, ../sass/styles.scss */
 .link-button {
   display: inline-block;
   margin-top: 20px;
@@ -7261,7 +7271,7 @@ body[class*=jconfirm-no-scroll-] {
   font-size: 14px;
   line-height: 1;
 }
-/* line 3830, ../sass/styles.scss */
+/* line 3837, ../sass/styles.scss */
 .link-button:hover {
   background: #000;
   color: #fff;
@@ -7271,34 +7281,34 @@ body[class*=jconfirm-no-scroll-] {
  * S E M I F I N A L I S T S   P A G E
  * -----------------------------------
  */
-/* line 3842, ../sass/styles.scss */
+/* line 3849, ../sass/styles.scss */
 #semifinalists-list {
   margin-top: 40px;
 }
-/* line 3846, ../sass/styles.scss */
+/* line 3853, ../sass/styles.scss */
 #semifinalists-list .col-md-4:nth-of-type(1n+4) .semifinalist {
   margin-bottom: 0;
 }
-/* line 3851, ../sass/styles.scss */
+/* line 3858, ../sass/styles.scss */
 #semifinalists-list .banner-demoday {
   margin: 0 auto 40px;
   max-width: 260px;
 }
-/* line 3855, ../sass/styles.scss */
+/* line 3862, ../sass/styles.scss */
 #semifinalists-list .semifinalist {
   padding-bottom: 20px;
   margin-bottom: 40px;
   position: relative;
 }
-/* line 3859, ../sass/styles.scss */
+/* line 3866, ../sass/styles.scss */
 #semifinalists-list .semifinalist img {
   margin: 0 auto 15px;
 }
-/* line 3862, ../sass/styles.scss */
+/* line 3869, ../sass/styles.scss */
 #semifinalists-list .semifinalist h4, #semifinalists-list .semifinalist .title, #semifinalists-list .semifinalist .url {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 3865, ../sass/styles.scss */
+/* line 3872, ../sass/styles.scss */
 #semifinalists-list .semifinalist h4 {
   font-size: 1.5em;
   line-height: 1.3;
@@ -7306,40 +7316,46 @@ body[class*=jconfirm-no-scroll-] {
   margin: 0 0 15px;
   padding: 0;
 }
-/* line 3871, ../sass/styles.scss */
+/* line 3878, ../sass/styles.scss */
 #semifinalists-list .semifinalist .title {
   font-weight: 300;
 }
-/* line 3874, ../sass/styles.scss */
+/* line 3881, ../sass/styles.scss */
 #semifinalists-list .semifinalist .url {
   font-style: italic;
 }
-/* line 3877, ../sass/styles.scss */
+/* line 3884, ../sass/styles.scss */
 #semifinalists-list .semifinalist .description {
   margin: 15px 0 0;
 }
-/* line 3879, ../sass/styles.scss */
+/* line 3886, ../sass/styles.scss */
 #semifinalists-list .semifinalist .description p:last-child {
   margin: 0;
 }
 @media (max-width: 767px) {
-  /* line 3842, ../sass/styles.scss */
+  /* line 3849, ../sass/styles.scss */
   #semifinalists-list {
     margin-top: 30px;
   }
-  /* line 3886, ../sass/styles.scss */
+  /* line 3893, ../sass/styles.scss */
   #semifinalists-list .banner-demoday {
     margin: 0 auto;
   }
-  /* line 3890, ../sass/styles.scss */
+  /* line 3897, ../sass/styles.scss */
   #semifinalists-list .col-md-4:nth-of-type(1n+4) .semifinalist {
     margin-bottom: 40px;
   }
-  /* line 3895, ../sass/styles.scss */
+  /* line 3902, ../sass/styles.scss */
   #semifinalists-list .semifinalist h4 {
     font-size: 1.5em;
     font-weight: 700;
     margin: 0;
     padding: 0;
   }
+}
+
+/* line 3912, ../sass/styles.scss */
+.banner-mentorship img {
+  width: 100%;
+  height: auto;
 }
