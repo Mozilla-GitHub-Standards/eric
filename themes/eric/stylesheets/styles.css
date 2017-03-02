@@ -3005,7 +3005,7 @@ em {
   display: block;
   float: left;
   position: relative;
-  margin: 0 9px;
+  margin: 0 8px;
 }
 /* line 325, ../sass/styles.scss */
 #site-navigation .primary-menu > li:hover {
@@ -3024,7 +3024,7 @@ em {
   line-height: 1em;
   text-transform: uppercase;
   color: inherit;
-  padding: 10px 25px;
+  padding: 10px 30px;
 }
 /* line 342, ../sass/styles.scss */
 #site-navigation .primary-menu > li:first-child > a {
