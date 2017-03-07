@@ -10,7 +10,6 @@ var request;
 var siteURL = get_hostname(document.location.href);
 var uploadURL = siteURL + '/upload';
 var ajaxURL = siteURL + '/ajax';
-//siteURL += '/equalrating';
 
 ( function( $ ) {
   $.fn.equalizeHeights = function(){
@@ -446,6 +445,59 @@ var ajaxURL = siteURL + '/ajax';
           $(this).html(event.strftime('<div class="dtobj"><strong>%D</strong><br class="hidden-md-down" />d<span class="hidden-md-down">ays</span></div><div class="dt_colons">:</div><div class="dtobj"><strong>%H</strong><br class="hidden-md-down" />h<span class="hidden-md-down"ays</span>ours</span></div><div class="dt_colons">:</div><div class="dtobj"><strong>%M</strong><br class="hidden-md-down" />m<span class="hidden-md-down"ays</span>inutes</span></div>'));
         }).on('finish.countdown', function() {
 //          console.log("Countdown finished");
+        });
+      });
+    }
+    
+    
+    if($('#semifinalists-voting-list').length > 0) {
+      $('#semifinalists-voting-list').each(function() {
+        var $container = $(this);
+        var $buttons = $('.btn-vote', $container);
+        
+        // based on cookies
+//        $buttons.addClass('enabled');
+        if(!($.cookie('eric_voted')) || $.cookie('eric_voted')==='undefined') {
+          $buttons.addClass('enabled');
+        } else {
+          $('[data-sid="'+$.cookie('eric_voted')+'"]').addClass('voted').text('THANK YOU FOR YOUR VOTE!');
+        }
+        
+        $buttons.each(function() {
+          var $item = $(this);
+          $item.click(function(e) {
+            e.preventDefault();
+            
+            if($item.hasClass('enabled')) {
+              var semifinalist_id = $item.data('sid');
+              var semifinalist_name = $item.data('sname');
+              
+              $('body').showLoading();
+              votingData = "&sid="+semifinalist_id+"&sname="+semifinalist_name;
+              $.ajax({
+                url: ajaxURL + '/vote',
+                type: 'post',
+                dataType: 'json',
+                data: votingData,
+                success: function (data) {
+                  alert(JSON.stringify(data));
+                  if(data.success==1) {
+                    $buttons.removeClass('enabled');
+                    $.cookie('eric_voted', semifinalist_id, { expires: 99, path: '/' });
+                    $item.addClass('voted').text('THANK YOU FOR YOUR VOTE!');
+                    $('body').hideLoading();
+                  } else {
+                    $('body').hideLoading();
+                    alert("Error Occured!");
+                  }
+                },
+                error: function(e) {
+                  $('body').hideLoading();
+                  alert("Error Occured!");
+                }
+              });
+            }
+          });
         });
       });
     }
