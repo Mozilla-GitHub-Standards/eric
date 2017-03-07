@@ -480,7 +480,6 @@ var ajaxURL = siteURL + '/ajax';
                 dataType: 'json',
                 data: votingData,
                 success: function (data) {
-                  alert(JSON.stringify(data));
                   if(data.success==1) {
                     $buttons.removeClass('enabled');
                     $.cookie('eric_voted', semifinalist_id, { expires: 99, path: '/' });
