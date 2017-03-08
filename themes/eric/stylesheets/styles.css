@@ -7548,7 +7548,7 @@ body[class*=jconfirm-no-scroll-] {
 /* line 4079, ../sass/styles.scss */
 .side-banners img {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 40px;
   max-width: 260px;
 }
 /* line 4083, ../sass/styles.scss */
@@ -7559,4 +7559,10 @@ body[class*=jconfirm-no-scroll-] {
 /* line 4087, ../sass/styles.scss */
 .side-banners img.banner-voting-closes {
   max-width: 260px;
+}
+@media (max-width: 991px) {
+  /* line 4079, ../sass/styles.scss */
+  .side-banners img {
+    margin-bottom: 30px;
+  }
 }

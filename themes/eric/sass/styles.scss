@@ -4078,7 +4078,7 @@ body[class*=jconfirm-no-scroll-] {
   width: 100%;
   img {
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 40px;
     max-width: 260px;
     &.banner-cast-vote {
       margin-bottom: 30px;
@@ -4086,6 +4086,9 @@ body[class*=jconfirm-no-scroll-] {
     }
     &.banner-voting-closes {
       max-width: 260px;
+    }
+    @include media-breakpoint-down(md) {
+      margin-bottom: 30px;
     }
   }
 }
