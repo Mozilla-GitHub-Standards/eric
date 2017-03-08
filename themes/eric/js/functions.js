@@ -482,7 +482,7 @@ var ajaxURL = siteURL + '/ajax';
                 success: function (data) {
                   if(data.success==1) {
                     $buttons.removeClass('enabled');
-                    $.cookie('eric_voted', semifinalist_id, { expires: 99, path: '/' });
+                    $.cookie('eric_voted', semifinalist_id, { expires: 1, path: '/' });
                     $item.addClass('voted').text('THANK YOU FOR YOUR VOTE!');
                     $('body').hideLoading();
                   } else {

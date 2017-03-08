@@ -29,7 +29,7 @@ define( 'EVALUATION_SUBMIT_PAGE_URL', SITE_URL.'/evaluation/submit' );
 define( 'SUBMISSIONS_PAGE_URL', SITE_URL.'/submissions' );
 define( 'SUBMISSION_VIEW_PAGE_URL', SITE_URL.'/submissions/view' );
 
-define( 'SEMIFINALIST_PAGE_ID', 306 );
+define( 'SEMIFINALIST_PAGE_ID', 608 ); //306
 
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -1501,7 +1501,10 @@ function shortcodeSemifinalists($atts=null) {
     foreach($semifinalists as $semifinalist) {
       if($counter === 2) {
         $return .= '<div class="col-md-4 col-sm-12">';
-          $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-down" />';
+          $return .= '<div class="side-banners hidden-sm-down">';
+            $return .= '<a href="'.SITE_URL.'/vote/"><img src="'.THEME_PATH.'/images/badge-circle-vote.png" alt="Cast your vote!" class="banner-cast-vote" /></a>';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-winners-date.png" alt="Winners will be announced on 29th March 2017" class="banner-winners-date" />';
+          $return .= '</div>';
         $return .= '</div>';
         $return .= '<div class="clearfix"></div>';
         $counter++;
@@ -1520,7 +1523,12 @@ function shortcodeSemifinalists($atts=null) {
       
       $counter++;
     }
-    $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-up" />';
+    
+    $return .= '<div class="side-banners hidden-sm-up">';
+      $return .= '<a href="'.SITE_URL.'/vote/"><img src="'.THEME_PATH.'/images/badge-circle-vote.png" alt="Cast your vote!" class="banner-cast-vote" /></a>';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-winners-date.png" alt="Winners will be announced on 29th March 2017" class="banner-winners-date" />';
+    $return .= '</div>';
+    
     $return .= '</div>';
     $return .= '</div>';
   }
@@ -1543,8 +1551,10 @@ function shortcodeCommunityVoting($atts=null) {
     foreach($semifinalists as $semifinalist) {
       if($counter === 2) {
         $return .= '<div class="col-md-4 col-sm-12">';
-          $return .= '<img src="'.THEME_PATH.'/images/voting-closes.png" alt="Voting closes on 16th March 2017" class="img-fluid banner-voting-closes hidden-sm-down" />';
-        $return .= '</div>';
+          $return .= '<div class="side-banners hidden-sm-down">';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-cast-your-vote.png" alt="Voting closes on 16th March 2017" class="banner-voting-closes" />';
+          $return .= '</div>';
+          $return .= '</div>';
         $return .= '<div class="clearfix"></div>';
         $counter++;
       }
@@ -1552,7 +1562,7 @@ function shortcodeCommunityVoting($atts=null) {
       $return .= '<div class="col-md-4 col-sm-12">';
         $return .= '<div class="semifinalist">';
           $return .= '<div class="video-wrapper"><iframe width="560" height="315" src="'.$semifinalist['demo_day_video'].'" frameborder="0" allowfullscreen></iframe></div>';
-          $return .= '<a href="javascript:void();" class="btn-vote disbaled" data-sname="'.$semifinalist['name'].'" data-sid="'.$semifinalist['key'].'">Vote</a>';
+          $return .= '<a href="javascript:void();" class="btn-vote disbaled" data-sname="'.$semifinalist['name'].'" data-sid="'.$semifinalist['key'].'"><i class="checkmark-vote"></i> Vote</a>';
           $return .= '<h4>'.$semifinalist['name'].'</h4>';
           $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
           $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
@@ -1562,7 +1572,10 @@ function shortcodeCommunityVoting($atts=null) {
       
       $counter++;
     }
-    $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-up" />';
+    $return .= '<div class="side-banners hidden-sm-up">';
+      $return .= '<img src="'.THEME_PATH.'/images/badge-cast-your-vote.png" alt=" Watch the semifinalists Demo Day Live" class="banner-voting-closes" />';
+    $return .= '</div>';
+      
     $return .= '</div>';
     $return .= '</div>';
   }
