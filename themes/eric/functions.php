@@ -29,6 +29,8 @@ define( 'EVALUATION_SUBMIT_PAGE_URL', SITE_URL.'/evaluation/submit' );
 define( 'SUBMISSIONS_PAGE_URL', SITE_URL.'/submissions' );
 define( 'SUBMISSION_VIEW_PAGE_URL', SITE_URL.'/submissions/view' );
 
+define( 'SEMIFINALIST_PAGE_ID', 608 ); //306
+
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -46,6 +48,9 @@ if(!isset($wpdb->submission_members)) {
 }
 if(!isset($wpdb->evaluation)) {
   $wpdb->evaluation = $wpdb->prefix . 'evaluation';
+}
+if(!isset($wpdb->community_voting)) {
+  $wpdb->community_voting = $wpdb->prefix . 'community_voting';
 }
 
 /*
@@ -102,10 +107,14 @@ if( function_exists('acf_add_options_page') ) {
 		'menu_title'	=> 'Submission Process',
 		'parent_slug'	=> 'theme-general-settings',
 	));
-	
 	acf_add_options_sub_page(array(
 		'page_title' 	=> 'Upcoming Dates',
 		'menu_title'	=> 'Upcoming Dates',
+		'parent_slug'	=> 'theme-general-settings',
+	));
+  acf_add_options_sub_page(array(
+		'page_title' 	=> 'Demoday Program',
+		'menu_title'	=> 'Demoday Program',
 		'parent_slug'	=> 'theme-general-settings',
 	));
 }
@@ -259,6 +268,7 @@ function twentysixteen_scripts() {
   // Loading javascripts and jquery plugins
   wp_enqueue_script('jquery-easing', THEME_PATH . '/js/jquery.easing.1.3.js', array('jquery'), '1.3');
   wp_enqueue_script('jquery-showLoading', THEME_PATH . '/js/jquery.showLoading.min.js', array('jquery'), '1.0', false);
+  wp_enqueue_script('jqery-cookie', THEME_PATH .'/js/jquery.cookie.js', array('jquery'), '1.4.1', true);
   wp_enqueue_script('jqery-form', THEME_PATH .'/js/jquery.form.js', array('jquery'), '2.67', true);
   wp_enqueue_script('jquery-textcounter', THEME_PATH . '/js/textcounter.js', array('jquery'), '0.3.6', false);
   wp_enqueue_script('bootstrap-slider', THEME_PATH . '/js/bootstrap-slider.js', array('jquery'), 'v9.5.4');
@@ -761,7 +771,8 @@ function custom_login_redirect() {
     exit();
   }
 }
-//add_action( 'wp', 'custom_login_redirect' );
+add_action( 'wp', 'custom_login_redirect' );
+
 
 
 add_shortcode('submission_form_status', 'shortcodeSubmissionFormStatus');
@@ -1494,7 +1505,10 @@ function shortcodeSemifinalists($atts=null) {
     foreach($semifinalists as $semifinalist) {
       if($counter === 2) {
         $return .= '<div class="col-md-4 col-sm-12">';
-          $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-down" />';
+          $return .= '<div class="side-banners hidden-sm-down">';
+            $return .= '<a href="'.SITE_URL.'/vote/"><img src="'.THEME_PATH.'/images/badge-circle-vote.png" alt="Cast your vote!" class="banner-cast-vote" /></a>';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-winners-date.png" alt="Winners will be announced on 29th March 2017" class="banner-winners-date" />';
+          $return .= '</div>';
         $return .= '</div>';
         $return .= '<div class="clearfix"></div>';
         $counter++;
@@ -1513,8 +1527,77 @@ function shortcodeSemifinalists($atts=null) {
       
       $counter++;
     }
-    $return .= '<img src="'.THEME_PATH.'/images/badge-pre-demo-day.png" alt=" Watch the semifinalists Demo Day Live" class="img-fluid banner-demoday hidden-sm-up" />';
+    
+    $return .= '<div class="side-banners hidden-sm-up">';
+      $return .= '<a href="'.SITE_URL.'/vote/"><img src="'.THEME_PATH.'/images/badge-circle-vote.png" alt="Cast your vote!" class="banner-cast-vote" /></a>';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-winners-date.png" alt="Winners will be announced on 29th March 2017" class="banner-winners-date" />';
     $return .= '</div>';
+    
+    $return .= '</div>';
+    $return .= '</div>';
+  }
+  return $return;
+}
+
+
+add_shortcode('community_voting', 'shortcodeCommunityVoting');
+function shortcodeCommunityVoting($atts=null) {
+  extract(shortcode_atts(array(
+      'staus' => 'open',
+  ), $atts));
+  
+  $return = '';
+  $semifinalists = get_field('semifinalists', SEMIFINALIST_PAGE_ID);
+  if($semifinalists) {
+    $return .= '<div id="semifinalists-voting-list">';
+    $return .= '<div class="row">';
+    $counter = 0;
+    foreach($semifinalists as $semifinalist) {
+      if($counter === 2) {
+        $return .= '<div class="col-md-4 col-sm-12">';
+          $return .= '<div class="side-banners hidden-sm-down">';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-cast-your-vote.png" alt="Voting closes on 16th March 2017" class="banner-voting-closes" />';
+          $return .= '</div>';
+          $return .= '</div>';
+        $return .= '<div class="clearfix"></div>';
+        $counter++;
+      }
+    
+      $return .= '<div class="col-md-4 col-sm-12">';
+        $return .= '<div class="semifinalist">';
+          $return .= '<div class="video-wrapper"><iframe width="560" height="315" src="'.$semifinalist['demo_day_video'].'" frameborder="0" allowfullscreen></iframe></div>';
+          $return .= '<a href="javascript:void();" class="btn-vote disbaled" data-sname="'.$semifinalist['name'].'" data-sid="'.$semifinalist['key'].'"><i class="checkmark-vote"></i> Vote</a>';
+          $return .= '<h4>'.$semifinalist['name'].'</h4>';
+          $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
+          $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
+          $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
+        $return .= '</div>';
+      $return .= '</div>';
+      
+      $counter++;
+    }
+    $return .= '<div class="side-banners hidden-sm-up">';
+      $return .= '<img src="'.THEME_PATH.'/images/badge-cast-your-vote.png" alt=" Watch the semifinalists Demo Day Live" class="banner-voting-closes" />';
+    $return .= '</div>';
+      
+    $return .= '</div>';
+    $return .= '</div>';
+  }
+  return $return;
+}
+
+
+function eric_demoday_program() {
+  $list = get_field('demoday_program', 'option');
+  if($list && count($list)>1) {
+    $return = '<div id="demoday-program">';
+      $return .= '<h2 class="page-heading">Program</h2>';
+      foreach($list as $item) {
+        $return .= '<div class="program-row">';
+          $return .= '<div class="program-col col-time">'.$item['time'].'</div>';
+          $return .= '<div class="program-col col-event">'.$item['event'].'</div>';
+        $return .= '</div>';
+      }
     $return .= '</div>';
   }
   return $return;
