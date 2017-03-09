@@ -7367,9 +7367,11 @@ body[class*=jconfirm-no-scroll-] {
 }
 /* line 3924, ../sass/styles.scss */
 .video-wrapper.livestream-wrapper {
+  max-width: 896px;
+  margin: auto;
   padding-bottom: 59.375%;
 }
-/* line 3927, ../sass/styles.scss */
+/* line 3929, ../sass/styles.scss */
 .video-wrapper iframe {
   position: absolute;
   top: 0;
@@ -7382,29 +7384,29 @@ body[class*=jconfirm-no-scroll-] {
  * C O M M U N I T Y   V O T I N G
  * -----------------------------------
  */
-/* line 3942, ../sass/styles.scss */
+/* line 3944, ../sass/styles.scss */
 #semifinalists-voting-list {
   margin-top: 40px;
 }
-/* line 3945, ../sass/styles.scss */
+/* line 3947, ../sass/styles.scss */
 #semifinalists-voting-list .col-md-4:nth-of-type(1n+4) .semifinalist {
   margin-bottom: 0;
 }
-/* line 3950, ../sass/styles.scss */
+/* line 3952, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist {
   padding-bottom: 20px;
   margin-bottom: 40px;
   position: relative;
 }
-/* line 3954, ../sass/styles.scss */
+/* line 3956, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist img {
   margin: 0 auto 15px;
 }
-/* line 3957, ../sass/styles.scss */
+/* line 3959, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist h4, #semifinalists-voting-list .semifinalist .title, #semifinalists-voting-list .semifinalist .url {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 3960, ../sass/styles.scss */
+/* line 3962, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist h4 {
   font-size: 1.714rem;
   line-height: 1.3;
@@ -7412,36 +7414,36 @@ body[class*=jconfirm-no-scroll-] {
   margin: 0 0 15px;
   padding: 0;
 }
-/* line 3966, ../sass/styles.scss */
+/* line 3968, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist .title {
   font-weight: 300;
 }
-/* line 3969, ../sass/styles.scss */
+/* line 3971, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist .url {
   font-style: italic;
 }
-/* line 3972, ../sass/styles.scss */
+/* line 3974, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist .description {
   margin: 15px 0 0;
 }
-/* line 3974, ../sass/styles.scss */
+/* line 3976, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist .description p:last-child {
   margin: 0;
 }
 @media (max-width: 767px) {
-  /* line 3942, ../sass/styles.scss */
+  /* line 3944, ../sass/styles.scss */
   #semifinalists-voting-list {
     margin-top: 30px;
   }
-  /* line 3981, ../sass/styles.scss */
+  /* line 3983, ../sass/styles.scss */
   #semifinalists-voting-list .banner-demoday {
     margin: 0 auto;
   }
-  /* line 3985, ../sass/styles.scss */
+  /* line 3987, ../sass/styles.scss */
   #semifinalists-voting-list .col-md-4:nth-of-type(1n+4) .semifinalist {
     margin-bottom: 40px;
   }
-  /* line 3990, ../sass/styles.scss */
+  /* line 3992, ../sass/styles.scss */
   #semifinalists-voting-list .semifinalist h4 {
     font-size: 1.5em;
     font-weight: 700;
@@ -7450,7 +7452,7 @@ body[class*=jconfirm-no-scroll-] {
   }
 }
 
-/* line 4000, ../sass/styles.scss */
+/* line 4002, ../sass/styles.scss */
 .btn-vote {
   display: block;
   position: relative;
@@ -7471,7 +7473,7 @@ body[class*=jconfirm-no-scroll-] {
   text-decoration: none;
   cursor: default;
 }
-/* line 4019, ../sass/styles.scss */
+/* line 4021, ../sass/styles.scss */
 .btn-vote .checkmark-vote {
   display: block;
   position: absolute;
@@ -7484,34 +7486,34 @@ body[class*=jconfirm-no-scroll-] {
   background: url(../images/checkmark-vote.png) no-repeat center center;
   background-size: 22px 18px;
 }
-/* line 4030, ../sass/styles.scss */
+/* line 4032, ../sass/styles.scss */
 .btn-vote:hover, .btn-vote:focus {
   color: #fff;
 }
-/* line 4033, ../sass/styles.scss */
+/* line 4035, ../sass/styles.scss */
 .btn-vote.enabled {
   cursor: pointer;
   background: #2098d5;
 }
-/* line 4036, ../sass/styles.scss */
+/* line 4038, ../sass/styles.scss */
 .btn-vote.enabled:hover, .btn-vote.enabled:focus {
   color: #2098d5;
   background: #fdcc05;
 }
-/* line 4041, ../sass/styles.scss */
+/* line 4043, ../sass/styles.scss */
 .btn-vote.voted {
   cursor: default;
   font-size: 1.285rem;
   background: #fdcc05;
   color: #2098d5;
 }
-/* line 4046, ../sass/styles.scss */
+/* line 4048, ../sass/styles.scss */
 .btn-vote.voted:hover, .btn-vote.voted:focus {
   background: #fdcc05;
   color: #2098d5;
 }
 
-/* line 4054, ../sass/styles.scss */
+/* line 4056, ../sass/styles.scss */
 .voting-status {
   text-align: center;
   font-size: 1.714em;
@@ -7526,52 +7528,52 @@ body[class*=jconfirm-no-scroll-] {
   display: block;
   border: none !important;
 }
-/* line 4067, ../sass/styles.scss */
+/* line 4069, ../sass/styles.scss */
 .voting-status span {
   color: #fdcc05;
 }
-/* line 4071, ../sass/styles.scss */
+/* line 4073, ../sass/styles.scss */
 .voting-status.pending {
   background-color: #00A7E0;
 }
-/* line 4074, ../sass/styles.scss */
+/* line 4076, ../sass/styles.scss */
 .voting-status.closed {
   background-color: #E04164;
 }
 @media (max-width: 991px) {
-  /* line 4054, ../sass/styles.scss */
+  /* line 4056, ../sass/styles.scss */
   .voting-status {
     font-size: 1.285em;
   }
 }
 
-/* line 4084, ../sass/styles.scss */
+/* line 4086, ../sass/styles.scss */
 .side-banners {
   width: 100%;
 }
-/* line 4086, ../sass/styles.scss */
+/* line 4088, ../sass/styles.scss */
 .side-banners img {
   display: block;
   margin: 0 auto 40px;
   max-width: 260px;
 }
-/* line 4090, ../sass/styles.scss */
+/* line 4092, ../sass/styles.scss */
 .side-banners img.banner-cast-vote {
   margin-bottom: 30px;
   max-width: 180px;
 }
-/* line 4094, ../sass/styles.scss */
+/* line 4096, ../sass/styles.scss */
 .side-banners img.banner-voting-closes {
   max-width: 260px;
 }
 @media (max-width: 991px) {
-  /* line 4086, ../sass/styles.scss */
+  /* line 4088, ../sass/styles.scss */
   .side-banners img {
     margin-bottom: 30px;
   }
 }
 
-/* line 4105, ../sass/styles.scss */
+/* line 4107, ../sass/styles.scss */
 #demoday-program {
   margin-top: 50px;
   border-top: 5px solid #000;
@@ -7579,7 +7581,7 @@ body[class*=jconfirm-no-scroll-] {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
-/* line 4111, ../sass/styles.scss */
+/* line 4113, ../sass/styles.scss */
 #demoday-program .program-row {
   position: relative;
   padding: 15px;
@@ -7590,41 +7592,41 @@ body[class*=jconfirm-no-scroll-] {
   display: table;
   clear: both;
 }
-/* line 4115, ../sass/styles.scss */
+/* line 4117, ../sass/styles.scss */
 #demoday-program .program-row:nth-child(odd) {
   background: #f8f8f8;
 }
-/* line 4118, ../sass/styles.scss */
+/* line 4120, ../sass/styles.scss */
 #demoday-program .program-row.row-header {
   font-weight: 700;
   text-transform: uppercase;
 }
-/* line 4121, ../sass/styles.scss */
+/* line 4123, ../sass/styles.scss */
 #demoday-program .program-row.row-header .col-location {
   font-style: normal;
   font-weight: 700;
 }
-/* line 4126, ../sass/styles.scss */
+/* line 4128, ../sass/styles.scss */
 #demoday-program .program-row .program-col {
   float: left;
   padding-right: 20px;
 }
-/* line 4130, ../sass/styles.scss */
+/* line 4132, ../sass/styles.scss */
 #demoday-program .program-row .col-time {
   width: 15%;
   font-weight: 700;
 }
-/* line 4134, ../sass/styles.scss */
+/* line 4136, ../sass/styles.scss */
 #demoday-program .program-row .col-event {
   width: 85%;
 }
 @media (max-width: 767px) {
-  /* line 4140, ../sass/styles.scss */
+  /* line 4142, ../sass/styles.scss */
   #demoday-program .program-row .program-col {
     float: none;
     padding-right: 0;
   }
-  /* line 4144, ../sass/styles.scss */
+  /* line 4146, ../sass/styles.scss */
   #demoday-program .program-row .col-time, #demoday-program .program-row .col-event {
     width: 100%;
   }

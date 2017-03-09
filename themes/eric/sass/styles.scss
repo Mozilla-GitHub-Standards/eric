@@ -3922,6 +3922,8 @@ body[class*=jconfirm-no-scroll-] {
 	padding-bottom: 56.25%; /* 16:9 */
 	height: 0;
   &.livestream-wrapper {
+    max-width: 896px;
+    margin: auto;
     padding-bottom: 59.375%; //air.mozilla.org
   }
   iframe {
