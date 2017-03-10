@@ -29,7 +29,7 @@ define( 'EVALUATION_SUBMIT_PAGE_URL', SITE_URL.'/evaluation/submit' );
 define( 'SUBMISSIONS_PAGE_URL', SITE_URL.'/submissions' );
 define( 'SUBMISSION_VIEW_PAGE_URL', SITE_URL.'/submissions/view' );
 
-define( 'SEMIFINALIST_PAGE_ID', 608 ); //306-local, 690-prod, 608-staging
+define( 'SEMIFINALIST_PAGE_ID', 690 ); //306-local, 690-prod, 608-staging
 
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
