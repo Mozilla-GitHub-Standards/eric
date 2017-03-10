@@ -1568,6 +1568,9 @@ function shortcodeCommunityVoting($atts=null) {
           $return .= '<div class="video-wrapper"><iframe width="560" height="315" src="'.$semifinalist['demo_day_video'].'" frameborder="0" allowfullscreen></iframe></div>';
           $return .= '<a href="javascript:void();" class="btn-vote disbaled" data-sname="'.$semifinalist['name'].'" data-sid="'.$semifinalist['key'].'"><i class="checkmark-vote"></i> Vote</a>';
           $return .= '<h4>'.$semifinalist['name'].'</h4>';
+          if($semifinalist['presenter'] && strlen($semifinalist['presenter']) > 10) {
+            $return .= '<div class="title">Presenter: '.$semifinalist['presenter'].'</div>';
+          }
           $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
           $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
           $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
