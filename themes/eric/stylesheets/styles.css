@@ -3024,11 +3024,11 @@ em {
   line-height: 1em;
   text-transform: uppercase;
   color: inherit;
-  padding: 10px 30px;
+  padding: 10px 20px;
 }
 /* line 343, ../sass/styles.scss */
 #site-navigation .primary-menu > li:first-child > a {
-  padding: 10px 28px;
+  padding: 10px 26px;
 }
 /* line 347, ../sass/styles.scss */
 #site-navigation .primary-menu > li.current-menu-item, #site-navigation .primary-menu > li.current-menu-ancestor {
