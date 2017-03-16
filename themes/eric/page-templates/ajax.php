@@ -7,7 +7,7 @@ global $wpdb, $THEME;
 $wpdb->show_errors();
 
 $errors = new WP_Error();
-$ipaddress = get_the_user_ip();
+$ipaddress = $_SERVER['REMOTE_ADDR'];
 $time_local = current_time( 'mysql', $gmt = 0 );
 $time_gmt = current_time( 'mysql', $gmt = 1 );
 

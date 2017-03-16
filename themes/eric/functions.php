@@ -1506,8 +1506,7 @@ function shortcodeSemifinalists($atts=null) {
       if($counter === 2) {
         $return .= '<div class="col-md-4 col-sm-12">';
           $return .= '<div class="side-banners hidden-sm-down">';
-            $return .= '<a href="'.SITE_URL.'/vote/"><img src="'.THEME_PATH.'/images/badge-circle-vote.png" alt="Cast your vote!" class="banner-cast-vote" /></a>';
-            $return .= '<img src="'.THEME_PATH.'/images/badge-winners-date.png" alt="Winners will be announced on 29th March 2017" class="banner-winners-date" />';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-awaiting-winners.png" alt="The judges are deliberating. Winners will be announced on 29th March 2017. Stay tuned!" class="badge-awaiting-winners" />';
           $return .= '</div>';
         $return .= '</div>';
         $return .= '<div class="clearfix"></div>';
@@ -1528,9 +1527,8 @@ function shortcodeSemifinalists($atts=null) {
       $counter++;
     }
     
-    $return .= '<div class="side-banners hidden-sm-up">';
-      $return .= '<a href="'.SITE_URL.'/vote/"><img src="'.THEME_PATH.'/images/badge-circle-vote.png" alt="Cast your vote!" class="banner-cast-vote" /></a>';
-            $return .= '<img src="'.THEME_PATH.'/images/badge-winners-date.png" alt="Winners will be announced on 29th March 2017" class="banner-winners-date" />';
+    $return .= '<div class="side-banners hidden-md-up">';
+      $return .= '<img src="'.THEME_PATH.'/images/badge-awaiting-winners.png" alt="The judges are deliberating. Winners will be announced on 29th March 2017. Stay tuned!" class="badge-awaiting-winners" />';
     $return .= '</div>';
     
     $return .= '</div>';
@@ -1556,7 +1554,7 @@ function shortcodeCommunityVoting($atts=null) {
       if($counter === 2) {
         $return .= '<div class="col-md-4 col-sm-12">';
           $return .= '<div class="side-banners hidden-sm-down">';
-            $return .= '<img src="'.THEME_PATH.'/images/badge-cast-your-vote.png" alt="Voting closes on 16th March 2017" class="banner-voting-closes" />';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-awaiting-winners.png" alt="The judges are deliberating. Winners will be announced on 29th March 2017. Stay tuned!" class="badge-awaiting-winners" />';
           $return .= '</div>';
           $return .= '</div>';
         $return .= '<div class="clearfix"></div>';
@@ -1579,8 +1577,8 @@ function shortcodeCommunityVoting($atts=null) {
       
       $counter++;
     }
-    $return .= '<div class="side-banners hidden-sm-up">';
-      $return .= '<img src="'.THEME_PATH.'/images/badge-cast-your-vote.png" alt=" Watch the semifinalists Demo Day Live" class="banner-voting-closes" />';
+    $return .= '<div class="side-banners hidden-md-up">';
+      $return .= '<img src="'.THEME_PATH.'/images/badge-awaiting-winners.png" alt="The judges are deliberating. Winners will be announced on 29th March 2017. Stay tuned!" class="badge-awaiting-winners" />';
     $return .= '</div>';
       
     $return .= '</div>';
