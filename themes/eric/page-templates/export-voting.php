@@ -15,18 +15,30 @@ if ( !is_user_logged_in() && $pagenow != 'wp-login.php' ){
   $wpdb->show_errors();
   
   $exportType = 'csv';
-  $strqry = "SELECT DISTINCT(semifinalist_name), COUNT(ID) as 'votes' FROM $wpdb->community_voting ORDER BY semifinalist_name GROUP BY semifinalist_name";
-      
-  $data = $wpdb->get_results($strqry, ARRAY_A);
+  $filename = 'ERIC_VOTING';
   
-  $headers = array(
-      'semifinalist_name' => 'Semifinalist Name',
-      'votes' => 'Total Votes'
-  );
+  if(isset($_GET['list']) && $_GET['list']==1) {
+    $strqry = "SELECT * FROM $wpdb->community_voting ORDER BY voted_datetime DESC";
+    $data = $wpdb->get_results($strqry, ARRAY_A);
+    $headers = array(
+        'voted_datetime' => 'Voted Date Time',
+        'semifinalist_name' => 'Semifinalist Name',
+        'ip_address' => 'IP Address'
+    );
+    $filename .= '_LIST';
+  } else {
+    $strqry = "SELECT DISTINCT(semifinalist_name), COUNT(ID) as 'votes' FROM $wpdb->community_voting GROUP BY semifinalist_name ORDER BY semifinalist_name";
+    $data = $wpdb->get_results($strqry, ARRAY_A);
+    $headers = array(
+        'semifinalist_name' => 'Semifinalist Name',
+        'votes' => 'Total Votes'
+    );
+  }
+  
   $exportData['records'] = $data;
   $exportData['headers'] = $headers;
 
-  exportDataCSV($exportData, 'ERIC_VOTING');
+  exportDataCSV($exportData, $filename);
 }
 
 //Export CSV File
