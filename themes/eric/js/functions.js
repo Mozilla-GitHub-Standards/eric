@@ -450,7 +450,7 @@ var ajaxURL = siteURL + '/ajax';
     }
     
     
-    if($('#semifinalists-voting-list').length > 0) {
+    if($('#semifinalists-voting-list').length > 99) {
       $('#semifinalists-voting-list').each(function() {
         var $container = $(this);
         var $buttons = $('.btn-vote', $container);
