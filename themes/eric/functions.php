@@ -29,7 +29,7 @@ define( 'EVALUATION_SUBMIT_PAGE_URL', SITE_URL.'/evaluation/submit' );
 define( 'SUBMISSIONS_PAGE_URL', SITE_URL.'/submissions' );
 define( 'SUBMISSION_VIEW_PAGE_URL', SITE_URL.'/submissions/view' );
 
-define( 'SEMIFINALIST_PAGE_ID', 608 ); //306
+define( 'SEMIFINALIST_PAGE_ID', 608 ); //306-local, 690-prod, 608-staging
 
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -107,10 +107,14 @@ if( function_exists('acf_add_options_page') ) {
 		'menu_title'	=> 'Submission Process',
 		'parent_slug'	=> 'theme-general-settings',
 	));
-	
 	acf_add_options_sub_page(array(
 		'page_title' 	=> 'Upcoming Dates',
 		'menu_title'	=> 'Upcoming Dates',
+		'parent_slug'	=> 'theme-general-settings',
+	));
+  acf_add_options_sub_page(array(
+		'page_title' 	=> 'Demoday Program',
+		'menu_title'	=> 'Demoday Program',
 		'parent_slug'	=> 'theme-general-settings',
 	));
 }
@@ -767,7 +771,7 @@ function custom_login_redirect() {
     exit();
   }
 }
-add_action( 'wp', 'custom_login_redirect' );
+//add_action( 'wp', 'custom_login_redirect' );
 
 
 
@@ -1496,40 +1500,33 @@ function shortcodeSemifinalists($atts=null) {
   $semifinalists = get_field('semifinalists', $post->ID);
   if($semifinalists) {
     $return .= '<div id="semifinalists-list">';
-    $return .= '<div class="row">';
     $counter = 0;
     foreach($semifinalists as $semifinalist) {
-      if($counter === 2) {
-        $return .= '<div class="col-md-4 col-sm-12">';
-          $return .= '<div class="side-banners hidden-sm-down">';
-            $return .= '<a href="'.SITE_URL.'/vote/"><img src="'.THEME_PATH.'/images/badge-circle-vote.png" alt="Cast your vote!" class="banner-cast-vote" /></a>';
-            $return .= '<img src="'.THEME_PATH.'/images/badge-winners-date.png" alt="Winners will be announced on 29th March 2017" class="banner-winners-date" />';
+      $return .= ($counter > 0) ? '<div class="hline"></div>' : '';
+      $counter++;
+      $return .= '<div class="row">';
+        $return .= '<div class="col-md-8 col-sm-12">';
+          $return .= '<div class="semifinalist">';
+            $return .= '<div class="semifinalist-header">';
+              $return .= '<img src="'.$semifinalist['logo'].'" alt="'.$semifinalist['name'].'" class="img-fluid" />';
+              $return .= '<h4>'.$semifinalist['name'].'</h4>';
+              if($semifinalist['presenter'] && strlen($semifinalist['presenter']) > 10) {
+                $return .= '<div class="title">Presenter: '.$semifinalist['presenter'].'</div>';
+              }
+              $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
+              $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
+            $return .= '</div>';
+            $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
           $return .= '</div>';
         $return .= '</div>';
-        $return .= '<div class="clearfix"></div>';
-        $counter++;
-      }
-    
-      $return .= '<div class="col-md-4 col-sm-12">';
-        $return .= '<div class="semifinalist">';
-          $return .= '<img src="'.$semifinalist['logo'].'" alt="'.$semifinalist['name'].'" class="img-fluid" />';
-          $return .= '<h4>'.$semifinalist['name'].'</h4>';
-          $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
-          $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
-//          $return .= '<div class="url"><a href="'.$semifinalist['url'].'" target="_blank">'.remove_http($semifinalist['url']).'</a></div>';
-          $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
+
+        $return .= '<div class="col-md-4 col-sm-12">';
+          $return .= '<div class="video-wrapper"><iframe width="560" height="315" src="'.$semifinalist['demo_day_video'].'" frameborder="0" allowfullscreen></iframe></div>';
         $return .= '</div>';
       $return .= '</div>';
       
-      $counter++;
+      
     }
-    
-    $return .= '<div class="side-banners hidden-sm-up">';
-      $return .= '<a href="'.SITE_URL.'/vote/"><img src="'.THEME_PATH.'/images/badge-circle-vote.png" alt="Cast your vote!" class="banner-cast-vote" /></a>';
-            $return .= '<img src="'.THEME_PATH.'/images/badge-winners-date.png" alt="Winners will be announced on 29th March 2017" class="banner-winners-date" />';
-    $return .= '</div>';
-    
-    $return .= '</div>';
     $return .= '</div>';
   }
   return $return;
@@ -1552,7 +1549,7 @@ function shortcodeCommunityVoting($atts=null) {
       if($counter === 2) {
         $return .= '<div class="col-md-4 col-sm-12">';
           $return .= '<div class="side-banners hidden-sm-down">';
-            $return .= '<img src="'.THEME_PATH.'/images/badge-cast-your-vote.png" alt="Voting closes on 16th March 2017" class="banner-voting-closes" />';
+            $return .= '<img src="'.THEME_PATH.'/images/badge-awaiting-winners.png" alt="The judges are deliberating. Winners will be announced on 29th March 2017. Stay tuned!" class="badge-awaiting-winners" />';
           $return .= '</div>';
           $return .= '</div>';
         $return .= '<div class="clearfix"></div>';
@@ -1564,6 +1561,9 @@ function shortcodeCommunityVoting($atts=null) {
           $return .= '<div class="video-wrapper"><iframe width="560" height="315" src="'.$semifinalist['demo_day_video'].'" frameborder="0" allowfullscreen></iframe></div>';
           $return .= '<a href="javascript:void();" class="btn-vote disbaled" data-sname="'.$semifinalist['name'].'" data-sid="'.$semifinalist['key'].'"><i class="checkmark-vote"></i> Vote</a>';
           $return .= '<h4>'.$semifinalist['name'].'</h4>';
+          if($semifinalist['presenter'] && strlen($semifinalist['presenter']) > 10) {
+            $return .= '<div class="title">Presenter: '.$semifinalist['presenter'].'</div>';
+          }
           $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
           $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
           $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
@@ -1572,12 +1572,42 @@ function shortcodeCommunityVoting($atts=null) {
       
       $counter++;
     }
-    $return .= '<div class="side-banners hidden-sm-up">';
-      $return .= '<img src="'.THEME_PATH.'/images/badge-cast-your-vote.png" alt=" Watch the semifinalists Demo Day Live" class="banner-voting-closes" />';
+    $return .= '<div class="side-banners hidden-md-up">';
+      $return .= '<img src="'.THEME_PATH.'/images/badge-awaiting-winners.png" alt="The judges are deliberating. Winners will be announced on 29th March 2017. Stay tuned!" class="badge-awaiting-winners" />';
     $return .= '</div>';
       
     $return .= '</div>';
     $return .= '</div>';
   }
   return $return;
+}
+
+
+function eric_demoday_program() {
+  $list = get_field('demoday_program', 'option');
+  if($list && count($list)>1) {
+    $return = '<div id="demoday-program">';
+      $return .= '<h2 class="page-heading">Program</h2>';
+      foreach($list as $item) {
+        $return .= '<div class="program-row">';
+          $return .= '<div class="program-col col-time">'.$item['time'].'</div>';
+          $return .= '<div class="program-col col-event">'.$item['event'].'</div>';
+        $return .= '</div>';
+      }
+    $return .= '</div>';
+  }
+  return $return;
+}
+
+function get_the_user_ip() {
+  if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+    //check ip from share internet
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+  } elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+    //to check ip is pass from proxy
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  } else {
+    $ip = $_SERVER['REMOTE_ADDR'];
+  }
+  return apply_filters( 'wpb_get_ip', $ip );
 }
