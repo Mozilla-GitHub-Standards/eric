@@ -65,6 +65,16 @@ $return .= '<div class="runner-up winner-item">';
     $return .= '<div class="description">'.apply_filters('the_content', $runnerup['description']).'</div>';
     $return .= '<p><a href="'.$runnerup['demo_day_video'].'">View demo day video</a><br />';
     $return .= '<a href="'.$runnerup['documentary_url'].'">View project mini-documentary</a></p>';
+    
+    $quotes = $runnerup["judge_quotes"];
+    if($quotes) {
+      foreach($quotes as $quote) {
+        $return .= '<div class="judge-quote">';
+          $return .= '<div class="quote-text">'.apply_filters('the_content', $quote['text']).'</div>';
+          $return .= '<div class="quote-by">'.$quote['name_and_title'].'</div>';
+        $return .= '</div>';
+      }
+    }
   $return .= '</div>';
 $return .= '</div>';
 
@@ -83,6 +93,16 @@ $return .= '<div class="most-novel winner-item">';
     $return .= '<div class="description">'.apply_filters('the_content', $mostnovel['description']).'</div>';
     $return .= '<p><a href="'.$mostnovel['demo_day_video'].'">View demo day video</a><br />';
     $return .= '<a href="'.$mostnovel['documentary_url'].'">View project mini-documentary</a></p>';
+    
+    $quotes = $mostnovel["judge_quotes"];
+    if($quotes) {
+      foreach($quotes as $quote) {
+        $return .= '<div class="judge-quote">';
+          $return .= '<div class="quote-text">'.apply_filters('the_content', $quote['text']).'</div>';
+          $return .= '<div class="quote-by">'.$quote['name_and_title'].'</div>';
+        $return .= '</div>';
+      }
+    }
   $return .= '</div>';
 $return .= '</div>';
 
