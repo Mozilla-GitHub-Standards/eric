@@ -4242,7 +4242,7 @@ body[class*=jconfirm-no-scroll-] {
   img {
     margin: 0 auto 15px;
   }
-  h4, .title, .url {
+  h4, .title, .url, .finalist-name {
     font-family: $font-family-sans-serif;
   }
   h4 {
@@ -4250,6 +4250,9 @@ body[class*=jconfirm-no-scroll-] {
     line-height: 1.3;
     font-weight: 700;
     margin: 0 0 15px; padding: 0;
+  }
+  .finalist-name {
+    font-weight: 700;
   }
   .title {
     font-weight: 300;

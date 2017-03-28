@@ -7341,12 +7341,12 @@ body[class*=jconfirm-no-scroll-] {
   #semifinalists-list {
     margin-top: 30px;
   }
-  /* line 3903, ../sass/styles.scss */
+  /* line 3902, ../sass/styles.scss */
   #semifinalists-list .semifinalist .semifinalist-header {
     padding-left: 0;
     min-height: auto;
   }
-  /* line 3906, ../sass/styles.scss */
+  /* line 3905, ../sass/styles.scss */
   #semifinalists-list .semifinalist .semifinalist-header img {
     position: static;
     left: auto;
@@ -7354,11 +7354,11 @@ body[class*=jconfirm-no-scroll-] {
     margin: 0 auto 20px;
     max-width: 290px;
   }
-  /* line 3913, ../sass/styles.scss */
+  /* line 3912, ../sass/styles.scss */
   #semifinalists-list .semifinalist .description {
     margin: 0 0 30px;
   }
-  /* line 3918, ../sass/styles.scss */
+  /* line 3917, ../sass/styles.scss */
   #semifinalists-list .semifinalist h4 {
     font-size: 1.5em;
     font-weight: 700;
@@ -7367,13 +7367,13 @@ body[class*=jconfirm-no-scroll-] {
   }
 }
 
-/* line 3928, ../sass/styles.scss */
+/* line 3927, ../sass/styles.scss */
 .banner-mentorship img, .banner-winner img {
   width: 100%;
   height: auto;
 }
 
-/* line 3935, ../sass/styles.scss */
+/* line 3934, ../sass/styles.scss */
 .video-wrapper {
   width: 100%;
   position: relative;
@@ -7381,13 +7381,13 @@ body[class*=jconfirm-no-scroll-] {
   /* 16:9 */
   height: 0;
 }
-/* line 3940, ../sass/styles.scss */
+/* line 3939, ../sass/styles.scss */
 .video-wrapper.livestream-wrapper {
   max-width: 896px;
   margin: auto;
   padding-bottom: 59.375%;
 }
-/* line 3945, ../sass/styles.scss */
+/* line 3944, ../sass/styles.scss */
 .video-wrapper iframe {
   position: absolute;
   top: 0;
@@ -7400,29 +7400,29 @@ body[class*=jconfirm-no-scroll-] {
  * C O M M U N I T Y   V O T I N G
  * -----------------------------------
  */
-/* line 3960, ../sass/styles.scss */
+/* line 3959, ../sass/styles.scss */
 #semifinalists-voting-list {
   margin-top: 40px;
 }
-/* line 3963, ../sass/styles.scss */
+/* line 3962, ../sass/styles.scss */
 #semifinalists-voting-list .col-md-4:nth-of-type(1n+4) .semifinalist {
   margin-bottom: 0;
 }
-/* line 3968, ../sass/styles.scss */
+/* line 3967, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist {
   padding-bottom: 20px;
   margin-bottom: 40px;
   position: relative;
 }
-/* line 3972, ../sass/styles.scss */
+/* line 3971, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist img {
   margin: 0 auto 15px;
 }
-/* line 3975, ../sass/styles.scss */
+/* line 3974, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist h4, #semifinalists-voting-list .semifinalist .title, #semifinalists-voting-list .semifinalist .url {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 3978, ../sass/styles.scss */
+/* line 3977, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist h4 {
   font-size: 1.714rem;
   line-height: 1.3;
@@ -7430,36 +7430,36 @@ body[class*=jconfirm-no-scroll-] {
   margin: 0 0 15px;
   padding: 0;
 }
-/* line 3984, ../sass/styles.scss */
+/* line 3983, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist .title {
   font-weight: 300;
 }
-/* line 3987, ../sass/styles.scss */
+/* line 3986, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist .url {
   font-style: italic;
 }
-/* line 3990, ../sass/styles.scss */
+/* line 3989, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist .description {
   margin: 15px 0 0;
 }
-/* line 3992, ../sass/styles.scss */
+/* line 3991, ../sass/styles.scss */
 #semifinalists-voting-list .semifinalist .description p:last-child {
   margin: 0;
 }
 @media (max-width: 767px) {
-  /* line 3960, ../sass/styles.scss */
+  /* line 3959, ../sass/styles.scss */
   #semifinalists-voting-list {
     margin-top: 30px;
   }
-  /* line 3999, ../sass/styles.scss */
+  /* line 3998, ../sass/styles.scss */
   #semifinalists-voting-list .banner-demoday {
     margin: 0 auto;
   }
-  /* line 4003, ../sass/styles.scss */
+  /* line 4002, ../sass/styles.scss */
   #semifinalists-voting-list .col-md-4:nth-of-type(1n+4) .semifinalist {
     margin-bottom: 40px;
   }
-  /* line 4008, ../sass/styles.scss */
+  /* line 4007, ../sass/styles.scss */
   #semifinalists-voting-list .semifinalist h4 {
     font-size: 1.5em;
     font-weight: 700;
@@ -7468,7 +7468,7 @@ body[class*=jconfirm-no-scroll-] {
   }
 }
 
-/* line 4018, ../sass/styles.scss */
+/* line 4017, ../sass/styles.scss */
 .btn-vote {
   display: block;
   position: relative;
@@ -7489,7 +7489,7 @@ body[class*=jconfirm-no-scroll-] {
   text-decoration: none;
   cursor: default;
 }
-/* line 4037, ../sass/styles.scss */
+/* line 4036, ../sass/styles.scss */
 .btn-vote .checkmark-vote {
   display: block;
   position: absolute;
@@ -7502,34 +7502,34 @@ body[class*=jconfirm-no-scroll-] {
   background: url(../images/checkmark-vote.png) no-repeat center center;
   background-size: 22px 18px;
 }
-/* line 4048, ../sass/styles.scss */
+/* line 4047, ../sass/styles.scss */
 .btn-vote:hover, .btn-vote:focus {
   color: #fff;
 }
-/* line 4051, ../sass/styles.scss */
+/* line 4050, ../sass/styles.scss */
 .btn-vote.enabled {
   cursor: pointer;
   background: #2098d5;
 }
-/* line 4054, ../sass/styles.scss */
+/* line 4053, ../sass/styles.scss */
 .btn-vote.enabled:hover, .btn-vote.enabled:focus {
   color: #2098d5;
   background: #fdcc05;
 }
-/* line 4059, ../sass/styles.scss */
+/* line 4058, ../sass/styles.scss */
 .btn-vote.voted {
   cursor: default;
   font-size: 1.285rem;
   background: #fdcc05;
   color: #2098d5;
 }
-/* line 4064, ../sass/styles.scss */
+/* line 4063, ../sass/styles.scss */
 .btn-vote.voted:hover, .btn-vote.voted:focus {
   background: #fdcc05;
   color: #2098d5;
 }
 
-/* line 4072, ../sass/styles.scss */
+/* line 4071, ../sass/styles.scss */
 .voting-status {
   text-align: center;
   font-size: 1.714em;
@@ -7544,56 +7544,56 @@ body[class*=jconfirm-no-scroll-] {
   display: block;
   border: none !important;
 }
-/* line 4085, ../sass/styles.scss */
+/* line 4084, ../sass/styles.scss */
 .voting-status span {
   color: #fdcc05;
 }
-/* line 4088, ../sass/styles.scss */
+/* line 4087, ../sass/styles.scss */
 .voting-status.pending {
   background-color: #00A7E0;
 }
-/* line 4091, ../sass/styles.scss */
+/* line 4090, ../sass/styles.scss */
 .voting-status.closed {
   background-color: #E04164;
 }
 @media (max-width: 991px) {
-  /* line 4072, ../sass/styles.scss */
+  /* line 4071, ../sass/styles.scss */
   .voting-status {
     font-size: 1.285em;
   }
 }
 
-/* line 4101, ../sass/styles.scss */
+/* line 4100, ../sass/styles.scss */
 .side-banners {
   width: 100%;
 }
-/* line 4103, ../sass/styles.scss */
+/* line 4102, ../sass/styles.scss */
 .side-banners img {
   display: block;
   margin: 0 auto 40px;
   max-width: 260px;
 }
-/* line 4107, ../sass/styles.scss */
+/* line 4106, ../sass/styles.scss */
 .side-banners img.banner-cast-vote {
   margin-bottom: 30px;
   max-width: 180px;
 }
-/* line 4111, ../sass/styles.scss */
+/* line 4110, ../sass/styles.scss */
 .side-banners img.banner-voting-closes {
   max-width: 260px;
 }
-/* line 4114, ../sass/styles.scss */
+/* line 4113, ../sass/styles.scss */
 .side-banners img.badge-awaiting-winners {
   max-width: 280px;
 }
 @media (max-width: 991px) {
-  /* line 4103, ../sass/styles.scss */
+  /* line 4102, ../sass/styles.scss */
   .side-banners img {
     margin-bottom: 30px;
   }
 }
 
-/* line 4125, ../sass/styles.scss */
+/* line 4124, ../sass/styles.scss */
 #demoday-program {
   margin-top: 50px;
   border-top: 5px solid #000;
@@ -7601,7 +7601,7 @@ body[class*=jconfirm-no-scroll-] {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
-/* line 4131, ../sass/styles.scss */
+/* line 4130, ../sass/styles.scss */
 #demoday-program .program-row {
   position: relative;
   padding: 15px;
@@ -7612,75 +7612,75 @@ body[class*=jconfirm-no-scroll-] {
   display: table;
   clear: both;
 }
-/* line 4135, ../sass/styles.scss */
+/* line 4134, ../sass/styles.scss */
 #demoday-program .program-row:nth-child(odd) {
   background: #f8f8f8;
 }
-/* line 4138, ../sass/styles.scss */
+/* line 4137, ../sass/styles.scss */
 #demoday-program .program-row.row-header {
   font-weight: 700;
   text-transform: uppercase;
 }
-/* line 4141, ../sass/styles.scss */
+/* line 4140, ../sass/styles.scss */
 #demoday-program .program-row.row-header .col-location {
   font-style: normal;
   font-weight: 700;
 }
-/* line 4146, ../sass/styles.scss */
+/* line 4145, ../sass/styles.scss */
 #demoday-program .program-row .program-col {
   float: left;
   padding-right: 20px;
 }
-/* line 4150, ../sass/styles.scss */
+/* line 4149, ../sass/styles.scss */
 #demoday-program .program-row .col-time {
   width: 15%;
   font-weight: 700;
 }
-/* line 4154, ../sass/styles.scss */
+/* line 4153, ../sass/styles.scss */
 #demoday-program .program-row .col-event {
   width: 85%;
 }
 @media (max-width: 767px) {
-  /* line 4160, ../sass/styles.scss */
+  /* line 4159, ../sass/styles.scss */
   #demoday-program .program-row .program-col {
     float: none;
     padding-right: 0;
   }
-  /* line 4164, ../sass/styles.scss */
+  /* line 4163, ../sass/styles.scss */
   #demoday-program .program-row .col-time, #demoday-program .program-row .col-event {
     width: 100%;
   }
 }
 
-/* line 4173, ../sass/styles.scss */
+/* line 4172, ../sass/styles.scss */
 .winner-item {
   text-align: center;
   border-bottom: 5px solid #000;
   padding: 0 0 50px;
 }
-/* line 4177, ../sass/styles.scss */
+/* line 4176, ../sass/styles.scss */
 .winner-item.overall-winner {
   padding-top: 0;
 }
-/* line 4180, ../sass/styles.scss */
+/* line 4179, ../sass/styles.scss */
 .winner-item img {
   margin: 50px auto 30px;
 }
-/* line 4183, ../sass/styles.scss */
+/* line 4182, ../sass/styles.scss */
 .winner-item .item-content {
   padding: 0 100px;
 }
-/* line 4185, ../sass/styles.scss */
+/* line 4184, ../sass/styles.scss */
 .winner-item .item-content .img-runner-up, .winner-item .item-content .img-most-novel {
   width: 100%;
   max-width: 480px;
   height: auto;
 }
-/* line 4190, ../sass/styles.scss */
+/* line 4189, ../sass/styles.scss */
 .winner-item .item-content h4, .winner-item .item-content .title, .winner-item .item-content .url {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 4193, ../sass/styles.scss */
+/* line 4192, ../sass/styles.scss */
 .winner-item .item-content h4 {
   font-size: 1.5em;
   line-height: 1.3;
@@ -7688,69 +7688,69 @@ body[class*=jconfirm-no-scroll-] {
   margin: 0 0 15px;
   padding: 0;
 }
-/* line 4199, ../sass/styles.scss */
+/* line 4198, ../sass/styles.scss */
 .winner-item .item-content .title {
   font-weight: 300;
 }
-/* line 4202, ../sass/styles.scss */
+/* line 4201, ../sass/styles.scss */
 .winner-item .item-content .url {
   font-style: italic;
 }
-/* line 4205, ../sass/styles.scss */
+/* line 4204, ../sass/styles.scss */
 .winner-item .item-content .description {
   margin: 15px 0 0;
 }
-/* line 4207, ../sass/styles.scss */
+/* line 4206, ../sass/styles.scss */
 .winner-item .item-content .description p {
   margin: 0 0 20px;
 }
-/* line 4212, ../sass/styles.scss */
+/* line 4211, ../sass/styles.scss */
 .winner-item .item-content .judge-quote {
   margin: 30px 0;
 }
-/* line 4214, ../sass/styles.scss */
+/* line 4213, ../sass/styles.scss */
 .winner-item .item-content .judge-quote:last-child {
   margin-bottom: 0;
 }
-/* line 4217, ../sass/styles.scss */
+/* line 4216, ../sass/styles.scss */
 .winner-item .item-content .judge-quote .quote-text {
   font-style: italic;
 }
-/* line 4220, ../sass/styles.scss */
+/* line 4219, ../sass/styles.scss */
 .winner-item .item-content .judge-quote .quote-by {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   font-weight: 300;
 }
 @media (max-width: 767px) {
-  /* line 4183, ../sass/styles.scss */
+  /* line 4182, ../sass/styles.scss */
   .winner-item .item-content {
     padding: 0;
   }
-  /* line 4229, ../sass/styles.scss */
+  /* line 4228, ../sass/styles.scss */
   .winner-item .item-content img {
     margin: 30px auto 20px;
   }
-  /* line 4232, ../sass/styles.scss */
+  /* line 4231, ../sass/styles.scss */
   .winner-item .item-content .img-overall-winner {
     max-width: 290px;
   }
 }
 
-/* line 4239, ../sass/styles.scss */
+/* line 4238, ../sass/styles.scss */
 .winner-finalist {
   text-align: center;
   padding: 50px 0;
 }
-/* line 4243, ../sass/styles.scss */
+/* line 4242, ../sass/styles.scss */
 .winner-finalist img {
   margin: 0 auto 15px;
 }
-/* line 4246, ../sass/styles.scss */
-.winner-finalist h4, .winner-finalist .title, .winner-finalist .url {
+/* line 4245, ../sass/styles.scss */
+.winner-finalist h4, .winner-finalist .title, .winner-finalist .url, .winner-finalist .finalist-name {
   font-family: Lato, "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-/* line 4249, ../sass/styles.scss */
+/* line 4248, ../sass/styles.scss */
 .winner-finalist h4 {
   font-size: 1.5em;
   line-height: 1.3;
@@ -7758,30 +7758,34 @@ body[class*=jconfirm-no-scroll-] {
   margin: 0 0 15px;
   padding: 0;
 }
-/* line 4255, ../sass/styles.scss */
+/* line 4254, ../sass/styles.scss */
+.winner-finalist .finalist-name {
+  font-weight: 700;
+}
+/* line 4257, ../sass/styles.scss */
 .winner-finalist .title {
   font-weight: 300;
 }
-/* line 4258, ../sass/styles.scss */
+/* line 4260, ../sass/styles.scss */
 .winner-finalist .url {
   font-style: italic;
 }
-/* line 4261, ../sass/styles.scss */
+/* line 4263, ../sass/styles.scss */
 .winner-finalist .description {
   margin: 15px 0 0;
 }
-/* line 4263, ../sass/styles.scss */
+/* line 4265, ../sass/styles.scss */
 .winner-finalist .description p {
   margin: 0 0 20px;
 }
 @media (max-width: 767px) {
-  /* line 4239, ../sass/styles.scss */
+  /* line 4238, ../sass/styles.scss */
   .winner-finalist {
     padding: 30px 0 0;
   }
 }
 
-/* line 4276, ../sass/styles.scss */
+/* line 4278, ../sass/styles.scss */
 .page-winners .page-heading {
   text-align: center;
 }

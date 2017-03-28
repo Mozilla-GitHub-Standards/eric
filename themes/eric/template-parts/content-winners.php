@@ -95,7 +95,7 @@ if($finalists) {
         $return .= '<img src="'.$finalist['image'].'" alt="'.$finalist['name'].'" class="img-fluid">';
 
         $return .= '<h4>Finalist</h4>';
-        $return .= '<strong>'.$finalist['name'].'</strong>';
+        $return .= '<div class="finalist-name">'.$finalist['name'].'</div>';
         if($finalist['presenter'] && strlen($finalist['presenter']) > 10) {
           $return .= '<div class="title">Presenter: '.$finalist['presenter'].'</div>';
         }
