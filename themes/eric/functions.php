@@ -771,7 +771,7 @@ function custom_login_redirect() {
     exit();
   }
 }
-//add_action( 'wp', 'custom_login_redirect' );
+add_action( 'wp', 'custom_login_redirect' );
 
 
 

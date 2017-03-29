@@ -4,6 +4,8 @@
  */
 
 $semifinalists = get_field('semifinalists', SEMIFINALIST_PAGE_ID);
+$semifinalists_url = get_permalink(SEMIFINALIST_PAGE_ID);
+
 
 $winner = '';
 $runnerup = '';
@@ -35,8 +37,8 @@ $return .= '<div class="overall-winner winner-item">';
     $return .= '<div class="title">Team Leader: '.$winner['team_leader'].'</div>';
     $return .= '<div class="title">Location: '.$winner['location'].'</div>';
     $return .= '<div class="description">'.apply_filters('the_content', $winner['description']).'</div>';
-    $return .= '<p><a href="'.$winner['demo_day_video'].'">View demo day video</a><br />';
-    $return .= '<a href="'.$winner['documentary_url'].'">View project mini-documentary</a></p>';
+    $return .= '<p><a href="'.$semifinalists_url.'">View demo day video</a><br />';
+    $return .= '<a href="'.$winner['documentary'].'">View project mini-documentary</a></p>';
 
     $quotes = $winner["judge_quotes"];
     if($quotes) {
@@ -63,8 +65,8 @@ $return .= '<div class="runner-up winner-item">';
     $return .= '<div class="title">Team Leader: '.$runnerup['team_leader'].'</div>';
     $return .= '<div class="title">Location: '.$runnerup['location'].'</div>';
     $return .= '<div class="description">'.apply_filters('the_content', $runnerup['description']).'</div>';
-    $return .= '<p><a href="'.$runnerup['demo_day_video'].'">View demo day video</a><br />';
-    $return .= '<a href="'.$runnerup['documentary_url'].'">View project mini-documentary</a></p>';
+    $return .= '<p><a href="'.$semifinalists_url.'">View demo day video</a><br />';
+    $return .= '<a href="'.$runnerup['documentary'].'">View project mini-documentary</a></p>';
     
     $quotes = $runnerup["judge_quotes"];
     if($quotes) {
@@ -91,8 +93,8 @@ $return .= '<div class="most-novel winner-item">';
     $return .= '<div class="title">Team Leader: '.$mostnovel['team_leader'].'</div>';
     $return .= '<div class="title">Location: '.$mostnovel['location'].'</div>';
     $return .= '<div class="description">'.apply_filters('the_content', $mostnovel['description']).'</div>';
-    $return .= '<p><a href="'.$mostnovel['demo_day_video'].'">View demo day video</a><br />';
-    $return .= '<a href="'.$mostnovel['documentary_url'].'">View project mini-documentary</a></p>';
+    $return .= '<p><a href="'.$semifinalists_url.'">View demo day video</a><br />';
+    $return .= '<a href="'.$mostnovel['documentary'].'">View project mini-documentary</a></p>';
     
     $quotes = $mostnovel["judge_quotes"];
     if($quotes) {
@@ -122,8 +124,8 @@ if($finalists) {
         $return .= '<div class="title">Team Leader: '.$finalist['team_leader'].'</div>';
         $return .= '<div class="title">Location: '.$finalist['location'].'</div>';
         $return .= '<div class="description">'.apply_filters('the_content', $finalist['description']).'</div>';
-        $return .= '<p><a href="'.$finalist['demo_day_video'].'">View demo day video</a><br />';
-        $return .= '<a href="'.$finalist['documentary_url'].'">View project mini-documentary</a></p>';
+        $return .= '<p><a href="'.$semifinalists_url.'">View demo day video</a><br />';
+        $return .= '<a href="'.$finalist['documentary'].'">View project mini-documentary</a></p>';
       $return .= '</div>';
     $return .= '</div>';
   }
