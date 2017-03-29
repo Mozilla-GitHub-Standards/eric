@@ -1500,38 +1500,33 @@ function shortcodeSemifinalists($atts=null) {
   $semifinalists = get_field('semifinalists', $post->ID);
   if($semifinalists) {
     $return .= '<div id="semifinalists-list">';
-    $return .= '<div class="row">';
     $counter = 0;
     foreach($semifinalists as $semifinalist) {
-      if($counter === 2) {
-        $return .= '<div class="col-md-4 col-sm-12">';
-          $return .= '<div class="side-banners hidden-sm-down">';
-            $return .= '<img src="'.THEME_PATH.'/images/badge-awaiting-winners.png" alt="The judges are deliberating. Winners will be announced on 29th March 2017. Stay tuned!" class="badge-awaiting-winners" />';
+      $return .= ($counter > 0) ? '<div class="hline"></div>' : '';
+      $counter++;
+      $return .= '<div class="row">';
+        $return .= '<div class="col-md-8 col-sm-12">';
+          $return .= '<div class="semifinalist">';
+            $return .= '<div class="semifinalist-header">';
+              $return .= '<img src="'.$semifinalist['logo'].'" alt="'.$semifinalist['name'].'" class="img-fluid" />';
+              $return .= '<h4>'.$semifinalist['name'].'</h4>';
+              if($semifinalist['presenter'] && strlen($semifinalist['presenter']) > 10) {
+                $return .= '<div class="title">Presenter: '.$semifinalist['presenter'].'</div>';
+              }
+              $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
+              $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
+            $return .= '</div>';
+            $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
           $return .= '</div>';
         $return .= '</div>';
-        $return .= '<div class="clearfix"></div>';
-        $counter++;
-      }
-    
-      $return .= '<div class="col-md-4 col-sm-12">';
-        $return .= '<div class="semifinalist">';
-          $return .= '<img src="'.$semifinalist['logo'].'" alt="'.$semifinalist['name'].'" class="img-fluid" />';
-          $return .= '<h4>'.$semifinalist['name'].'</h4>';
-          $return .= '<div class="title">Team Leader: '.$semifinalist['team_leader'].'</div>';
-          $return .= '<div class="title">Location: '.$semifinalist['location'].'</div>';
-//          $return .= '<div class="url"><a href="'.$semifinalist['url'].'" target="_blank">'.remove_http($semifinalist['url']).'</a></div>';
-          $return .= '<div class="description">'.apply_filters('the_content', $semifinalist['description']).'</div>';
+
+        $return .= '<div class="col-md-4 col-sm-12">';
+          $return .= '<div class="video-wrapper"><iframe width="560" height="315" src="'.$semifinalist['demo_day_video'].'" frameborder="0" allowfullscreen></iframe></div>';
         $return .= '</div>';
       $return .= '</div>';
       
-      $counter++;
+      
     }
-    
-    $return .= '<div class="side-banners hidden-md-up">';
-      $return .= '<img src="'.THEME_PATH.'/images/badge-awaiting-winners.png" alt="The judges are deliberating. Winners will be announced on 29th March 2017. Stay tuned!" class="badge-awaiting-winners" />';
-    $return .= '</div>';
-    
-    $return .= '</div>';
     $return .= '</div>';
   }
   return $return;
